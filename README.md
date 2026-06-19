@@ -1,6 +1,4 @@
-# FINS — Anonymous code repository
-
-Reference implementation accompanying the FINS paper submission.
+# FINS
 
 FINS discovers infinitesimal Lie point symmetries of evolutionary PDEs
 from trajectory data alone, by enforcing a Fréchet-invariance condition
