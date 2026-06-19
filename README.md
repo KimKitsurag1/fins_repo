@@ -15,7 +15,6 @@ through a pretrained encoder surrogate.
 This repository contains two independent experiment tracks:
   - `pde/` — PDE-side symmetry discovery on heat, Burgers, and KdV
   - `vision/` — image-side experiment on Pet and CIFAR-10
-  - 
 ## Setup
 
 ```bash
