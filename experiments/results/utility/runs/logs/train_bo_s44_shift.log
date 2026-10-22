@@ -1,0 +1,13 @@
+$ exp72_utility.py train --pde bo --seed 44 --arm shift
+[bo s44 shift] part in W 2 (cosines 1.0000 1.0000), S 0.3714
+      epoch 30/300: train loss 3.335e-04 | held-out increment error 0.1314 (best 0.1314)
+      epoch 60/300: train loss 3.065e-04 | held-out increment error 0.0937 (best 0.0937)
+      epoch 90/300: train loss 1.458e-04 | held-out increment error 0.0621 (best 0.0621)
+      epoch 120/300: train loss 1.512e-04 | held-out increment error 0.0530 (best 0.0514)
+      epoch 150/300: train loss 1.144e-04 | held-out increment error 0.0474 (best 0.0469)
+      epoch 180/300: train loss 9.423e-05 | held-out increment error 0.0444 (best 0.0440)
+      epoch 210/300: train loss 9.073e-05 | held-out increment error 0.0404 (best 0.0404)
+      epoch 240/300: train loss 8.270e-05 | held-out increment error 0.0394 (best 0.0394)
+      epoch 270/300: train loss 7.704e-05 | held-out increment error 0.0391 (best 0.0391)
+      epoch 300/300: train loss 6.950e-05 | held-out increment error 0.0392 (best 0.0391)
+saved /content/drive/MyDrive/fins_runs/results/utility_runs/S_bo_s44_shift.pt (119 s)

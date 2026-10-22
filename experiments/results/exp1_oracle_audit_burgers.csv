@@ -1,0 +1,16 @@
+pde,setting,generator,resid_v_norm,resid_q_norm
+burgers,torus_repo_grid,d_x,9.441366e-08,3.820930e-07
+burgers,torus_repo_grid,d_t,2.486357e-03,2.349194e-03
+burgers,torus_repo_grid,Galilean,8.697007e-01,1.110238e+00
+burgers,torus_repo_grid,scaling,1.573719e-01,6.896488e-01
+burgers,torus_repo_grid,projective,1.111089e+00,1.439647e+00
+burgers,torus_resolved,d_x,2.394545e-13,3.361221e-14
+burgers,torus_resolved,d_t,3.488503e-14,7.872492e-15
+burgers,torus_resolved,Galilean,5.458187e-13,1.617775e-13
+burgers,torus_resolved,scaling,6.265829e-01,2.578389e-01
+burgers,torus_resolved,projective,4.090328e-01,2.333245e-01
+burgers,wide,d_x,5.332561e-22,2.339899e-19
+burgers,wide,d_t,8.892009e-23,5.353236e-19
+burgers,wide,Galilean,5.875493e-23,7.805789e-23
+burgers,wide,scaling,1.939336e-13,1.096289e-10
+burgers,wide,projective,2.931255e-03,3.891159e-03

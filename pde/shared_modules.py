@@ -86,32 +86,14 @@ class LocalGeneratorFNO(nn.Module):
         self.cfg = cfg or ExperimentConfig()
         self.integrator = integrator
         self.Nt = self.cfg.time_steps
-        # self.fno = make_fno_1d(in_ch=3, out_ch=1, cfg=self.cfg)
         self.fno = make_fno_1d(in_ch=1, out_ch=1, cfg=self.cfg)
-    # def generator_rhs(self, u_slice, x_slice, t_slice):
-    #     """Evaluate N_theta at one time slice. Inputs: [B, 1, Nx]."""
-    #     inp = torch.cat([u_slice, x_slice, t_slice], dim=1) # [B, 3, Nx]
-    #     return self.fno(inp)
     def generator_rhs(self, u_slice, x_slice, t_slice):
         return self.fno(u_slice)
 
-    # def generator_field(self, u_full, x_grid, t_grid):
-    #     """Evaluate N_theta on full space-time field. Inputs: [B, 1, Nx, Nt]."""
-    #     # FNO1d operates on 1D spatial domain, so we treat Nt as part of the batch dimension
-    #     B, C, Nx, Nt = u_full.shape
-    #     u_reshaped = u_full.permute(0, 3, 1, 2).reshape(B*Nt, C, Nx)
-    #     x_reshaped = x_grid.permute(0, 3, 1, 2).reshape(B*Nt, 1, Nx)
-    #     t_reshaped = t_grid.permute(0, 3, 1, 2).reshape(B*Nt, 1, Nx)
-        
-    #     inp = torch.cat([u_reshaped, x_reshaped, t_reshaped], dim=1) # [B*Nt, 3, Nx]
-    #     out_reshaped = self.fno(inp) # [B*Nt, 1, Nx]
-        
-    #     # Reshape back to [B, 1, Nx, Nt]
-    #     return out_reshaped.reshape(B, Nt, 1, Nx).permute(0, 2, 3, 1)
     def generator_field(self, u_full, x_grid, t_grid):
         B, C, Nx, Nt = u_full.shape
         u_reshaped = u_full.permute(0, 3, 1, 2).reshape(B*Nt, C, Nx)
-        out = self.fno(u_reshaped)  # только u, без x и t
+        out = self.fno(u_reshaped)  # u only, no x and t channels
         return out.reshape(B, Nt, 1, Nx).permute(0, 2, 3, 1)
 
     def rollout(self, u0, x_coords, t_coords):

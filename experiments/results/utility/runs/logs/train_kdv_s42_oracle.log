@@ -1,0 +1,14 @@
+$ exp72_utility.py train --pde kdv --seed 42 --arm oracle
+    Running batched PyTorch ETDRK4 solver on GPU for 1 samples...
+[kdv s42 oracle] part in W 2 (cosines 1.0000 1.0000), S 0.636
+      epoch 30/300: train loss 2.304e-05 | held-out increment error 0.0600 (best 0.0600)
+      epoch 60/300: train loss 1.661e-05 | held-out increment error 0.0591 (best 0.0351)
+      epoch 90/300: train loss 3.719e-06 | held-out increment error 0.0251 (best 0.0251)
+      epoch 120/300: train loss 2.476e-06 | held-out increment error 0.0220 (best 0.0218)
+      epoch 150/300: train loss 2.093e-06 | held-out increment error 0.0196 (best 0.0196)
+      epoch 180/300: train loss 1.923e-06 | held-out increment error 0.0163 (best 0.0163)
+      epoch 210/300: train loss 1.874e-06 | held-out increment error 0.0159 (best 0.0159)
+      epoch 240/300: train loss 1.687e-06 | held-out increment error 0.0146 (best 0.0146)
+      epoch 270/300: train loss 1.577e-06 | held-out increment error 0.0142 (best 0.0142)
+      epoch 300/300: train loss 1.627e-06 | held-out increment error 0.0141 (best 0.0141)
+saved /content/drive/MyDrive/fins_runs/results/utility_runs/S_kdv_s42_oracle.pt (112 s)

@@ -1,0 +1,12 @@
+$ exp72_utility.py train --pde bo --seed 42 --arm none
+      epoch 30/300: train loss 1.675e-04 | held-out increment error 0.1986 (best 0.1986)
+      epoch 60/300: train loss 6.495e-05 | held-out increment error 0.1284 (best 0.1284)
+      epoch 90/300: train loss 1.712e-05 | held-out increment error 0.0648 (best 0.0648)
+      epoch 120/300: train loss 9.957e-06 | held-out increment error 0.0456 (best 0.0456)
+      epoch 150/300: train loss 6.686e-06 | held-out increment error 0.0369 (best 0.0369)
+      epoch 180/300: train loss 4.876e-06 | held-out increment error 0.0329 (best 0.0329)
+      epoch 210/300: train loss 3.667e-06 | held-out increment error 0.0305 (best 0.0305)
+      epoch 240/300: train loss 3.729e-06 | held-out increment error 0.0295 (best 0.0295)
+      epoch 270/300: train loss 2.894e-06 | held-out increment error 0.0290 (best 0.0290)
+      epoch 300/300: train loss 3.295e-06 | held-out increment error 0.0289 (best 0.0289)
+saved /content/drive/MyDrive/fins_runs/results/utility_runs/S_bo_s42_none.pt (105 s)

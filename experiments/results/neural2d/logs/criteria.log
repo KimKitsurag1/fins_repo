@@ -1,0 +1,28 @@
+[s42] V1 operator sensitivity, Rayleigh quotient through the FNO / exact eigenvalue, eigenvectors 1-12: 4.49e+21 5.39e+11 8.86e+05 2.61e+04 41 6.02 3.62 4.18 1.77 1.51 2.82 1.45
+[s42] V2 affine class, exact: lowest 7.7e-28 4.6e-17 1.1e-12 7.1e-10 1.3e-07 1.1e-06 3.8e-03 1.7e-02 2.1e-02; lambda7/lambda6 3325 (degree 2: 284); largest-ratio rank 1; held-out missing 0.0000 (fields 0.0000)
+[s42] V2 affine class, fno: lowest 7.1e-07 3.0e-06 3.3e-06 6.0e-06 6.3e-06 1.8e-05 3.8e-03 1.7e-02 2.6e-02; lambda7/lambda6 211 (degree 2: 27); largest-ratio rank 6; held-out missing 0.0000 (fields 0.0002)
+[s42] V3 mu = 1: lowest 7.7e-28 7.0e-18 9.6e-13 6.6e-10 1.3e-07 1.1e-06 3.2e-04 5.0e-04 8.6e-04; mu = 1 eigenvectors 7, 8: quotient / mu = 1 eigenvalue 1, 1; six lowest held-out missing 0.0000
+[s42] V3 mu = 0.1: lowest -1.8e-18 1.7e-27 7.3e-12 9.2e-10 2.7e-07 3.1e-06 2.2e-03 2.8e-03 2.9e-03; mu = 1 eigenvectors 7, 8: quotient / mu = 1 eigenvalue 6.06, 9.31; six lowest held-out missing 0.0000
+[s42] V3 mu = 0.01: lowest 1.9e-27 2.2e-16 2.1e-11 1.1e-09 3.0e-07 3.8e-06 3.5e-03 3.7e-03 1.0e-02; mu = 1 eigenvectors 7, 8: quotient / mu = 1 eigenvalue 12.3, 54.9; six lowest held-out missing 0.0000
+[s42] V4 closure, exact: escaped share, k = 1..10: abel 0.074 0.126 0.003 0.000 0.002 0.625 0.856 0.825 0.782; closure-gated rank 6
+[s42] V4 closure, fno: escaped share, k = 1..10: abel 0.973 0.780 0.530 0.068 0.060 0.392 0.678 0.663 0.774; closure-gated rank 6
+[s42] V4 null (Gaussian coefficients): k = 6 0.454 +- 0.045, k = 7 0.485 +- 0.033; ground-truth algebra 8.50e-15
+[s43] V1 operator sensitivity, Rayleigh quotient through the FNO / exact eigenvalue, eigenvectors 1-12: -1.32e+10 2.63e+21 4.25e+05 9.32e+03 40.5 8.21 3.74 3.18 2.13 1.38 1.49 1.33
+[s43] V2 affine class, exact: lowest 8.6e-28 3.4e-17 1.4e-12 1.1e-09 9.2e-08 8.0e-07 3.3e-03 2.1e-02 2.1e-02; lambda7/lambda6 4135 (degree 2: 312); largest-ratio rank 1; held-out missing 0.0000 (fields 0.0000)
+[s43] V2 affine class, fno: lowest 4.4e-07 1.8e-06 2.2e-06 3.7e-06 6.1e-06 1.0e-05 3.3e-03 2.6e-02 2.8e-02; lambda7/lambda6 330 (degree 2: 33); largest-ratio rank 6; held-out missing 0.0000 (fields 0.0001)
+[s43] V3 mu = 1: lowest -1.5e-16 8.6e-28 1.2e-12 1.0e-09 9.2e-08 8.0e-07 2.5e-04 3.2e-04 8.4e-04; mu = 1 eigenvectors 7, 8: quotient / mu = 1 eigenvalue 1, 1; six lowest held-out missing 0.0000
+[s43] V3 mu = 0.1: lowest 1.9e-27 2.5e-16 9.6e-12 1.4e-09 1.9e-07 2.3e-06 1.7e-03 3.0e-03 3.7e-03; mu = 1 eigenvectors 7, 8: quotient / mu = 1 eigenvalue 5.78, 9.37; six lowest held-out missing 0.0000
+[s43] V3 mu = 0.01: lowest 2.2e-27 1.9e-16 3.2e-11 1.7e-09 2.1e-07 2.9e-06 4.6e-03 5.2e-03 7.7e-03; mu = 1 eigenvectors 7, 8: quotient / mu = 1 eigenvalue 11.1, 57.6; six lowest held-out missing 0.0000
+[s43] V4 closure, exact: escaped share, k = 1..10: abel 0.154 0.213 0.002 0.000 0.003 0.657 0.855 0.832 0.822; closure-gated rank 6
+[s43] V4 closure, fno: escaped share, k = 1..10: abel 0.562 0.676 0.492 0.105 0.049 0.608 0.846 0.824 0.786; closure-gated rank 6
+[s43] V4 null (Gaussian coefficients): k = 6 0.461 +- 0.040, k = 7 0.495 +- 0.038; ground-truth algebra 5.88e-15
+[s44] V1 operator sensitivity, Rayleigh quotient through the FNO / exact eigenvalue, eigenvectors 1-12: -1.18e+11 5.85e+21 4.14e+05 4.84e+03 38.5 5.42 5.25 3.5 2.04 1.29 1.85 1.79
+[s44] V2 affine class, exact: lowest -2.3e-16 5.3e-28 3.5e-12 2.9e-09 1.3e-07 1.0e-06 3.4e-03 1.5e-02 1.5e-02; lambda7/lambda6 3374 (degree 2: 224); largest-ratio rank 2; held-out missing 0.0000 (fields 0.0000)
+[s44] V2 affine class, fno: lowest 1.2e-06 2.3e-06 2.8e-06 5.3e-06 5.5e-06 1.3e-05 3.4e-03 2.4e-02 2.7e-02; lambda7/lambda6 270 (degree 2: 31); largest-ratio rank 6; held-out missing 0.0002 (fields 0.0011)
+[s44] V3 mu = 1: lowest -2.3e-17 5.3e-28 3.0e-12 2.7e-09 1.3e-07 1.0e-06 2.3e-04 3.2e-04 8.5e-04; mu = 1 eigenvectors 7, 8: quotient / mu = 1 eigenvalue 1, 1; six lowest held-out missing 0.0000
+[s44] V3 mu = 0.1: lowest -4.8e-17 1.4e-27 2.4e-11 3.9e-09 3.1e-07 3.4e-06 1.8e-03 3.0e-03 3.8e-03; mu = 1 eigenvectors 7, 8: quotient / mu = 1 eigenvalue 7.03, 9.46; six lowest held-out missing 0.0000
+[s44] V3 mu = 0.01: lowest 1.6e-27 1.2e-16 8.2e-11 4.7e-09 3.6e-07 4.5e-06 4.7e-03 5.8e-03 1.0e-02; mu = 1 eigenvectors 7, 8: quotient / mu = 1 eigenvalue 17.7, 61.3; six lowest held-out missing 0.0000
+[s44] V4 closure, exact: escaped share, k = 1..10: abel 0.014 0.234 0.004 0.000 0.004 0.677 0.850 0.833 0.808; closure-gated rank 6
+[s44] V4 closure, fno: escaped share, k = 1..10: abel 0.928 0.853 0.592 0.083 0.075 0.648 0.831 0.802 0.781; closure-gated rank 6
+[s44] V4 null (Gaussian coefficients): k = 6 0.491 +- 0.061, k = 7 0.512 +- 0.045; ground-truth algebra 7.81e-15
+saved results/neural2d/criteria.json

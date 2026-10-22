@@ -1,0 +1,36 @@
+$ exp39_localised.py --pde kdv --op stepper --ic periodic --train-ic mixed --n 10 --tag _n1e-3 --train-if-missing --seed 43 --data-seed 1043 --ut fd --K 16 --every 16 --noise 0.001 --thin 1 --interior --save fins_runs/noise_thin_learned_runs/n1e-3/fins_kdv_s43.npz
+    Running batched PyTorch ETDRK4 solver on GPU for 1 samples...
+training kdv torus stepper on 1024 trajectories (mixed), seed 43, 400 epochs, 64 modes, no positional embedding, cpu
+      stepper epoch 1/400: train abs loss 1.134e-01 | held-out increment error 1.811 (best inf)
+      stepper epoch 40/400: train abs loss 1.751e-05 | held-out increment error 0.080 (best 0.080)
+      stepper epoch 80/400: train abs loss 1.033e-05 | held-out increment error 0.070 (best 0.070)
+      stepper epoch 120/400: train abs loss 9.033e-06 | held-out increment error 0.068 (best 0.068)
+      stepper epoch 160/400: train abs loss 7.515e-06 | held-out increment error 0.070 (best 0.067)
+$ exp39_localised.py --pde kdv --op stepper --ic periodic --train-ic mixed --n 10 --tag _n1e-3 --train-if-missing --seed 43 --data-seed 1043 --ut fd --K 16 --every 16 --noise 0.001 --thin 1 --interior --save fins_runs/noise_thin_learned_runs/n1e-3/fins_kdv_s43.npz
+    Running batched PyTorch ETDRK4 solver on GPU for 1 samples...
+training kdv torus stepper on 1024 trajectories (mixed), seed 43, 400 epochs, 64 modes, no positional embedding, cpu
+      stepper: resumed from fins_runs/S_theta_kdv_s43_mixed_stepper_n1e-3.pt.partial after epoch 170
+      stepper epoch 200/400: train abs loss 7.035e-06 | held-out increment error 0.066 (best 0.066)
+      stepper epoch 240/400: train abs loss 6.580e-06 | held-out increment error 0.065 (best 0.065)
+      stepper epoch 280/400: train abs loss 6.475e-06 | held-out increment error 0.065 (best 0.065)
+      stepper epoch 320/400: train abs loss 6.390e-06 | held-out increment error 0.065 (best 0.065)
+$ exp39_localised.py --pde kdv --op stepper --ic periodic --train-ic mixed --n 10 --tag _n1e-3 --train-if-missing --seed 43 --data-seed 1043 --ut fd --K 16 --every 16 --noise 0.001 --thin 1 --interior --save fins_runs/noise_thin_learned_runs/n1e-3/fins_kdv_s43.npz
+    Running batched PyTorch ETDRK4 solver on GPU for 1 samples...
+training kdv torus stepper on 1024 trajectories (mixed), seed 43, 400 epochs, 64 modes, no positional embedding, cpu
+      stepper: resumed from fins_runs/S_theta_kdv_s43_mixed_stepper_n1e-3.pt.partial after epoch 350
+      stepper epoch 360/400: train abs loss 6.330e-06 | held-out increment error 0.065 (best 0.065)
+      stepper epoch 400/400: train abs loss 6.364e-06 | held-out increment error 0.065 (best 0.065)
+      stepper: returning the best held-out state (increment error 0.065)
+saved fins_runs/S_theta_kdv_s43_mixed_stepper_n1e-3.pt
+  band check, energy above k = Nx/4: u 2.8e-07, u_t 4.2e-03
+  per-trajectory one-step error: 0.138 0.114 0.110 0.117 0.129 0.119 0.084 0.106 0.098 0.096
+  rollout error relative to the data increment after 1 step(s): 0.090
+  rollout error relative to the data increment after 16 step(s): 0.006
+/usr/local/lib/python3.13/dist-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[kdv, stepper s43_n1e-3, periodic] data seed 1043, 10 trajectories, Nx 128, T 0.05, K = 16, seam band 0.2; L 6.283; within 0.1 of the seam / overall, rms of u: 1.1e-02, of u_x: 3.3e-02; u_t fd, noise 0.001, thin 1
+  relative change of the basis characteristics, rms over k = 1..K steps: 4.7e-01
+  lowest eigenvalues: 3.5e-04 1.3e-03 3.7e-03 2.0e-02 2.3e-02 7.5e-02 1.3e-01
+  algebra losses: ∂_x 1.5e-03  ∂_t 1.7e-02  Galilean 7.3e-04  scaling 8.2e-03   (lambda5 = 2.3e-02)
+  algebra inside the 4 lowest: ∂_x 0.99  ∂_t 0.00  Galilean 1.00  scaling 0.99
+  saved fins_runs/noise_thin_learned_runs/n1e-3/fins_kdv_s43.npz

@@ -1,0 +1,13 @@
+pde,setting,generator,resid_v_norm,resid_q_norm
+heat,torus,d_x,4.820892e-28,9.530261e-30
+heat,torus,d_t,1.441191e-27,1.641786e-27
+heat,torus,u d_u,1.650712e-32,1.291985e-32
+heat,torus,Galilean,1.164955e-01,7.427498e-02
+heat,torus,scaling,1.509462e+00,1.482900e-01
+heat,torus,projective,2.283112e-01,1.261151e-01
+heat,wide,d_x,3.244733e-31,4.004630e-29
+heat,wide,d_t,5.279549e-32,1.437506e-26
+heat,wide,u d_u,5.087744e-32,5.219812e-32
+heat,wide,Galilean,9.259220e-32,9.058683e-32
+heat,wide,scaling,3.204008e-31,5.410782e-29
+heat,wide,projective,1.755187e-31,1.499007e-31

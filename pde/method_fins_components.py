@@ -13,7 +13,7 @@ method_fins.py:
   - _spectral_dx, _spectral_dt: spectral derivative routines
 
 The module also contains an alternative training routine
-(train_deflation_residual) based on a direct PDE-residual loss, retained
+(train_deflation_residual) based on a direct PDE-residual loss, used
 for ablation and diagnostics — it is NOT the FINS production training
 loop (use train_fins from method_fins.py for that).
 
@@ -44,6 +44,59 @@ from shared_modules import make_fno
 
 
 
+class ConstrainedGeneratorFNO(nn.Module):
+    """One FNO outputting a generator with phi = a(x,t) u + b(x,t).
+
+    Same inputs as SingleGeneratorFNO; four output channels (xi, eta, a, b).
+    forward returns (xi, eta, phi, b) so callers can penalise the b-share:
+    on a linear PDE the b block alone is the superposition subalgebra,
+    an infinite family of exact spurious symmetries.
+    """
+    def __init__(self, cfg=None):
+        super().__init__()
+        from config import ExperimentConfig
+        cfg = cfg or ExperimentConfig()
+        self.fno = make_fno(3, 4, cfg)
+
+    def forward(self, x_grid, t_grid, u):
+        out = self.fno(torch.cat([x_grid, t_grid, u], dim=1))
+        xi, eta, a, b = (out[:, i:i + 1] for i in range(4))
+        return xi, eta, a * u + b, b
+
+
+class PointwiseGenerator(nn.Module):
+    """Point-symmetry generator: xi, eta, phi as the SAME functions of
+    (x, t, u) at every grid point and for every sample (1x1 convolutions).
+
+    A field-to-field operator (SingleGeneratorFNO sees the whole u) can shape
+    each sample's characteristic into a tangent trajectory, which every
+    horizon of the equivariance loss admits although it is no point
+    symmetry (v5b: four such slots, low loss even through the exact solver).
+    Coordinates are scaled by constants fixed on the first call.
+    """
+
+    def __init__(self, width: int = 64, depth: int = 4):
+        super().__init__()
+        layers, c = [], 3
+        for _ in range(depth - 1):
+            layers += [nn.Conv2d(c, width, 1), nn.Tanh()]
+            c = width
+        layers.append(nn.Conv2d(c, 3, 1))
+        self.net = nn.Sequential(*layers)
+        self.register_buffer("scale", torch.zeros(3))
+
+    def forward(self, x_grid, t_grid, u):
+        if not bool(self.scale.any()):
+            with torch.no_grad():
+                self.scale.copy_(torch.stack([
+                    x_grid.abs().max(), t_grid.abs().max(),
+                    u.std() + 1e-6]).to(self.scale))
+        inp = torch.cat([x_grid / self.scale[0], t_grid / self.scale[1],
+                         u / self.scale[2]], dim=1)
+        out = self.net(inp)
+        return out[:, 0:1], out[:, 1:2], out[:, 2:3]
+
+
 class SingleGeneratorFNO(nn.Module):
     """
     One FNO that outputs a single generator (ξ, η, φ).
@@ -51,7 +104,7 @@ class SingleGeneratorFNO(nn.Module):
     3 input channels: (x, t, u)
     3 output channels: (ξ, η, φ)
 
-    Uses the same make_fno as the joint version, so FNO hyperparameters
+    Uses make_fno, so FNO hyperparameters
     (modes, hidden channels, layers) are inherited from cfg.
     """
     def __init__(self, cfg=None):

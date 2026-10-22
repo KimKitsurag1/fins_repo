@@ -1,0 +1,2 @@
+n_train,epochs,delta,delta_J,delta_J_std,leak,leak_std,R_Galilean,R_scaling,R_projective
+96,140,0.022510,0.047943,0.016693,0.224535,0.033886,1.116453e-03,1.275809e-03,1.508587e-03

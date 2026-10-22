@@ -1,0 +1,27 @@
+[flows, fno] seed 42: data 4042/5042, K 8, eps [0.003, 0.01, 0.03, 0.1, 0.3, 1.0], 16 pairs, cuda; windowed coordinates |x|, |y| <= 6 kept, zero beyond 7.75; projection on; polynomial lowest 6.9e-07 3.0e-06 3.3e-06 5.9e-06 6.2e-06 1.7e-05 4.7e-04 1.0e-03 1.1e-03 1.4e-03 (3 s)
+  true d_x               tau share 0.00, r1 5.54e-04 | E(eps): 5.09e-04 (0.003)  5.09e-04 (0.010)  5.06e-04 (0.030)  4.44e-04 (0.100)  2.29e-04 (0.296)  6.71e-05 (0.877)  [4 s, max steps 42]
+  true d_y               tau share 0.00, r1 5.99e-04 | E(eps): 5.45e-04 (0.003)  5.44e-04 (0.010)  5.33e-04 (0.030)  4.63e-04 (0.100)  2.39e-04 (0.297)  6.77e-05 (0.885)  [3 s, max steps 42]
+  true d_t               tau share 1.00, r1 1.04e-03 | E(eps): 8.05e-04 (0.003)  7.93e-04 (0.010)  7.45e-04 (0.029)  5.78e-04 (0.086)  2.98e-04 (0.208)  1.10e-04 (0.432)  [135 s, max steps 545]
+  true rotation          tau share 0.00, r1 9.74e-04 | E(eps): 9.37e-04 (0.003)  9.35e-04 (0.010)  9.24e-04 (0.030)  8.29e-04 (0.100)  5.16e-04 (0.290)  2.32e-04 (0.743)  [6 s, max steps 260]
+  true D1                tau share 0.55, r1 9.49e-04 | E(eps): 8.98e-04 (0.003)  9.01e-04 (0.010)  9.11e-04 (0.030)  9.40e-04 (0.097)  1.04e-03 (0.271)  3.54e-03 (0.693)  [71 s, max steps 270]
+  true D2                tau share 0.00, r1 2.73e-04 | E(eps): 3.14e-04 (0.003)  3.13e-04 (0.010)  3.10e-04 (0.030)  3.02e-04 (0.102)  2.94e-04 (0.317)  1.45e-03 (1.204)  [31 s, max steps 96]
+  eigenvector 1          tau share 0.00, r1 2.95e-04 | E(eps): 3.33e-04 (0.003)  3.33e-04 (0.010)  3.33e-04 (0.030)  3.34e-04 (0.102)  3.55e-04 (0.317)  2.39e-03 (1.205)  [28 s, max steps 83]
+  eigenvector 2          tau share 0.03, r1 6.96e-04 | E(eps): 6.21e-04 (0.003)  6.20e-04 (0.010)  6.14e-04 (0.030)  5.60e-04 (0.099)  3.79e-04 (0.292)  2.41e-04 (0.828)  [52 s, max steps 184]
+  eigenvector 3          tau share 0.06, r1 5.53e-04 | E(eps): 5.35e-04 (0.003)  5.35e-04 (0.010)  5.34e-04 (0.030)  5.04e-04 (0.099)  3.37e-04 (0.292)  2.56e-04 (0.848)  [36 s, max steps 116]
+  eigenvector 4          tau share 0.01, r1 9.55e-04 | E(eps): 1.28e-03 (0.003)  1.28e-03 (0.010)  1.24e-03 (0.030)  1.01e-03 (0.099)  6.58e-04 (0.286)  6.54e-04 (0.729)  [118 s, max steps 472]
+  eigenvector 5          tau share 0.08, r1 1.40e-03 | E(eps): 1.29e-03 (0.003)  1.30e-03 (0.010)  1.31e-03 (0.030)  1.35e-03 (0.098)  1.59e-03 (0.285)  4.62e-03 (0.878)  [151 s, max steps 614]
+  eigenvector 6          tau share 0.58, r1 1.96e-03 | E(eps): 1.56e-03 (0.003)  1.50e-03 (0.010)  1.36e-03 (0.029)  1.00e-03 (0.089)  5.91e-04 (0.232)  4.91e-04 (0.625)  [167 s, max steps 679]
+  eigenvector 7          tau share 0.05, r1 2.56e-02 | E(eps): 2.58e-02 (0.003)  2.49e-02 (0.010)  2.28e-02 (0.030)  1.78e-02 (0.104)  1.42e-02 (0.344)  4.40e-02 (1.865)  [120 s, max steps 477]
+  eigenvector 8          tau share 0.16, r1 2.58e-02 | E(eps): 2.96e-02 (0.003)  2.96e-02 (0.010)  3.04e-02 (0.030)  8.59e-02 (0.103)  inf (0.320)  inf (1.341)  [417 s, max steps 1764]
+      first eps with E >= 10 E(0.003) or non-finite: 0.3; min of T_s u0 +0.191 (block +0.207); failed flows 6, failed evolutions 0 of 16
+  eigenvector 9          tau share 0.30, r1 3.52e-02 | E(eps): 4.02e-02 (0.003)  4.05e-02 (0.010)  4.09e-02 (0.030)  inf (0.098)  inf (0.289)  inf (0.917)  [591 s, max steps 2523]
+      first eps with E >= 10 E(0.003) or non-finite: 0.1; min of T_s u0 +0.220 (block +0.234); failed flows 3, failed evolutions 0 of 16
+  eigenvector 10         tau share 0.02, r1 4.90e-02 | E(eps): 5.28e-02 (0.003)  5.23e-02 (0.010)  5.06e-02 (0.030)  3.93e-02 (0.103)  inf (0.331)  inf (1.331)  [193 s, max steps 798]
+      first eps with E >= 10 E(0.003) or non-finite: 0.3; min of T_s u0 +0.008 (block +0.089); failed flows 3, failed evolutions 0 of 16
+  eigenvector 7 without tau tau share 0.00, r1 1.16e-01 | E(eps): 1.22e-01 (0.003)  1.21e-01 (0.010)  1.19e-01 (0.030)  1.14e-01 (0.096)  9.83e-02 (0.268)  5.64e-02 (0.697)  [3 s, max steps 53]
+  eigenvector 8 without tau tau share 0.00, r1 1.34e-01 | E(eps): 1.37e-01 (0.003)  1.38e-01 (0.010)  1.38e-01 (0.030)  1.38e-01 (0.103)  1.41e-01 (0.333)  1.78e-01 (1.421)  [9 s, max steps 479]
+  eigenvector 9 without tau tau share 0.00, r1 1.55e-01 | E(eps): 1.71e-01 (0.003)  1.71e-01 (0.010)  1.71e-01 (0.030)  1.72e-01 (0.099)  1.79e-01 (0.290)  2.08e-01 (0.823)  [11 s, max steps 656]
+  eigenvector 10 without tau tau share 0.00, r1 8.25e-02 | E(eps): 9.37e-02 (0.003)  9.37e-02 (0.010)  9.37e-02 (0.030)  8.98e-02 (0.103)  8.83e-02 (0.334)  1.59e-01 (1.513)  [5 s, max steps 165]
+  random 1               tau share 0.00, r1 1.74e-01 | E(eps): 1.49e-01 (0.003)  1.49e-01 (0.010)  1.49e-01 (0.030)  1.52e-01 (0.100)  1.73e-01 (0.298)  4.11e-01 (0.826)  [4 s, max steps 68]
+  random 2               tau share 0.00, r1 1.74e-01 | E(eps): 1.52e-01 (0.003)  1.53e-01 (0.010)  1.54e-01 (0.030)  1.60e-01 (0.097)  2.01e-01 (0.267)  3.24e-01 (0.636)  [4 s, max steps 66]
+saved /content/drive/MyDrive/fins_runs/results/neural2d/flows/fno_flows_s42.json

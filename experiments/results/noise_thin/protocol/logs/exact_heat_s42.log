@@ -1,0 +1,13 @@
+$ exp40_window.py --pde heat --op heat-kernel --smooth --only-L 1 --n 10 --seed 42 --data-seed 1042 --K 16 --every 16 --noise 0 --thin 1 --save fins_runs/noise_thin/protocol/exact_heat_s42.npz
+kernel (moments): sum 1.000000000000; multiplier error relative to the increment over the data band 4.3e-07; max |multiplier| on [0, pi] 1.000
+  band check, energy above k = Nx/4: u 9.9e-33, u_t 1.1e-27
+  per-trajectory one-step error: 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000
+  rollout error relative to the data increment after 1 step(s): u 0.000, u_x 0.000
+  rollout error relative to the data increment after 16 step(s): u 0.000, u_x 0.000
+  edge leak: rms response in the scored region to a unit impulse at the window edge, max over 16 steps: 4.1e-103
+[heat, heat-kernel operator r = 6] seed 42, data seed 1042, 10 trajectories, window 4 periods (256 points), scored on the central 64, degree 3, K = 16, mu_rel = 1.0, u_x fd, noise 0, thin 1
+  relative change of the basis characteristics, rms over k = 1..K steps: 1.2e-01
+  lowest eigenvalues: -1.5e-16 1.0e-16 5.4e-16 8.4e-16 1.2e-15 4.8e-15 3.0e-10 9.8e-10 1.1e-08 4.5e-08 1.2e-03 3.5e-03 5.6e-03
+  algebra losses: ∂_x 1.4e-15  ∂_t 1.6e-08  u∂_u 5.3e-16  Galilean 8.3e-10  scaling 3.9e-08  projective 1.4e-09  b=1 3.3e-28  b=x 4.1e-28  b=x2+2at 3.1e-16  b=x3+6axt 1.1e-15   (lambda11 = 1.2e-03)
+  algebra inside the 10 lowest: ∂_x 1.00  ∂_t 1.00  u∂_u 1.00  Galilean 1.00  scaling 1.00  projective 1.00  b=1 1.00  b=x 1.00  b=x2+2at 1.00  b=x3+6axt 1.00
+  saved fins_runs/noise_thin/protocol/exact_heat_s42.npz

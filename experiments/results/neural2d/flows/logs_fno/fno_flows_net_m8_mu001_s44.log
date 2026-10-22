@@ -1,0 +1,13 @@
+[flows, fno] seed 44: data 4044/5044, K 8, eps [0.003, 0.01, 0.03, 0.1, 0.3, 1.0], 16 pairs, cuda; windowed coordinates |x|, |y| <= 6 kept, zero beyond 7.75; projection on; polynomial lowest 9.8e-07 2.3e-06 2.8e-06 5.3e-06 5.4e-06 1.2e-05 3.7e-04 8.7e-04 1.2e-03 1.3e-03 (1 s)
+  network direction 1    tau share 0.63, r1 3.22e-03 | E(eps): 3.11e-03 (0.003)  3.09e-03 (0.010)  3.04e-03 (0.030)  2.86e-03 (0.098)  2.47e-03 (0.279)  2.10e-03 (0.757)  [85 s, max steps 273]
+  network direction 2    tau share 0.24, r1 4.66e-03 | E(eps): 5.20e-03 (0.003)  5.19e-03 (0.010)  5.14e-03 (0.030)  4.96e-03 (0.100)  4.53e-03 (0.301)  4.92e-03 (0.957)  [99 s, max steps 324]
+  network direction 3    tau share 0.39, r1 6.30e-03 | E(eps): 6.34e-03 (0.003)  6.28e-03 (0.010)  6.13e-03 (0.030)  5.70e-03 (0.097)  4.86e-03 (0.275)  3.57e-03 (0.711)  [151 s, max steps 514]
+  network direction 4    tau share 0.21, r1 7.74e-03 | E(eps): 6.79e-03 (0.003)  6.79e-03 (0.010)  6.81e-03 (0.030)  6.80e-03 (0.102)  6.57e-03 (0.312)  inf (1.009)  [126 s, max steps 423]
+      first eps with E >= 10 E(0.003) or non-finite: 1; min of T_s u0 +0.236 (block +0.247); failed flows 4, failed evolutions 0 of 16
+  network direction 5    tau share 0.73, r1 5.82e-03 | E(eps): 5.59e-03 (0.003)  5.53e-03 (0.010)  5.37e-03 (0.030)  4.89e-03 (0.096)  3.99e-03 (0.269)  3.17e-03 (0.686)  [173 s, max steps 592]
+  network direction 6    tau share 0.01, r1 4.86e-03 | E(eps): 6.38e-03 (0.003)  6.34e-03 (0.010)  6.22e-03 (0.030)  5.84e-03 (0.100)  4.87e-03 (0.301)  3.22e-03 (1.011)  [78 s, max steps 248]
+  network direction 7    tau share 0.47, r1 5.05e-02 | E(eps): 5.44e-02 (0.003)  5.41e-02 (0.010)  5.34e-02 (0.030)  6.35e-02 (0.098)  inf (0.289)  inf (nan)  [430 s, max steps 1546]
+      first eps with E >= 10 E(0.003) or non-finite: 0.3; min of T_s u0 -1.049 (block -0.013); failed flows 2, failed evolutions 0 of 16
+  network direction 8    tau share 0.79, r1 6.80e-02 | E(eps): 6.10e-02 (0.003)  6.12e-02 (0.010)  6.21e-02 (0.030)  8.29e-02 (0.102)  inf (5.027)  inf (nan)  [397 s, max steps 1426]
+      first eps with E >= 10 E(0.003) or non-finite: 0.3; min of T_s u0 -163.010 (block -30.242); failed flows 7, failed evolutions 0 of 16
+saved /content/drive/MyDrive/fins_runs/results/neural2d/flows/fno_flows_net_m8_mu001_s44.json

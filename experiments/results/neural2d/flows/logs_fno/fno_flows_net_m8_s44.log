@@ -1,0 +1,12 @@
+[flows, fno] seed 44: data 4044/5044, K 8, eps [0.003, 0.01, 0.03, 0.1, 0.3, 1.0], 16 pairs, cuda; windowed coordinates |x|, |y| <= 6 kept, zero beyond 7.75; projection on; polynomial lowest 9.8e-07 2.3e-06 2.8e-06 5.3e-06 5.4e-06 1.2e-05 3.7e-04 8.7e-04 1.2e-03 1.3e-03 (3 s)
+  network direction 1    tau share 0.70, r1 2.60e-03 | E(eps): 2.55e-03 (0.003)  2.52e-03 (0.010)  2.45e-03 (0.030)  2.22e-03 (0.097)  1.76e-03 (0.275)  1.27e-03 (0.731)  [82 s, max steps 263]
+  network direction 2    tau share 0.55, r1 2.64e-03 | E(eps): 2.58e-03 (0.003)  2.56e-03 (0.010)  2.50e-03 (0.030)  2.29e-03 (0.098)  1.85e-03 (0.283)  1.60e-03 (0.791)  [77 s, max steps 245]
+  network direction 3    tau share 0.56, r1 3.18e-03 | E(eps): 3.17e-03 (0.003)  3.20e-03 (0.010)  3.27e-03 (0.030)  3.31e-03 (0.098)  2.46e-03 (0.286)  3.35e-03 (0.840)  [90 s, max steps 293]
+  network direction 4    tau share 0.26, r1 4.24e-03 | E(eps): 4.18e-03 (0.003)  4.21e-03 (0.010)  4.29e-03 (0.030)  4.10e-03 (0.097)  3.10e-03 (0.274)  3.05e-03 (0.690)  [136 s, max steps 458]
+  network direction 5    tau share 0.66, r1 4.47e-03 | E(eps): 4.51e-03 (0.003)  4.39e-03 (0.010)  4.09e-03 (0.030)  3.42e-03 (0.095)  2.52e-03 (0.263)  2.00e-03 (0.659)  [214 s, max steps 742]
+  network direction 6    tau share 0.03, r1 9.05e-03 | E(eps): 1.06e-02 (0.003)  1.04e-02 (0.010)  9.63e-03 (0.030)  7.67e-03 (0.101)  5.32e-03 (0.306)  3.84e-03 (1.061)  [147 s, max steps 500]
+  network direction 7    tau share 0.01, r1 2.14e-02 | E(eps): 2.28e-02 (0.003)  2.27e-02 (0.010)  2.23e-02 (0.030)  2.03e-02 (0.100)  1.37e-02 (0.301)  inf (1.004)  [151 s, max steps 512]
+      first eps with E >= 10 E(0.003) or non-finite: 1; min of T_s u0 -0.495 (block -0.217); failed flows 2, failed evolutions 0 of 16
+  network direction 8    tau share 0.02, r1 3.37e-02 | E(eps): 3.60e-02 (0.003)  3.42e-02 (0.010)  2.94e-02 (0.030)  2.02e-02 (0.101)  1.39e-02 (0.314)  inf (1.170)  [112 s, max steps 371]
+      first eps with E >= 10 E(0.003) or non-finite: 1; min of T_s u0 -0.666 (block -0.455); failed flows 4, failed evolutions 0 of 16
+saved /content/drive/MyDrive/fins_runs/results/neural2d/flows/fno_flows_net_m8_s44.json

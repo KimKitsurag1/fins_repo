@@ -7,9 +7,8 @@ under five augmentation regimes (NoAug / RandAug / AutoAug / TrivialAug /
 FINS) and evaluates each on nine corruption types.
 
 Method-side parameters (FNO size, Olver-loss formulation, augmentation
-strength) match the v5/v6 version used to produce the Pet ablation tables;
-the CIFAR script (fins_cifar.py) uses the upgraded v7 method described in
-Section 6 of the paper.
+strength) are those of the earlier configuration that produced the Pet ablation tables;
+the CIFAR script (fins_cifar.py) uses the method described in Section 6 of the paper.
 
 Usage:
     pip install -r requirements.txt
@@ -49,7 +48,7 @@ CONFIG = {
     "seed_start":       100,
     "smoke_test":       False,        # True -> only no_aug + fins (skip baselines)
 
-    # FINS hyperparameters (Pet ablation: v5/v6 setup)
+    # FINS hyperparameters (Pet ablation setup)
     "N_sym":            6,            # number of generators to discover
     "w_ortho":          1.0,          # orthogonality regularizer
     "w_lips":           0.01,         # spatial smoothness

@@ -1,0 +1,8 @@
+$ exp56_wsindy.py --pde kdv --seed 42 --data train --noise 0 --out fins_runs/noise_weak_runs/clean/wsindy-train_kdv_s42
+    Running batched PyTorch ETDRK4 solver on GPU for 1 samples...
+    Running batched PyTorch ETDRK4 solver on GPU for 1 samples...
+experiments/../pde/method_wsindy.py:43: RuntimeWarning: invalid value encountered in divide
+  errs[k - 2] = np.sqrt(np.sum(((L1 - a1) / a1) ** 2) + np.sum(((L2 - a2) / a2) ** 2))
+[kdv] train data (1024 trajectories), data seed 1042, noise 0: u_t = -0.99977 d3(u^1) -2.9996 d1(u^2)   (lambda 1.75e-04, residual 1.00e-02; m 8,15, p 16,12, 50176 rows; 278 s)
+  determining system 71 x 30: smallest singular values / largest 1.0e-67 8.2e-17 8.3e-17 8.5e-17 7.5e-03 3.5e-02 1.9e-01; hard algebra dimension 4 (k = 4); 1 s
+  saved fins_runs/noise_weak_runs/clean/wsindy-train_kdv_s42_soft.npz, fins_runs/noise_weak_runs/clean/wsindy-train_kdv_s42_hard.npz

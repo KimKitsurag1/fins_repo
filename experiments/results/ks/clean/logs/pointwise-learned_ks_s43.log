@@ -1,0 +1,11 @@
+$ exp39_localised.py --pde ks --op stepper --train-ic mixed --seed 43 --data-seed 1043 --ic periodic --n 10 --K 16 --every 16 --thin 1 --interior --ut fd --noise 0 --save /content/drive/MyDrive/fins_runs/results/ks_runs/clean/pointwise-learned_ks_s43.npz
+  band check, energy above k = Nx/4: u 5.8e-26, u_t 2.2e-24
+  per-trajectory one-step error: 0.003 0.003 0.004 0.006 0.004 0.003 0.003 0.004 0.004 0.002
+  rollout error relative to the data increment after 1 step(s): 0.003
+  rollout error relative to the data increment after 16 step(s): 0.002
+[ks, stepper s43, periodic] data seed 1043, 10 trajectories, Nx 128, T 20.0, K = 16, seam band 0.2; L 22.000; within 0.1 of the seam / overall, rms of u: 1.0e+00, of u_x: 1.0e+00; u_t fd, noise 0, thin 1
+  relative change of the basis characteristics, rms over k = 1..K steps: 4.9e-01
+  lowest eigenvalues: 5.8e-06 6.0e-06 8.2e-06 1.0e-02 2.2e-02 7.4e-02
+  algebra losses: ∂_x 7.1e-06  ∂_t 6.1e-06  Galilean 8.3e-06   (lambda4 = 1.0e-02)
+  algebra inside the 3 lowest: ∂_x 1.00  ∂_t 1.00  Galilean 1.00
+  saved /content/drive/MyDrive/fins_runs/results/ks_runs/clean/pointwise-learned_ks_s43.npz

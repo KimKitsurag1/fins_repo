@@ -1,0 +1,12 @@
+$ exp49_weak.py --pde kdv --op exact --seed 47 --data-seed 1047 --noise 0.01 --K 16 --stride 1 --wt 2 --wp 2 --wx auto --wx-factor 2 --save /content/drive/MyDrive/fins_runs/results/noise_weak_runs/n1e-2/weak_kdv_s47.npz
+    Running batched PyTorch ETDRK4 solver on GPU for 1 samples...
+  spatial modes from the data: n95 4 of a 128-point domain, 77 scored points -> M = 5
+  rollouts of 1120 start states: 1 s
+  weak blocks for 19 basis fields, 112 starts, 11 x 2 tests: 29 s
+[kdv, exact, weak] data seed 1047, 10 trajectories, degree 2, restricted class 19 of 30, K = 16, starts every 1, tests 11 x 2 (p = 2), mu 1.0, noise 0.01, thin 1; 29 s
+  ground truth in the restricted class: max relative fit residual 2.1e-14
+  lowest eigenvalues: 8.0e-07 2.9e-06 1.0e-05 7.1e-05 7.6e-03 3.6e-02 1.3e-01
+  algebra losses: ∂_x 4.4e-06  ∂_t 6.2e-06  Galilean 3.6e-06  scaling 8.6e-06   (lambda5 = 7.6e-03)
+  algebra inside the 4 lowest: ∂_x 1.00  ∂_t 0.89  Galilean 1.00  scaling 1.00
+  own count (largest eigenvalue ratio among the lowest 17, floor 1e-06): 4 (k = 4)
+  saved /content/drive/MyDrive/fins_runs/results/noise_weak_runs/n1e-2/weak_kdv_s47.npz

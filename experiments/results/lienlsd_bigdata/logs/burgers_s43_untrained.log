@@ -1,0 +1,7 @@
+NeuralOp FNO loaded successfully.
+    Running batched PyTorch solver on GPU for 1024 samples...
+    Running batched PyTorch solver on GPU for 10 samples...
+[burgers] seed 43, data seed 1043: training (1024, 1, 64, 128), evaluation (10, 64, 128), class dimension 5, degree 2, cpu
+  LieNLSD_F: own count 5; {"jac_rel": 0.9999386163497126, "jac_rel_cols": [0.8394754497881626, 0.5388056417966925, 0.06961814446243741], "rhs_rel_exact": 0.08395591272219255, "rhs_rel_fit": 1.0003466388201319, "n_own": 5, "sv_rel": [7.034026997303058e-17, 7.162111638782262e-17, 1.4213915068488903e-05, 2.629964696971049e-05, 0.0020328717494786834, 0.005137622738866399, 0.00652838865998657, 0.008018957706718819, 0.012550340305400118]}
+  LieNLSD_F: F Adan, 0 epochs, best epoch 0, held-out relative MSE 1.000e+00
+  LieNLSD_F: 5 generators, 8 s; saved fins_runs/lienlsd_bigdata/untrained_burgers_s43.npz

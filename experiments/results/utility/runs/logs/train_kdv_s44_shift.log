@@ -1,0 +1,14 @@
+$ exp72_utility.py train --pde kdv --seed 44 --arm shift
+    Running batched PyTorch ETDRK4 solver on GPU for 1 samples...
+[kdv s44 shift] part in W 2 (cosines 1.0000 1.0000), S 0.6271
+      epoch 30/300: train loss 6.790e-05 | held-out increment error 0.0770 (best 0.0770)
+      epoch 60/300: train loss 4.385e-05 | held-out increment error 0.0848 (best 0.0754)
+      epoch 90/300: train loss 3.235e-05 | held-out increment error 0.0657 (best 0.0634)
+      epoch 120/300: train loss 3.457e-05 | held-out increment error 0.0625 (best 0.0566)
+      epoch 150/300: train loss 2.540e-05 | held-out increment error 0.0566 (best 0.0554)
+      epoch 180/300: train loss 2.320e-05 | held-out increment error 0.0533 (best 0.0533)
+      epoch 210/300: train loss 2.283e-05 | held-out increment error 0.0614 (best 0.0532)
+      epoch 240/300: train loss 2.176e-05 | held-out increment error 0.0514 (best 0.0505)
+      epoch 270/300: train loss 2.040e-05 | held-out increment error 0.0505 (best 0.0505)
+      epoch 300/300: train loss 1.983e-05 | held-out increment error 0.0510 (best 0.0505)
+saved /content/drive/MyDrive/fins_runs/results/utility_runs/S_kdv_s44_shift.pt (109 s)

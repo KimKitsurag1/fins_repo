@@ -1,0 +1,5 @@
+$ exp41_baselines.py --pde heat --seed 50 --methods LieNLSD_RHS@eval --lienlsd-fit-points 81920 --lienlsd-val-points 16384 --noise 0.1 --out fins_runs/noise_weak_runs/n1e-1/lienlsd_heat_s50.npz
+NeuralOp FNO loaded successfully.
+[heat] seed 50, data seed 1050: training (1, 1, 64, 128), evaluation (10, 64, 128), class dimension 10, degree 3, noise 0.1, thin 1, cpu
+  LieNLSD_RHS@eval: own count 7; {"jac_rel": 0.0, "jac_rel_cols": [0.0, 0.0, 0.0], "rhs_rel_exact": 1.4914434121113695, "n_own": 7, "sv_rel": [6.614634031942979e-17, 6.728481689269302e-17, 6.728481689269302e-17, 6.728481689269302e-17, 6.728481689269302e-17, 6.728481689269302e-17, 5.693556065954283e-16, 0.01040134928091603, 0.013415019647848473, 0.017130387740018283, 0.019873992334532586, 0.02183934410481014, 0.02234287968122267, 0.023585242353070347]}
+  LieNLSD_RHS@eval: 10 generators, 1 s; saved fins_runs/noise_weak_runs/n1e-1/lienlsd_heat_s50.npz

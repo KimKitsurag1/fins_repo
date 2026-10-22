@@ -1,0 +1,59 @@
+{
+ "config": {
+  "what": "response",
+  "case": "mismatch",
+  "seeds": "42,43,44,45,46,47,48,49,50,51",
+  "runs": "experiments/results/controls_runs",
+  "out": null,
+  "a": 1.5,
+  "eps_d": null,
+  "gamma": null,
+  "seed": 42,
+  "data_seed": null,
+  "eval_seed": null,
+  "n": 64,
+  "L": 16.0,
+  "score": 4.5,
+  "nt": 51,
+  "dt": 0.02,
+  "nsub": 3,
+  "K": 8,
+  "mu": 1.0,
+  "n_train": 16,
+  "every": 4,
+  "threads": 0,
+  "save": "experiments/results/aniso2d/linear_response"
+ },
+ "cases": {
+  "aniso": {
+   "eps_d": 0.6,
+   "gamma": 0.0,
+   "eps_d_hat": 0.6000000000000003,
+   "defect_d": 0.0008760969384727256,
+   "eps_n_hat": 0.6000000000000003,
+   "defect_n": 1.874369853719453e-05,
+   "a_hat": 1.4999952919653303,
+   "b_nonlinearity": 6.124366581649239e-05
+  },
+  "mismatch": {
+   "eps_d": 0.8,
+   "gamma": 0.0,
+   "eps_d_hat": 0.8000000000000005,
+   "defect_d": 0.0009056990928113354,
+   "eps_n_hat": 0.6000000000000003,
+   "defect_n": 1.8752044063932837e-05,
+   "a_hat": 1.4999974230626885,
+   "b_nonlinearity": 6.204112459685613e-05
+  },
+  "cubic": {
+   "eps_d": 0.6,
+   "gamma": 0.2,
+   "eps_d_hat": 0.6000000000000003,
+   "defect_d": 0.0008760978212579326,
+   "eps_n_hat": 0.6000000000000003,
+   "defect_n": 1.8747160103966365e-05,
+   "a_hat": 1.499980329890918,
+   "b_nonlinearity": 0.20979437242137877
+  }
+ }
+}

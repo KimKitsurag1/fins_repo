@@ -1,0 +1,4 @@
+$ exp56_wsindy.py --pde fb150 --seed 48 --data-seed 1048 --data eval --noise 0 --out fins_runs/fb_runs/clean/wsindy_fb150_s48
+[fb150] eval data (10 trajectories), data seed 1048, noise 0: u_t = -0.092038 d0(u^1) +0.087518 d2(u^1) -0.51907 d1(u^2)   (lambda 2.21e-02, residual 1.24e-01; m 9,14, p 15,12, 27500 rows; 4 s)
+  determining system 57 x 30: smallest singular values / largest 1.5e-24 9.6e-17 1.2e-03 6.5e-03 1.2e-02 2.8e-02 1.2e-01; hard algebra dimension 2 (k = 4); 1 s
+  saved fins_runs/fb_runs/clean/wsindy_fb150_s48_soft.npz, fins_runs/fb_runs/clean/wsindy_fb150_s48_hard.npz

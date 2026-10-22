@@ -220,11 +220,14 @@ def _nu_d2u_dx2(u: torch.Tensor, x: torch.Tensor) -> torch.Tensor:
 
 def pde_residual_deformed(u: torch.Tensor, x: torch.Tensor,
                           t: torch.Tensor, pde_type: str,
-                          alpha: float = 0.01, nu: float = 0.01
+                          alpha: float = 0.01, nu: float = 0.01,
+                          c_adv: float = None, c_disp: float = None
                           ) -> torch.Tensor:
     """
     Evaluate Δ(ũ) on a non-uniform (x̃, t̃) grid.
     Inputs are [B, Nx, Nt].  Returns [B, Nx, Nt].
+    c_adv, c_disp (protocol v1): advection and dispersion coefficients of the
+    equation in the normalised variables; None keeps the published form.
     """
     u_t  = _nu_du_dt(u, t)
     u_x  = _nu_du_dx(u, x)
@@ -233,10 +236,15 @@ def pde_residual_deformed(u: torch.Tensor, x: torch.Tensor,
     if pde_type == 'heat':
         return u_t - alpha * u_xx
     if pde_type == 'burgers':
-        return u_t + u * u_x - nu * u_xx
+        return u_t + (1.0 if c_adv is None else c_adv) * u * u_x - nu * u_xx
     if pde_type == 'kdv':
         u_xxx = _nu_du_dx(u_xx, x)
-        return u_t + 6.0 * u * u_x + u_xxx
+        return (u_t + (6.0 if c_adv is None else c_adv) * u * u_x
+                + (1.0 if c_disp is None else c_disp) * u_xxx)
+    if pde_type == 'ks':
+        # u_t + u u_x + u_xx + u_xxxx = 0 in the normalised variables: c_adv u u_x + nu u_xx + c_disp u_xxxx
+        u_xxxx = _nu_d2u_dx2(u_xx, x)
+        return u_t + c_adv * u * u_x + nu * u_xx + c_disp * u_xxxx
     raise ValueError(f"unknown pde {pde_type}")
 
 
@@ -349,7 +357,8 @@ def train_lig(train_sol, pde_type, x_grid, t_grid, cfg, device):
     """
     B_total, _, Nx, Nt = train_sol.shape
 
-    n_sym = max(1, min(getattr(cfg, 'n_sym', 4), 4))        # 3+1 spare
+    # Ko et al.'s PDE setting caps n_sym at 4 (3 true + 1 spare); cfg.lig_max_sym lifts the cap
+    n_sym = max(1, min(getattr(cfg, 'n_sym', 4), getattr(cfg, 'lig_max_sym', 4)))
     sigma = 0.4
     tau_lips = 3.0
     w_sym, w_ortho, w_lips = 1.0, 3.0, 1.0
@@ -368,6 +377,25 @@ def train_lig(train_sol, pde_type, x_grid, t_grid, cfg, device):
     L_t = float(t_grid.max() - t_grid.min() + 1e-8)
     alpha_norm = phys_alpha * L_t / (L_x * L_x)
     nu_norm = phys_nu * L_t / (L_x * L_x)
+    # protocol v1: coefficients of the equation the data satisfy, carried into the
+    # normalised variables (x / L_x, t / L_t, u * u_scale); cfg.lig_eq unset keeps
+    # the published residual
+    eq = getattr(cfg, 'lig_eq', None)
+    c_adv = c_disp = None
+    if eq is not None:
+        us = float(u_scale)
+        if pde_type == 'burgers':
+            c_adv = eq['a'] * L_t / (L_x * us)
+            nu_norm = eq['b'] * L_t / (L_x * L_x)
+        elif pde_type == 'kdv':
+            c_adv = eq['a'] * L_t / (L_x * us)
+            c_disp = eq['c'] * L_t / L_x ** 3
+        elif pde_type == 'heat':
+            alpha_norm = eq['alpha'] * L_t / (L_x * L_x)
+        elif pde_type == 'ks':
+            c_adv = L_t / (L_x * us)
+            nu_norm = L_t / L_x ** 2
+            c_disp = L_t / L_x ** 4
 
     mlp = LIGMultiHeadMLP(n_sym=n_sym).to(device)
     lr0 = getattr(cfg, 'lr_lig', 1e-4)
@@ -421,7 +449,7 @@ def train_lig(train_sol, pde_type, x_grid, t_grid, cfg, device):
                 u_tilde = pts_flow[..., 2]
                 res = pde_residual_deformed(
                     u_tilde, x_tilde, t_tilde, pde_type,
-                    alpha=alpha_norm, nu=nu_norm)
+                    alpha=alpha_norm, nu=nu_norm, c_adv=c_adv, c_disp=c_disp)
                 l_sym_total = l_sym_total + lsym_log(res)
             pts0 = torch.stack([x_all, t_all, u_all], dim=-1)
             all_vfs = mlp(pts0)

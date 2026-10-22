@@ -1,0 +1,8 @@
+$ exp39_localised.py --pde ks --op exact --seed 48 --data-seed 1048 --ic periodic --n 10 --K 16 --every 16 --thin 1 --interior --ut fd --noise 0.03 --save fins_runs/ks_runs/n3e-2/pointwise_ks_s48.npz
+  band check, energy above k = Nx/4: u 4.4e-04, u_t 2.6e-01   FLAG: u_t lives where the operator has seen little
+[ks, exact, periodic] data seed 1048, 10 trajectories, Nx 128, T 20.0, K = 16, seam band 0.2; L 22.000; within 0.1 of the seam / overall, rms of u: 1.0e+00, of u_x: 1.0e+00; u_t fd, noise 0.03, thin 1
+  relative change of the basis characteristics, rms over k = 1..K steps: 6.5e-01
+  lowest eigenvalues: 6.2e-02 9.9e-02 1.1e-01 1.3e-01 1.6e-01 1.7e-01
+  algebra losses: ∂_x 1.2e-01  ∂_t 1.8e-01  Galilean 1.4e-01   (lambda4 = 1.3e-01)
+  algebra inside the 3 lowest: ∂_x 0.60  ∂_t 0.43  Galilean 0.21
+  saved fins_runs/ks_runs/n3e-2/pointwise_ks_s48.npz

@@ -1,0 +1,11 @@
+$ exp39_localised.py --pde bo --op stepper --train-ic mixed --tag _n1e-2 --seed 44 --data-seed 1044 --ic periodic --n 10 --K 16 --every 16 --thin 1 --interior --ut fd --noise 0.01 --save /content/drive/MyDrive/fins_runs/results/bo_runs/n1e-2/pointwise-learned_bo_s44.npz
+  band check, energy above k = Nx/4: u 2.9e-05, u_t 7.4e-02   FLAG: u_t lives where the operator has seen little
+  per-trajectory one-step error: 0.455 0.303 0.346 0.318 0.274 0.390 0.408 0.303 0.402 0.303
+  rollout error relative to the data increment after 1 step(s): 0.279
+  rollout error relative to the data increment after 16 step(s): 0.020
+[bo, stepper s44_n1e-2, periodic] data seed 1044, 10 trajectories, Nx 128, T 0.2, K = 16, seam band 0.2; L 6.283; within 0.1 of the seam / overall, rms of u: 1.0e-01, of u_x: 5.0e-02; u_t fd, noise 0.01, thin 1
+  relative change of the basis characteristics, rms over k = 1..K steps: 9.9e-01
+  lowest eigenvalues: 2.1e-03 2.2e-03 4.3e-03 8.6e-03 1.4e-02 2.2e-02 5.9e-02
+  algebra losses: ∂_x 4.2e-03  ∂_t 3.8e-02  Galilean 3.9e-03  scaling 1.7e-02   (lambda5 = 1.4e-02)
+  algebra inside the 4 lowest: ∂_x 0.29  ∂_t 0.01  Galilean 0.99  scaling 0.89
+  saved /content/drive/MyDrive/fins_runs/results/bo_runs/n1e-2/pointwise-learned_bo_s44.npz

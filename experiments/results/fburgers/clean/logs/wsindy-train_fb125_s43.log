@@ -1,0 +1,6 @@
+$ exp56_wsindy.py --pde fb125 --seed 43 --data-seed 1043 --data train --noise 0 --out fins_runs/fb_runs/clean/wsindy-train_fb125_s43
+experiments/../pde/method_wsindy.py:43: RuntimeWarning: invalid value encountered in divide
+  errs[k - 2] = np.sqrt(np.sum(((L1 - a1) / a1) ** 2) + np.sum(((L2 - a2) / a2) ** 2))
+[fb125] train data (1024 trajectories), data seed 1043, noise 0: u_t = -0.10501 d0(u^1) +0.077512 d2(u^1) -0.51035 d1(u^2)   (lambda 2.01e-02, residual 1.74e-01; m 10,15, p 14,12, 50176 rows; 252 s)
+  determining system 57 x 30: smallest singular values / largest 6.4e-24 3.4e-15 1.6e-03 6.6e-03 1.1e-02 3.1e-02 1.0e-01; hard algebra dimension 2 (k = 4); 1 s
+  saved fins_runs/fb_runs/clean/wsindy-train_fb125_s43_soft.npz, fins_runs/fb_runs/clean/wsindy-train_fb125_s43_hard.npz

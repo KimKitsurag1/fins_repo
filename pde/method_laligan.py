@@ -59,7 +59,7 @@ Extraction recovers only the combined "vertical" change in u:
     δu(x, t)  ≈  ε · [ φ(x,t,u) − ξ(x,t,u) u_x − η(x,t,u) u_t ]
 
 It is mathematically impossible to separate ξ, η, φ from δu alone.
-We therefore return (ξ=0, η=0, φ=δu) — an honest projection of the
+We therefore return (ξ=0, η=0, φ=δu) — a projection of the
 discovered symmetry into the u-component only.  This is the same
 convention used by every published LaLiGAN application to fields.
 

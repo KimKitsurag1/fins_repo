@@ -1,0 +1,40 @@
+[fno] seed 42: 16 training trajectories (data seed 4042), 8 held-out (seed 5042); grid 64^2 on [-8, 8)^2, scored |x|, |y| < 4.5; 51 snapshots, dt 0.02, K 8; u in [0.257, 1.312]
+  FNO rollout error relative to the data increment (training): 1 step 0.0027 (per trajectory 0.0007-0.0043), K steps 0.0015
+  FNO rollout error relative to the data increment (held-out): 1 step 0.0022 (per trajectory 0.0010-0.0051), K steps 0.0010
+  polynomial class (160 pairs, 27 s): relative change over K 2.38e-01
+    lowest eigenvalues: 7.6e-06 8.6e-06 8.9e-06 1.3e-05 1.9e-05 5.6e-05 3.5e-03 3.9e-03 1.1e-02 1.2e-02
+    algebra Rayleigh quotients: d_x 8.5e-06  d_y 9.8e-06  d_t 2.2e-05  rotation 1.3e-05  D1 1.9e-05  D2 1.5e-05
+    lowest 6 on held-out: missing (characteristics) 0.000, (fields) 0.001
+    random 8-dim subspaces of the class (100): missing (characteristics) 2.103 +- 0.203, (fields) 2.483 +- 0.189
+  algebra's own pencil on held-out pairs: eigenvalues 4.0e-06 5.5e-06 7.0e-06 8.5e-06 2.0e-05 4.0e-05
+  untrained network: missing (characteristics) 1.926, (fields) 2.366
+    step 0: held-out missing (characteristics) 1.926, (fields) 2.366; novel 0.96 0.99 0.99 0.24 0.45 0.77 (0 s)
+/content/fins/fins_repo/pde/../experiments/exp45_neural_2d.py:303: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:836.)
+  return R @ R.T, A @ A.T + B @ B.T, K * (Q @ Q.T), float((B ** 2).sum())
+      loss 3.719e+00; batch eigenvalues 1.1e-03 3.5e-03 3.9e-02 1.8e-01 3.2e-01 8.3e-01 1.1e+00 1.2e+00
+    step 250: held-out missing (characteristics) 0.263, (fields) 0.337; novel 1.00 1.00 0.99 0.98 0.91 0.92 (60 s)
+      loss 6.346e-02; batch eigenvalues 1.7e-04 5.4e-04 5.6e-04 2.5e-03 4.7e-03 1.3e-02 1.5e-02 2.6e-02
+    step 500: held-out missing (characteristics) 0.097, (fields) 0.163; novel 1.00 1.00 1.00 1.00 0.97 0.96 (120 s)
+      loss 4.596e-02; batch eigenvalues 9.4e-05 1.7e-04 2.5e-04 5.9e-04 8.8e-04 3.1e-03 1.2e-02 2.9e-02
+    step 750: held-out missing (characteristics) 0.086, (fields) 0.151; novel 1.00 1.00 1.00 1.00 0.98 0.96 (180 s)
+      loss 3.901e-02; batch eigenvalues 8.3e-05 1.3e-04 1.4e-04 2.3e-04 6.8e-04 4.2e-03 1.3e-02 2.1e-02
+    step 1000: held-out missing (characteristics) 0.073, (fields) 0.131; novel 1.00 1.00 1.00 1.00 0.98 0.97 (240 s)
+      loss 3.944e-02; batch eigenvalues 5.8e-05 7.9e-05 1.1e-04 1.4e-04 4.0e-04 2.2e-03 6.5e-03 3.0e-02
+    step 1250: held-out missing (characteristics) 0.070, (fields) 0.122; novel 1.00 1.00 1.00 1.00 0.98 0.97 (300 s)
+      loss 3.347e-02; batch eigenvalues 5.7e-05 8.2e-05 1.6e-04 3.2e-04 1.2e-03 4.0e-03 1.2e-02 1.6e-02
+    step 1500: held-out missing (characteristics) 0.068, (fields) 0.128; novel 1.00 1.00 1.00 1.00 0.98 0.97 (360 s)
+      loss 3.025e-02; batch eigenvalues 4.7e-05 1.1e-04 1.5e-04 2.1e-04 4.7e-04 1.7e-03 1.1e-02 1.6e-02
+    step 1750: held-out missing (characteristics) 0.069, (fields) 0.144; novel 1.00 1.00 1.00 1.00 0.98 0.97 (420 s)
+      loss 1.766e-02; batch eigenvalues 5.9e-05 7.3e-05 8.7e-05 1.8e-04 3.0e-04 1.2e-03 6.2e-03 9.6e-03
+    step 2000: held-out missing (characteristics) 0.064, (fields) 0.156; novel 1.00 1.00 1.00 1.00 0.98 0.97 (480 s)
+      loss 2.389e-02; batch eigenvalues 5.0e-05 8.3e-05 1.4e-04 1.8e-04 2.2e-04 7.0e-04 6.6e-03 1.6e-02
+    step 2250: held-out missing (characteristics) 0.061, (fields) 0.185; novel 1.00 1.00 1.00 1.00 0.98 0.97 (540 s)
+      loss 1.869e-02; batch eigenvalues 5.7e-05 1.2e-04 1.6e-04 1.9e-04 3.3e-04 5.8e-04 7.8e-03 9.5e-03
+    step 2500: held-out missing (characteristics) 0.061, (fields) 0.199; novel 1.00 1.00 1.00 1.00 0.98 0.97 (600 s)
+  trained network (600 s): missing (characteristics) 0.061, (fields) 0.199; novel containment d_x 1.00 d_y 1.00 d_t 1.00 rotation 1.00 D1 0.98 D2 0.97
+    6 lowest directions of the span (training pairs): missing (characteristics) 0.064, (fields) 0.227; novel 1.00 1.00 1.00 1.00 0.98 0.97
+    eigenvalues in the span, training pairs: 5.4e-05 7.7e-05 8.2e-05 1.1e-04 1.3e-04 7.1e-04 4.7e-03 6.1e-03
+    held-out pairs, trained: 4.3e-05 9.8e-05 1.3e-04 2.0e-04 3.7e-04 1.3e-03 1.3e-02 1.9e-02
+    held-out pairs, untrained: 8.1e-04 1.8e-03 1.7e-02 1.2e-01 3.0e-01 7.1e-01 8.8e-01 9.8e-01
+  saved /content/drive/MyDrive/fins_runs/results/neural2d/fno_m8_mu001_s42.json/.pt/.npz

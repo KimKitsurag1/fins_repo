@@ -1,0 +1,9 @@
+$ exp41_baselines.py --pde ks --seed 42 --methods LieNLSD_F,LieNLSD_F@eval --lienlsd-fit-points 163840 --lienlsd-val-points 32768 --noise 0 --out fins_runs/ks_runs/clean/lienlsd-f_ks_s42.npz
+NeuralOp FNO loaded successfully.
+[ks] seed 42, data seed 1042: training (1024, 1, 128, 128), evaluation (10, 128, 128), class dimension 3, degree 2, noise 0, thin 1, cpu
+  LieNLSD_F: own count 3; {"jac_rel": 0.01958342518785231, "jac_rel_cols": [0.006014019958699712, 0.011255677830510168, 0.013332557739212663, 0.0027167957707815143, 0.005959341194356623], "rhs_rel_exact": 0.06392586487831546, "rhs_rel_fit": 0.006759239574859332, "n_own": 3, "sv_rel": [7.023224934358859e-17, 9.606486899374369e-17, 0.0026814856511504356, 0.020778711313696376, 0.027420335214938554, 0.03374665615838859, 0.04741206829701808]}
+  LieNLSD_F: F Adan, 200 epochs, best epoch 200, held-out relative MSE 5.260e-05
+  LieNLSD_F: 3 generators, 1068 s; saved fins_runs/ks_runs/clean/lienlsd-f_ks_s42.npz
+  LieNLSD_F@eval: own count 3; {"jac_rel": 0.01700933216667454, "jac_rel_cols": [0.004938020147861376, 0.010053795954464855, 0.011561454514554348, 0.002390942913320711, 0.004946785438514886], "rhs_rel_exact": 0.06392586487831546, "rhs_rel_fit": 0.006759239574859332, "n_own": 3, "sv_rel": [6.144004385261379e-17, 1.0862290701564703e-16, 0.0019796965738489596, 0.020896254570735295, 0.033269150282186556, 0.039496295556253926, 0.05330622368220111]}
+  LieNLSD_F@eval: F Adan, 200 epochs, best epoch 200, held-out relative MSE 5.260e-05
+  LieNLSD_F@eval: 3 generators, 2 s; saved fins_runs/ks_runs/clean/lienlsd-f_ks_s42.npz

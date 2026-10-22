@@ -1,0 +1,9 @@
+$ exp41_baselines.py --pde bo --seed 42 --methods LieNLSD_F,LieNLSD_F@eval --lienlsd-fit-points 163840 --lienlsd-val-points 32768 --noise 0.01 --out fins_runs/bo_runs/n1e-2/lienlsd-f_bo_s42.npz
+NeuralOp FNO loaded successfully.
+[bo] seed 42, data seed 1042: training (1024, 1, 128, 128), evaluation (10, 128, 128), class dimension 4, degree 2, noise 0.01, thin 1, cpu
+  LieNLSD_F: own count 2; {"jac_rel": NaN, "jac_rel_cols": [NaN, NaN, NaN, NaN], "rhs_rel_exact": NaN, "rhs_rel_fit": 0.2734098514339181, "n_own": 2, "sv_rel": [7.085492990630272e-17, 7.095490252635988e-17, 0.011786905595759858, 0.012474672406061352, 0.014775585456888583, 0.019838505633432004, 0.02527965118838713, 0.028266365030454096]}
+  LieNLSD_F: F Adan, 200 epochs, best epoch 200, held-out relative MSE 6.775e-02
+  LieNLSD_F: 4 generators, 1217 s; saved fins_runs/bo_runs/n1e-2/lienlsd-f_bo_s42.npz
+  LieNLSD_F@eval: own count 4; {"jac_rel": NaN, "jac_rel_cols": [NaN, NaN, NaN, NaN], "rhs_rel_exact": NaN, "rhs_rel_fit": 0.2734098514339181, "n_own": 4, "sv_rel": [6.850372678468686e-17, 1.1011570350602562e-16, 0.007576925182492597, 0.00910331819963453, 0.015095769722679231, 0.017822261268827792, 0.019345795967531013, 0.024117270835186323]}
+  LieNLSD_F@eval: F Adan, 200 epochs, best epoch 200, held-out relative MSE 6.775e-02
+  LieNLSD_F@eval: 4 generators, 2 s; saved fins_runs/bo_runs/n1e-2/lienlsd-f_bo_s42.npz

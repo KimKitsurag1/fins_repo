@@ -1,0 +1,6 @@
+$ exp41_baselines.py --pde kdv --seed 51 --methods LieNLSD_RHS@eval --lienlsd-fit-points 163840 --lienlsd-val-points 32768 --noise 0.01 --out fins_runs/noise_weak_runs/n1e-2/lienlsd_kdv_s51.npz
+NeuralOp FNO loaded successfully.
+    Running batched PyTorch ETDRK4 solver on GPU for 1 samples...
+[kdv] seed 51, data seed 1051: training (1, 1, 128, 128), evaluation (10, 128, 128), class dimension 4, degree 2, noise 0.01, thin 1, cpu
+  LieNLSD_RHS@eval: own count 3; {"jac_rel": 0.0, "jac_rel_cols": [0.0, 0.0, 0.0, 0.0], "rhs_rel_exact": 3.6273249515754435, "n_own": 3, "sv_rel": [6.672330917376263e-17, 6.699713229674963e-17, 6.699713229674963e-17, 0.010474347486169109, 0.012757367788969996, 0.03234989685427011, 0.04652135282965563, 0.06289102414987252]}
+  LieNLSD_RHS@eval: 4 generators, 0 s; saved fins_runs/noise_weak_runs/n1e-2/lienlsd_kdv_s51.npz

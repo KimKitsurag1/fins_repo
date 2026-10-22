@@ -1,0 +1,11 @@
+$ exp49_weak.py --pde ks --op exact --seed 47 --data-seed 1047 --noise 0 --K 16 --stride 1 --wt 2 --wp 2 --wx auto --wx-factor 2 --save /content/drive/MyDrive/fins_runs/results/ks_runs/clean/weak_ks_s47.npz
+  spatial modes from the data: n95 4 of a 128-point domain, 77 scored points -> M = 5
+  rollouts of 1120 start states: 0 s
+  weak blocks for 19 basis fields, 112 starts, 11 x 2 tests: 11 s
+[ks, exact, weak] data seed 1047, 10 trajectories, degree 2, restricted class 19 of 30, K = 16, starts every 1, tests 11 x 2 (p = 2), mu 1.0, noise 0, thin 1; 11 s
+  ground truth in the restricted class: max relative fit residual 2.2e-14
+  lowest eigenvalues: -1.3e-16 2.8e-18 3.7e-16 2.9e-02 6.6e-02 3.3e-01
+  algebra losses: ∂_x 1.1e-17  ∂_t 4.4e-31  Galilean 1.6e-17   (lambda4 = 2.9e-02)
+  algebra inside the 3 lowest: ∂_x 1.00  ∂_t 1.00  Galilean 1.00
+  own count (largest eigenvalue ratio among the lowest 17, floor 1e-06): 3 (k = 3)
+  saved /content/drive/MyDrive/fins_runs/results/ks_runs/clean/weak_ks_s47.npz

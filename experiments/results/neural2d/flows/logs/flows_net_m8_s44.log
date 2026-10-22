@@ -1,0 +1,10 @@
+[flows] seed 44: data 4044/5044, K 8, eps [0.003, 0.01, 0.03, 0.1, 0.3, 1.0], 4 pairs; windowed coordinates |x|, |y| <= 6 kept, zero beyond 7.75; projection on; polynomial lowest -1.0e-16 5.3e-28 3.0e-12 2.7e-09 1.3e-07 1.0e-06 2.3e-04 3.2e-04 8.5e-04 1.1e-03 (45 s)
+  network direction 1    tau share 0.90, r1 1.15e-03 | E(eps): 1.05e-03 (0.003)  1.04e-03 (0.010)  1.01e-03 (0.030)  9.27e-04 (0.096)  7.72e-04 (0.265)  7.11e-04 (0.679)  [75 s, max steps 307]
+  network direction 2    tau share 0.83, r1 1.36e-03 | E(eps): 1.26e-03 (0.003)  1.25e-03 (0.010)  1.22e-03 (0.030)  1.15e-03 (0.097)  1.04e-03 (0.273)  9.90e-04 (0.725)  [65 s, max steps 257]
+  network direction 3    tau share 0.59, r1 2.43e-03 | E(eps): 2.39e-03 (0.003)  2.38e-03 (0.010)  2.34e-03 (0.030)  2.23e-03 (0.097)  2.00e-03 (0.277)  1.70e-03 (0.727)  [68 s, max steps 261]
+  network direction 4    tau share 0.16, r1 2.55e-03 | E(eps): 2.46e-03 (0.003)  2.45e-03 (0.010)  2.42e-03 (0.030)  2.39e-03 (0.097)  2.34e-03 (0.274)  3.26e-03 (0.698)  [91 s, max steps 352]
+  network direction 5    tau share 0.15, r1 3.51e-03 | E(eps): 3.61e-03 (0.003)  3.59e-03 (0.010)  3.53e-03 (0.030)  3.35e-03 (0.097)  2.94e-03 (0.275)  2.79e-03 (0.696)  [143 s, max steps 582]
+  network direction 6    tau share 0.02, r1 5.69e-03 | E(eps): 6.86e-03 (0.003)  6.78e-03 (0.010)  6.57e-03 (0.030)  5.97e-03 (0.101)  4.69e-03 (0.308)  3.46e-03 (1.088)  [112 s, max steps 469]
+  network direction 7    tau share 0.01, r1 7.15e-03 | E(eps): 8.52e-03 (0.003)  8.53e-03 (0.010)  8.55e-03 (0.030)  8.64e-03 (0.100)  8.91e-03 (0.298)  1.46e-02 (0.979)  [103 s, max steps 443]
+  network direction 8    tau share 0.01, r1 6.11e-03 | E(eps): 7.10e-03 (0.003)  7.03e-03 (0.010)  6.84e-03 (0.030)  6.26e-03 (0.100)  5.25e-03 (0.300)  6.41e-03 (0.988)  [74 s, max steps 309]
+saved results/neural2d/flows/flows_net_m8_s44.json

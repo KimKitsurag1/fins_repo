@@ -1,0 +1,13 @@
+$ exp72_utility.py train --pde bo --seed 42 --arm shift
+[bo s42 shift] part in W 2 (cosines 1.0000 1.0000), S 0.3723
+      epoch 30/300: train loss 2.931e-04 | held-out increment error 0.2067 (best 0.2067)
+      epoch 60/300: train loss 2.177e-04 | held-out increment error 0.1606 (best 0.1606)
+      epoch 90/300: train loss 1.416e-04 | held-out increment error 0.0955 (best 0.0955)
+      epoch 120/300: train loss 1.214e-04 | held-out increment error 0.0730 (best 0.0730)
+      epoch 150/300: train loss 1.081e-04 | held-out increment error 0.0635 (best 0.0635)
+      epoch 180/300: train loss 8.656e-05 | held-out increment error 0.0583 (best 0.0583)
+      epoch 210/300: train loss 9.148e-05 | held-out increment error 0.0565 (best 0.0565)
+      epoch 240/300: train loss 8.739e-05 | held-out increment error 0.0576 (best 0.0565)
+      epoch 270/300: train loss 7.251e-05 | held-out increment error 0.0559 (best 0.0550)
+      epoch 300/300: train loss 7.618e-05 | held-out increment error 0.0550 (best 0.0550)
+saved /content/drive/MyDrive/fins_runs/results/utility_runs/S_bo_s42_shift.pt (110 s)

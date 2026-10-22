@@ -1,0 +1,5 @@
+setting,classical_rank,detected_m0.0,detected_m0.05,detected_m0.1
+heat,6,5,6,6
+burgers,5,3,4,5
+kdv_torus,4,3,3,3
+kdv_wide_shortT,4,4,4,4

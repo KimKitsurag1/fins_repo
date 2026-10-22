@@ -1,0 +1,7 @@
+$ exp50_two_stage.py --pde kdv --seed 51 --data-seed 1051 --noise 0.01 --H 0.05 --K 200 --rel 0.1 --out fins_runs/noise_weak_runs/n1e-2/two-stage-h05_kdv_s51
+    Running batched PyTorch ETDRK4 solver on GPU for 1 samples...
+/usr/local/lib/python3.13/dist-packages/pysindy/feature_library/weak_pde_library.py:177: UserWarning: is_uniform and periodic have been deprecated.in favor of differetiation_method and diff_kwargs.
+  warnings.warn(
+[kdv] data seed 1051, noise 0.01, thin 1: u_t = -2.8504 x0_1 -0.70161 x0_111 -4.5827 x0x0_1 -0.1457 x0^2x0_1 -0.067484 x0x0_111 +0.003607 x0^2x0_111   (weak residual 7.06e-02; 6 s)
+  determining system 266 x 30: smallest singular values / largest 9.0e-18 3.6e-15 2.3e-03 6.9e-03 1.6e-02 2.2e-02 8.9e-02; hard algebra dimension 2 (k = 4); 2 s
+  saved fins_runs/noise_weak_runs/n1e-2/two-stage-h05_kdv_s51_soft.npz, fins_runs/noise_weak_runs/n1e-2/two-stage-h05_kdv_s51_hard.npz

@@ -1,0 +1,4 @@
+$ exp56_wsindy.py --pde bo --seed 43 --data eval --noise 0.03 --out fins_runs/bo_runs/n3e-2/wsindy_bo_s43
+[bo] eval data (10 trajectories), data seed 1043, noise 0.03: u_t = -0.073694 d3(u^1) -0.35609 d1(u^2)   (lambda 1.15e-02, residual 1.03e-01; m 18,20, p 11,10, 20240 rows; 4 s)
+  determining system 71 x 30: smallest singular values / largest 3.2e-68 5.0e-17 1.0e-16 1.0e-16 6.2e-03 2.9e-02 1.9e-01; hard algebra dimension 4 (k = 4); 1 s
+  saved fins_runs/bo_runs/n3e-2/wsindy_bo_s43_soft.npz, fins_runs/bo_runs/n3e-2/wsindy_bo_s43_hard.npz

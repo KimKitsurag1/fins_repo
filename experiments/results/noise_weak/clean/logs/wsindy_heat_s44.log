@@ -1,0 +1,6 @@
+$ exp56_wsindy.py --pde heat --seed 44 --data eval --noise 0 --out fins_runs/noise_weak_runs/clean/wsindy_heat_s44
+experiments/../pde/method_wsindy.py:43: RuntimeWarning: invalid value encountered in divide
+  errs[k - 2] = np.sqrt(np.sum(((L1 - a1) / a1) ** 2) + np.sum(((L2 - a2) / a2) ** 2))
+[heat] eval data (10 trajectories), data seed 1044, noise 0: u_t = +0.01 d2(u^1)   (lambda 1.00e-04, residual 4.28e-06; m 7,14, p 18,12, 25000 rows; 3 s)
+  determining system 72 x 60: smallest singular values / largest 2.5e-17 3.1e-17 6.2e-17 8.5e-17 9.6e-17 9.6e-17 9.6e-17 4.0e-16 5.6e-16 1.8e-15 2.0e-01 3.0e-01 3.3e-01; hard algebra dimension 10 (k = 10); 1 s
+  saved fins_runs/noise_weak_runs/clean/wsindy_heat_s44_soft.npz, fins_runs/noise_weak_runs/clean/wsindy_heat_s44_hard.npz

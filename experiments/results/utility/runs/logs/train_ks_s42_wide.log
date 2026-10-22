@@ -1,0 +1,12 @@
+$ exp72_utility.py train --pde ks --seed 42 --arm wide
+      epoch 30/300: train loss 1.168e-04 | held-out increment error 0.0326 (best 0.0326)
+      epoch 60/300: train loss 3.655e-05 | held-out increment error 0.0204 (best 0.0204)
+      epoch 90/300: train loss 2.821e-05 | held-out increment error 0.0144 (best 0.0144)
+      epoch 120/300: train loss 1.915e-05 | held-out increment error 0.0142 (best 0.0140)
+      epoch 150/300: train loss 2.171e-05 | held-out increment error 0.0184 (best 0.0131)
+      epoch 180/300: train loss 5.440e-06 | held-out increment error 0.0078 (best 0.0078)
+      epoch 210/300: train loss 5.131e-06 | held-out increment error 0.0073 (best 0.0073)
+      epoch 240/300: train loss 3.677e-06 | held-out increment error 0.0067 (best 0.0067)
+      epoch 270/300: train loss 3.288e-06 | held-out increment error 0.0065 (best 0.0065)
+      epoch 300/300: train loss 3.688e-06 | held-out increment error 0.0064 (best 0.0064)
+saved /content/drive/MyDrive/fins_runs/results/utility_runs/S_ks_s42_wide.pt (109 s)

@@ -1,0 +1,21 @@
+    Running batched PyTorch ETDRK4 solver on GPU for 1 samples...
+/usr/local/lib/python3.13/dist-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+s42 clean    K=16  gain |k|>32: 1 step 0.997, K steps 0.958 (exact 0.562);  0<|k|<=32: 1 step 0.980, K steps 0.867
+s42 clean-rt K=16  gain |k|>32: 1 step 0.997, K steps 0.958 (exact 0.562);  0<|k|<=32: 1 step 0.981, K steps 0.853
+s42 n1e-4    K=16  gain |k|>32: 1 step 0.997, K steps 0.957 (exact 0.562);  0<|k|<=32: 1 step 0.980, K steps 0.842
+s42 n3e-4    K=16  gain |k|>32: 1 step 0.997, K steps 0.953 (exact 0.562);  0<|k|<=32: 1 step 0.965, K steps 0.778
+s42 n1e-3    K=16  gain |k|>32: 1 step 0.994, K steps 0.911 (exact 0.562);  0<|k|<=32: 1 step 0.871, K steps 0.583
+s42 n1e-2    K=16  gain |k|>32: 1 step 0.045, K steps 0.000 (exact 0.562);  0<|k|<=32: 1 step 0.458, K steps 0.351
+s43 clean    K=16  gain |k|>32: 1 step 0.995, K steps 0.929 (exact 0.551);  0<|k|<=32: 1 step 0.955, K steps 0.791
+s43 clean-rt K=16  gain |k|>32: 1 step 0.995, K steps 0.934 (exact 0.551);  0<|k|<=32: 1 step 0.955, K steps 0.796
+s43 n1e-4    K=16  gain |k|>32: 1 step 0.995, K steps 0.934 (exact 0.551);  0<|k|<=32: 1 step 0.955, K steps 0.791
+s43 n3e-4    K=16  gain |k|>32: 1 step 0.995, K steps 0.932 (exact 0.551);  0<|k|<=32: 1 step 0.949, K steps 0.752
+s43 n1e-3    K=16  gain |k|>32: 1 step 0.994, K steps 0.913 (exact 0.551);  0<|k|<=32: 1 step 0.875, K steps 0.572
+s43 n1e-2    K=16  gain |k|>32: 1 step 0.105, K steps 0.000 (exact 0.551);  0<|k|<=32: 1 step 0.487, K steps 0.371
+s44 clean    K=16  gain |k|>32: 1 step 0.994, K steps 0.919 (exact 0.561);  0<|k|<=32: 1 step 0.963, K steps 0.801
+s44 clean-rt K=16  gain |k|>32: 1 step 0.994, K steps 0.914 (exact 0.561);  0<|k|<=32: 1 step 0.969, K steps 0.812
+s44 n1e-4    K=16  gain |k|>32: 1 step 0.994, K steps 0.913 (exact 0.561);  0<|k|<=32: 1 step 0.966, K steps 0.800
+s44 n3e-4    K=16  gain |k|>32: 1 step 0.994, K steps 0.909 (exact 0.561);  0<|k|<=32: 1 step 0.956, K steps 0.748
+s44 n1e-3    K=16  gain |k|>32: 1 step 0.989, K steps 0.849 (exact 0.561);  0<|k|<=32: 1 step 0.858, K steps 0.573
+s44 n1e-2: no stepper at fins_runs/S_theta_kdv_s44_mixed_stepper_n1e-2.pt

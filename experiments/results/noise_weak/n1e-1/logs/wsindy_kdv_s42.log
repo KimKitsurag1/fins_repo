@@ -1,0 +1,5 @@
+$ exp56_wsindy.py --pde kdv --seed 42 --data eval --noise 0.1 --out fins_runs/noise_weak_runs/n1e-1/wsindy_kdv_s42
+    Running batched PyTorch ETDRK4 solver on GPU for 1 samples...
+[kdv] eval data (10 trajectories), data seed 1042, noise 0.1: u_t = +0.55662 d0(u^1) -1.0149 d3(u^1) -0.085227 d0(u^2) -3.0033 d1(u^2)   (lambda 3.20e-02, residual 1.01e-01; m 45,20, p 8,10, 16720 rows; 7 s)
+  determining system 106 x 30: smallest singular values / largest 1.3e-16 5.5e-16 9.6e-04 3.0e-03 2.2e-02 3.3e-02 1.5e-01; hard algebra dimension 2 (k = 4); 2 s
+  saved fins_runs/noise_weak_runs/n1e-1/wsindy_kdv_s42_soft.npz, fins_runs/noise_weak_runs/n1e-1/wsindy_kdv_s42_hard.npz

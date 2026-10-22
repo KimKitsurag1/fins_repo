@@ -1,0 +1,250 @@
+{
+ "f": {
+  "lib_f_s42": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 2.109864356780733e-06,
+   "names": "-1 obs/uq/1/0 -1 obs/vq/0/1"
+  },
+  "lib_f_s43": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 1.3956696300887472e-06,
+   "names": "-1 obs/uq/1/0 -1 obs/vq/0/1"
+  },
+  "lib_f_s44": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 1.3467628722896308e-05,
+   "names": "-1 obs/uq/1/0 -1 obs/vq/0/1"
+  },
+  "lib_f_s45": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 1.3331203694955107e-05,
+   "names": "-1 obs/uq/1/0 -1 obs/vq/0/1"
+  },
+  "lib_f_s46": {
+   "registered": false,
+   "functional": true,
+   "rel_err": 3.321620052876284e-05,
+   "names": "+1 obs/uu/1/1 -1 obs/vv/1/1 +1 obs/uv/0/2 -1 obs/uv/2/0"
+  },
+  "lib_f_s47": {
+   "registered": false,
+   "functional": true,
+   "rel_err": 2.582733793299319e-05,
+   "names": "-1 obs/vq/0/1 +0.5 obs/uu/1/1 -0.5 obs/vv/1/1 -1 obs/uv/2/0"
+  },
+  "lib_f_s48": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 2.6117131967096086e-06,
+   "names": "-1 obs/uq/1/0 -1 obs/vq/0/1"
+  },
+  "lib_f_s49": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 6.333836026439776e-06,
+   "names": "-1 obs/uq/1/0 -1 obs/vq/0/1"
+  },
+  "lib_f_s50": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 4.2607497647839665e-06,
+   "names": "-1 obs/uq/1/0 -1 obs/vq/0/1"
+  },
+  "lib_f_s51": {
+   "registered": false,
+   "functional": true,
+   "rel_err": 5.242605015287616e-05,
+   "names": "-1.324 obs/uq/1/0 +0.3381 obs/uu/1/1 -0.3381 obs/vv/1/1 +1 obs/uv/0/2 +0.3238 obs/uv/2/0"
+  }
+ },
+ "beta": {
+  "lib_beta_s42": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 7.274233424281462e-06,
+   "names": "-0.5 obs/v/0/0 -1 obs/uq/1/0 -1 obs/vq/0/1"
+  },
+  "lib_beta_s43": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 7.939745771068374e-06,
+   "names": "-0.5 obs/v/0/0 -1 obs/uq/1/0 -1 obs/vq/0/1"
+  },
+  "lib_beta_s44": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 1.589441612837028e-05,
+   "names": "-0.5 obs/v/0/0 -1 obs/uq/1/0 -1 obs/vq/0/1"
+  },
+  "lib_beta_s45": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 9.447408331642038e-06,
+   "names": "-0.5 obs/v/0/0 -1 obs/uq/1/0 -1 obs/vq/0/1"
+  },
+  "lib_beta_s46": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 1.1408801354750864e-05,
+   "names": "-0.5 obs/v/0/0 -1 obs/uq/1/0 -1 obs/vq/0/1"
+  },
+  "lib_beta_s47": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 8.814703939652446e-06,
+   "names": "-0.5 obs/v/0/0 -1 obs/uq/1/0 -1 obs/vq/0/1"
+  },
+  "lib_beta_s48": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 4.7853313036583245e-06,
+   "names": "-0.5 obs/v/0/0 -1 obs/uq/1/0 -1 obs/vq/0/1"
+  },
+  "lib_beta_s49": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 2.286725437294912e-05,
+   "names": "-0.5 obs/v/0/0 -1 obs/uq/1/0 -1 obs/vq/0/1"
+  },
+  "lib_beta_s50": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 1.030180975392092e-05,
+   "names": "-0.5 obs/v/0/0 -1 obs/uq/1/0 -1 obs/vq/0/1"
+  },
+  "lib_beta_s51": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 1.9064119967104887e-05,
+   "names": "-0.5 obs/v/0/0 -1 obs/uq/1/0 -1 obs/vq/0/1"
+  }
+ },
+ "rd": {
+  "lib_rd_s42": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 5.305159314294983e-06,
+   "names": "-1 obs/uq/1/0 -1 obs/vq/0/1"
+  },
+  "lib_rd_s43": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 4.807043721966053e-07,
+   "names": "-1 obs/uq/1/0 -1 obs/vq/0/1"
+  },
+  "lib_rd_s44": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 4.039875678873983e-06,
+   "names": "-1 obs/uq/1/0 -1 obs/vq/0/1"
+  },
+  "lib_rd_s45": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 5.420358614061094e-06,
+   "names": "-1 obs/uq/1/0 -1 obs/vq/0/1"
+  },
+  "lib_rd_s46": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 7.92113938330452e-06,
+   "names": "-1 obs/uq/1/0 -1 obs/vq/0/1"
+  },
+  "lib_rd_s47": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 4.6572656711152405e-06,
+   "names": "-1 obs/uq/1/0 -1 obs/vq/0/1"
+  },
+  "lib_rd_s48": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 3.539107981676004e-06,
+   "names": "-1 obs/uq/1/0 -1 obs/vq/0/1"
+  },
+  "lib_rd_s49": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 8.108373200976793e-06,
+   "names": "-1 obs/uq/1/0 -1 obs/vq/0/1"
+  },
+  "lib_rd_s50": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 9.049723997955894e-07,
+   "names": "-1 obs/uq/1/0 -1 obs/vq/0/1"
+  },
+  "lib_rd_s51": {
+   "registered": false,
+   "functional": true,
+   "rel_err": 4.2356351097172507e-05,
+   "names": "+1 obs/uu/1/1 -1 obs/vv/1/1 +1 obs/uv/0/2 -1 obs/uv/2/0"
+  }
+ },
+ "drag": {
+  "lib_drag_s42": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 2.161733145822353e-06,
+   "names": "-0.3 (q^1) -1 obs/uq/1/0 -1 obs/vq/0/1"
+  },
+  "lib_drag_s43": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 1.9925776325221043e-06,
+   "names": "-0.3 (q^1) -1 obs/uq/1/0 -1 obs/vq/0/1"
+  },
+  "lib_drag_s44": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 9.714967639980662e-06,
+   "names": "-0.3 (q^1) -1 obs/uq/1/0 -1 obs/vq/0/1"
+  },
+  "lib_drag_s45": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 1.2685650293183434e-05,
+   "names": "-0.3 (q^1) -1 obs/uq/1/0 -1 obs/vq/0/1"
+  },
+  "lib_drag_s46": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 2.5337149634670673e-05,
+   "names": "-0.3 (q^1) -1 obs/uq/1/0 -1 obs/vq/0/1"
+  },
+  "lib_drag_s47": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 7.183711229578431e-06,
+   "names": "-0.3 (q^1) -1 obs/uq/1/0 -1 obs/vq/0/1"
+  },
+  "lib_drag_s48": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 9.276306706107462e-06,
+   "names": "-0.3 (q^1) -1 obs/uq/1/0 -1 obs/vq/0/1"
+  },
+  "lib_drag_s49": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 1.701513043831741e-05,
+   "names": "-0.3 (q^1) -1 obs/uq/1/0 -1 obs/vq/0/1"
+  },
+  "lib_drag_s50": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 5.4136379179503535e-06,
+   "names": "-0.3 (q^1) -1 obs/uq/1/0 -1 obs/vq/0/1"
+  },
+  "lib_drag_s51": {
+   "registered": true,
+   "functional": true,
+   "rel_err": 1.1298481527033388e-05,
+   "names": "-0.3 (q^1) -1 obs/uq/1/0 -1 obs/vq/0/1"
+  }
+ }
+}

@@ -1,0 +1,29 @@
+part,setting,candidate,value
+determining,0.01,d_x (floor),5.327741e-13
+determining,0.01,scaling (control),6.232991e-13
+determining,0.01,repo v5: phi = -(x+tu),2.376104e-02
+determining,0.01,corrected v5: phi = x-tu,2.531226e-15
+defect_identity,0.01,repo v5,3.226775e-07
+determining,0.1,d_x (floor),9.546592e-14
+determining,0.1,scaling (control),9.201367e-14
+determining,0.1,repo v5: phi = -(x+tu),2.196254e-02
+determining,0.1,corrected v5: phi = x-tu,2.096798e-16
+defect_identity,0.1,repo v5,9.764135e-08
+windowed_jvp,"T=0.5,m=0.0",repo v5,2.598534e+00
+windowed_jvp,"T=0.5,m=0.0",corrected v5,4.876473e-02
+windowed_jvp,"T=0.5,m=0.0",scaling (control),3.318775e-02
+windowed_jvp,"T=0.5,m=0.1",repo v5,3.433021e+00
+windowed_jvp,"T=0.5,m=0.1",corrected v5,7.203663e-04
+windowed_jvp,"T=0.5,m=0.1",scaling (control),2.978278e-03
+windowed_jvp,"T=0.5,m=0.2",repo v5,4.245128e+00
+windowed_jvp,"T=0.5,m=0.2",corrected v5,6.980338e-04
+windowed_jvp,"T=0.5,m=0.2",scaling (control),2.831271e-03
+windowed_jvp,"T=1.0,m=0.0",repo v5,9.323744e+00
+windowed_jvp,"T=1.0,m=0.0",corrected v5,1.336443e-01
+windowed_jvp,"T=1.0,m=0.0",scaling (control),9.518997e-02
+windowed_jvp,"T=1.0,m=0.1",repo v5,1.225679e+01
+windowed_jvp,"T=1.0,m=0.1",corrected v5,5.878117e-02
+windowed_jvp,"T=1.0,m=0.1",scaling (control),5.228375e-02
+windowed_jvp,"T=1.0,m=0.2",repo v5,1.322489e+01
+windowed_jvp,"T=1.0,m=0.2",corrected v5,6.049376e-03
+windowed_jvp,"T=1.0,m=0.2",scaling (control),1.489191e-02

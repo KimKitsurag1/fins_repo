@@ -1,0 +1,3 @@
+$ exp56_wsindy.py --pde fb125 --seed 47 --data-seed 1047 --data eval --noise 0 --oracle 0.5,0.75,1,1.25,1.5,1.75 --out fins_runs/fb_runs/clean/oracle_fb125_s47
+[fb125] oracle, eval data (10 trajectories), data seed 1047, noise 0: u_t = +0.25328 (-L^1.25)(u^1) -0.5 d1(u^2)   (lambda 2.78e-04, residual 2.30e-07); exponent at which the terms balance: 1.25; 5 s
+  saved fins_runs/fb_runs/clean/oracle_fb125_s47_oracle.json

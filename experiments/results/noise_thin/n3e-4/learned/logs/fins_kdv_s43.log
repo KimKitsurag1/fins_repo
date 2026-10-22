@@ -1,0 +1,28 @@
+$ exp39_localised.py --pde kdv --op stepper --ic periodic --train-ic mixed --n 10 --tag _n3e-4 --train-if-missing --seed 43 --data-seed 1043 --ut fd --K 16 --every 16 --noise 0.0003 --thin 1 --interior --save fins_runs/noise_thin_learned_runs/n3e-4/fins_kdv_s43.npz
+    Running batched PyTorch ETDRK4 solver on GPU for 1 samples...
+training kdv torus stepper on 1024 trajectories (mixed), seed 43, 400 epochs, 64 modes, no positional embedding, cpu
+      stepper epoch 1/400: train abs loss 1.134e-01 | held-out increment error 1.815 (best inf)
+      stepper epoch 40/400: train abs loss 1.204e-05 | held-out increment error 0.051 (best 0.051)
+      stepper epoch 80/400: train abs loss 4.866e-06 | held-out increment error 0.033 (best 0.033)
+      stepper epoch 120/400: train abs loss 3.879e-06 | held-out increment error 0.031 (best 0.030)
+      stepper epoch 160/400: train abs loss 2.319e-06 | held-out increment error 0.030 (best 0.027)
+      stepper epoch 200/400: train abs loss 1.784e-06 | held-out increment error 0.025 (best 0.024)
+      stepper epoch 240/400: train abs loss 1.467e-06 | held-out increment error 0.023 (best 0.023)
+      stepper epoch 280/400: train abs loss 1.349e-06 | held-out increment error 0.023 (best 0.023)
+      stepper epoch 320/400: train abs loss 1.264e-06 | held-out increment error 0.023 (best 0.023)
+      stepper epoch 360/400: train abs loss 1.211e-06 | held-out increment error 0.022 (best 0.022)
+      stepper epoch 400/400: train abs loss 1.197e-06 | held-out increment error 0.022 (best 0.022)
+      stepper: returning the best held-out state (increment error 0.022)
+saved fins_runs/S_theta_kdv_s43_mixed_stepper_n3e-4.pt
+  band check, energy above k = Nx/4: u 2.6e-08, u_t 3.8e-04
+  per-trajectory one-step error: 0.043 0.035 0.034 0.036 0.040 0.037 0.026 0.033 0.030 0.030
+  rollout error relative to the data increment after 1 step(s): 0.028
+  rollout error relative to the data increment after 16 step(s): 0.003
+/usr/local/lib/python3.13/dist-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[kdv, stepper s43_n3e-4, periodic] data seed 1043, 10 trajectories, Nx 128, T 0.05, K = 16, seam band 0.2; L 6.283; within 0.1 of the seam / overall, rms of u: 1.1e-02, of u_x: 3.1e-02; u_t fd, noise 0.0003, thin 1
+  relative change of the basis characteristics, rms over k = 1..K steps: 4.6e-01
+  lowest eigenvalues: 5.7e-05 1.4e-04 7.8e-04 6.7e-03 1.7e-02 4.9e-02 1.2e-01
+  algebra losses: ∂_x 1.5e-04  ∂_t 1.7e-03  Galilean 9.3e-05  scaling 8.3e-04   (lambda5 = 1.7e-02)
+  algebra inside the 4 lowest: ∂_x 1.00  ∂_t 0.03  Galilean 1.00  scaling 1.00
+  saved fins_runs/noise_thin_learned_runs/n3e-4/fins_kdv_s43.npz

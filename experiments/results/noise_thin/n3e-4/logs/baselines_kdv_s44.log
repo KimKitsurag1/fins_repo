@@ -1,0 +1,20 @@
+$ exp41_baselines.py --pde kdv --seed 44 --methods LieNLSD_RHS,LieNLSD_RHS@eval,LieNLSD_RHS_spec@eval --lienlsd-fit-points 163840 --lienlsd-val-points 32768 --noise 0.0003 --thin 1 --out fins_runs/noise_thin/n3e-4/baselines_kdv_s44.npz
+NeuralOp FNO loaded successfully.
+    Running batched PyTorch ETDRK4 solver on GPU for 1 samples...
+[kdv] seed 44, data seed 1044: training (1024, 1, 128, 128), evaluation (10, 128, 128), class dimension 4, degree 2, noise 0.0003, thin 1, cpu
+  LieNLSD_RHS: own count 3; {"jac_rel": 0.0, "jac_rel_cols": [0.0, 0.0, 0.0, 0.0], "rhs_rel_exact": 0.12330079836137736, "n_own": 3, "sv_rel": [6.906207287307387e-17, 6.95682033152954e-17, 6.956820331529542e-17, 0.016440718183187618, 0.032078129923649286, 0.036485856203940605, 0.044543262876833765, 0.04571882298191861]}
+  LieNLSD_RHS: 4 generators, 0 s; saved fins_runs/noise_thin/n3e-4/baselines_kdv_s44.npz
+  LieNLSD_RHS@eval: own count 4; {"jac_rel": 0.0, "jac_rel_cols": [0.0, 0.0, 0.0, 0.0], "rhs_rel_exact": 0.12330079836137736, "n_own": 4, "sv_rel": [6.492747262084769e-17, 6.504448763183512e-17, 6.504448763183514e-17, 0.006132137805425166, 0.01195396179600742, 0.015510611501690592, 0.017417698137847944, 0.019572612526931644]}
+  LieNLSD_RHS@eval: 4 generators, 0 s; saved fins_runs/noise_thin/n3e-4/baselines_kdv_s44.npz
+  LieNLSD_RHS_spec@eval: own count 4; {"jac_rel": 0.0, "jac_rel_cols": [0.0, 0.0, 0.0, 0.0], "rhs_rel_exact": 0.8863844346796349, "n_own": 4, "sv_rel": [8.183615449811282e-17, 8.211005552880945e-17, 8.211005552880946e-17, 0.007433934904322523, 0.01767554874532649, 0.023394256278121042, 0.028536328787571247, 0.03947721159867968]}
+  LieNLSD_RHS_spec@eval: 4 generators, 0 s; saved fins_runs/noise_thin/n3e-4/baselines_kdv_s44.npz
+$ exp41_baselines.py --pde kdv --seed 44 --methods LieNLSD_F,LieNLSD_F@eval --lienlsd-fit-points 163840 --lienlsd-val-points 32768 --noise 0.0003 --thin 1 --out fins_runs/noise_thin/n3e-4/baselines_kdv_s44.npz
+NeuralOp FNO loaded successfully.
+    Running batched PyTorch ETDRK4 solver on GPU for 1 samples...
+[kdv] seed 44, data seed 1044: training (1024, 1, 128, 128), evaluation (10, 128, 128), class dimension 4, degree 2, noise 0.0003, thin 1, cpu
+  LieNLSD_F: own count 2; {"jac_rel": 0.34122847160700454, "jac_rel_cols": [0.23086726563452942, 0.24968930559613597, 0.019702631665072086, 0.020105533319907977], "rhs_rel_exact": 0.12330079836137736, "rhs_rel_fit": 0.08922554559248712, "n_own": 2, "sv_rel": [7.155083313054626e-17, 7.192830302820029e-17, 0.021455629275012794, 0.02750506900957524, 0.039388658104686176, 0.04596208892367523, 0.049443662965840414, 0.06298311963179894]}
+  LieNLSD_F: F Adan, 200 epochs, best epoch 160, held-out relative MSE 3.890e-02
+  LieNLSD_F: 4 generators, 470 s; saved fins_runs/noise_thin/n3e-4/baselines_kdv_s44.npz
+  LieNLSD_F@eval: own count 3; {"jac_rel": 0.20768878375881375, "jac_rel_cols": [0.15620444838648662, 0.13489587251202786, 0.019632239537844397, 0.012348277346908174], "rhs_rel_exact": 0.12330079836137736, "rhs_rel_fit": 0.08922554559248712, "n_own": 3, "sv_rel": [6.924174159181858e-17, 6.937221329218919e-17, 0.009152033079560496, 0.012030606485923405, 0.016500644526532684, 0.017628959031468636, 0.01983960849459003, 0.022587400962852864]}
+  LieNLSD_F@eval: F Adan, 200 epochs, best epoch 160, held-out relative MSE 3.890e-02
+  LieNLSD_F@eval: 4 generators, 1 s; saved fins_runs/noise_thin/n3e-4/baselines_kdv_s44.npz

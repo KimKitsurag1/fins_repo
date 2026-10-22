@@ -1,0 +1,4 @@
+$ exp56_wsindy.py --pde ks --seed 42 --data eval --noise 0.01 --out fins_runs/ks_runs/n1e-2/wsindy_ks_s42
+[ks] eval data (10 trajectories), data seed 1042, noise 0.01: u_t = -0.99998 d2(u^1) -1 d4(u^1) -0.50004 d1(u^2)   (lambda 3.35e-04, residual 5.25e-03; m 37,21, p 8,10, 23220 rows; 4 s)
+  determining system 128 x 30: smallest singular values / largest 1.2e-27 8.4e-17 3.6e-15 2.6e-02 3.6e-02 1.0e-01; hard algebra dimension 3 (k = 3); 2 s
+  saved fins_runs/ks_runs/n1e-2/wsindy_ks_s42_soft.npz, fins_runs/ks_runs/n1e-2/wsindy_ks_s42_hard.npz

@@ -1,0 +1,11 @@
+{
+ "pde": "kdv",
+ "seed": 43,
+ "arm": "wide",
+ "n_train": 512,
+ "epochs": 300,
+ "kind": "wide",
+ "best_val": 0.02900797314941883,
+ "seconds": 108.2340829372406,
+ "device": "cuda"
+}

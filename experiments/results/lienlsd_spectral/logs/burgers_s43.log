@@ -1,0 +1,9 @@
+NeuralOp FNO loaded successfully.
+    Running batched PyTorch solver on GPU for 1024 samples...
+    Running batched PyTorch solver on GPU for 10 samples...
+[burgers] seed 43, data seed 1043: training (1024, 1, 64, 128), evaluation (10, 64, 128), class dimension 5, degree 2, cpu
+  LieNLSD_RHS_spec: own count 5; {"jac_rel": 0.0, "jac_rel_cols": [0.0, 0.0, 0.0], "rhs_rel_exact": 0.07583458802707475, "n_own": 5, "sv_rel": [7.267187840844786e-17, 7.440873618429308e-17, 7.440873618429308e-17, 0.0068464656968020895, 0.009156235220600889, 0.014179802486669979, 0.015495027251346338, 0.0193311438958386, 0.02502902144347128]}
+  LieNLSD_RHS_spec: 5 generators, 0 s; saved fins_runs/lienlsd_spectral/baselines_burgers_s43.npz
+  LieNLSD_F_spec: own count 5; {"jac_rel": 0.41094465358382615, "jac_rel_cols": [0.3909919499828239, 0.12304421191162754, 0.029341528126638237], "rhs_rel_exact": 0.07583458802707475, "rhs_rel_fit": 0.09381691983837442, "n_own": 5, "sv_rel": [7.182468623945316e-17, 7.386918250239142e-17, 0.004198142940367083, 0.006285450681841662, 0.007743705977968273, 0.017180730271952514, 0.01898874858464816, 0.024119956833696995, 0.024965957778913476]}
+  LieNLSD_F_spec: F Adan, 200 epochs, best epoch 170, held-out relative MSE 3.451e-02
+  LieNLSD_F_spec: 5 generators, 120 s; saved fins_runs/lienlsd_spectral/baselines_burgers_s43.npz

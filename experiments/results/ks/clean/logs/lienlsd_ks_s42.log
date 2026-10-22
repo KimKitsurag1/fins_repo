@@ -1,0 +1,5 @@
+$ exp41_baselines.py --pde ks --seed 42 --methods LieNLSD_RHS@eval --lienlsd-fit-points 163840 --lienlsd-val-points 32768 --noise 0 --out fins_runs/ks_runs/clean/lienlsd_ks_s42.npz
+NeuralOp FNO loaded successfully.
+[ks] seed 42, data seed 1042: training (1, 1, 128, 128), evaluation (10, 128, 128), class dimension 3, degree 2, noise 0, thin 1, cpu
+  LieNLSD_RHS@eval: own count 3; {"jac_rel": 0.0, "jac_rel_cols": [0.0, 0.0, 0.0, 0.0, 0.0], "rhs_rel_exact": 0.06392586487831546, "n_own": 3, "sv_rel": [6.100193175560509e-17, 6.10019317556051e-17, 1.3568587618664512e-16, 0.02104335817056421, 0.03250662248598254, 0.03944996378046317, 0.053435590492002936]}
+  LieNLSD_RHS@eval: 3 generators, 1 s; saved fins_runs/ks_runs/clean/lienlsd_ks_s42.npz

@@ -91,11 +91,8 @@ class PDESolver:
     def solve_kdv(u0, T, Nt, dt_max=1e-4, u_clip_factor=10.0,
                           hyper_viscosity=1e-4, verbose=False):
         """
-        Решатель KdV (ETDRK4) с поддержкой PyTorch GPU Batching.
-        ГАРАНТИРУЕТ:
-          - возврат массива формы (Batch, Nx, Nt) или (Nx, Nt)
-          - отсутствие inf/nan значений без искусственного обрезания
-          - физически корректное решение с экстремальным GPU-ускорением
+        KdV solver (ETDRK4) with PyTorch GPU batching.
+        Returns an array of shape (Batch, Nx, Nt) or (Nx, Nt); the solution is not clipped.
         """
         import torch
         import numpy as np
@@ -192,6 +189,114 @@ class PDESolver:
         return res if is_batched else res[0]
 
 
+def solver_rhs_ut(pde_type, sols, cfg):
+    """Instantaneous time derivative the data-generating solver integrates.
+
+    For KdV the time derivative is NOT recoverable from the benchmark's
+    stored trajectory: the solver keeps modes up to k ~ 21 after 2/3
+    dealiasing, rotating at omega = k^3 ~ 9e3, while the save step (~0.008)
+    resolves only omega < 398 -- u_t lives 97.5 percent above k = 7, and
+    finite differences of the stored field are wrong by ~99 percent. It IS
+    recoverable equation-free from a local stencil aligned to the solver's
+    internal grid (spacing 2e-5: 0.3 percent; exp31 --ut stencil). This returns the solver's own right-hand side at
+    each saved time, evaluated exactly as the integrator does
+    (u_hat_t = i k^3 v_hat - 3 i k FFT(u^2), both dealiased).
+
+    It uses the solver, so a FINS run fed with it is NOT equation-free: it
+    is the diagnostic ceiling, like the oracle operator.
+    """
+    if pde_type != 'kdv':
+        raise ValueError("solver_rhs_ut is implemented for kdv only; "
+                         "heat and burgers time derivatives are resolvable "
+                         "by finite differences (0.25 and 3 percent)")
+    u = torch.as_tensor(sols, dtype=torch.float64)
+    if u.dim() == 4:
+        u = u[:, 0]
+    B, Nx, Nt = u.shape
+    L = 2 * np.pi
+    k = torch.fft.fftfreq(Nx, d=L / Nx, dtype=torch.float64) * 2 * np.pi
+    kmax = torch.abs(k).max()
+    mask23 = (torch.abs(k) <= (2.0 / 3.0 * kmax)).view(1, Nx, 1)
+    ik = (1j * k).view(1, Nx, 1)
+    v = torch.fft.fft(u, dim=1) * mask23
+    u_clean = torch.fft.ifft(v, dim=1).real
+    rhs = (1j * k.view(1, Nx, 1) ** 3) * v \
+        - 3 * ik * torch.fft.fft(u_clean ** 2, dim=1) * mask23
+    ut = torch.fft.ifft(rhs, dim=1).real
+    return ut.float().unsqueeze(1)                     # [B, 1, Nx, Nt]
+
+
+def generate_tangent_pairs(pde_type, ics, cfg, n_dirs=2, n_ics=None,
+                           eps=1e-3, seed=0, mode='fourier'):
+    """Random-direction Jacobian targets from the SAME solver as the data.
+
+    For a subset of initial conditions u0 and random smooth directions
+    delta, returns the central-difference response of the true operator,
+    R = (S(u0 + eps delta) - S(u0 - eps delta)) / (2 eps), i.e. the action
+    of the true Jacobian dS[u0] on delta. Training the surrogate to match
+    these on RANDOM directions constrains its Jacobian -- which is what the
+    equivariance criterion actually evaluates -- without naming any
+    symmetry: the directions are random Fourier fields plus a random
+    constant, drawn like the ICs themselves.
+
+    Returns (u0_t [P,1,Nx], delta [P,1,Nx], resp [P,1,Nx,Nt]) with P =
+    n_ics * n_dirs, with the same ordering convention as generate_pde_data.
+    """
+    rng = np.random.default_rng(seed)
+    n_ics = n_ics or ics.shape[0]
+    idx = rng.choice(ics.shape[0], size=min(n_ics, ics.shape[0]),
+                     replace=False)
+    u0 = ics[idx, 0].cpu().numpy()
+    M, Nx = u0.shape
+    L = 2 * np.pi
+    x = np.linspace(0, L, Nx, endpoint=False)
+    all_ic = ics[:, 0].cpu().numpy()
+    deltas = np.zeros((M, n_dirs, Nx))
+    for i in range(M):
+        for j in range(n_dirs):
+            if mode == 'modes':
+                # one Fourier mode per direction, k = 0 (the mean) treated
+                # like any other; direction j cycles through
+                # 1, cos x, sin x, cos 2x, sin 2x, ...
+                k = (j + 1) // 2
+                f = (np.ones(Nx) if j == 0 else
+                     (np.cos(k * x) if j % 2 == 1 else np.sin(k * x)))
+            elif mode == 'data':
+                # data-manifold direction: the difference to another
+                # training IC -- the variability the data actually has,
+                # constant offsets and amplitude changes included, still
+                # naming no symmetry
+                other = all_ic[rng.integers(0, all_ic.shape[0])]
+                f = other - u0[i]
+                if np.sqrt(np.mean(f ** 2)) < 1e-8:
+                    f = rng.standard_normal(Nx)
+            else:
+                f = np.zeros(Nx)
+                for k in range(1, rng.integers(2, 6)):
+                    f += rng.standard_normal() / k * np.sin(
+                        k * x + rng.uniform(0, 2 * np.pi))
+                f += rng.uniform(-0.5, 0.5)
+            scale = np.sqrt(np.mean(u0[i] ** 2)) / (np.sqrt(np.mean(f ** 2)) + 1e-12)
+            deltas[i, j] = f * scale
+    u0_rep = np.repeat(u0[:, None, :], n_dirs, axis=1).reshape(M * n_dirs, Nx)
+    dl = deltas.reshape(M * n_dirs, Nx)
+    plus = np.concatenate([u0_rep + eps * dl, u0_rep - eps * dl], axis=0)
+    Nt = cfg.time_steps
+    if pde_type == 'heat':
+        sols = np.stack([PDESolver.solve_heat(p, cfg.alpha_heat, cfg.T_final,
+                                              Nt, L=L) for p in plus])
+    elif pde_type == 'burgers':
+        sols = PDESolver.solve_burgers(plus, cfg.nu_burgers, cfg.T_final, Nt,
+                                       verbose=False)
+    else:
+        sols = PDESolver.solve_kdv(plus, cfg.T_final, Nt, verbose=False)
+    sols = np.asarray(sols)
+    resp = (sols[:M * n_dirs] - sols[M * n_dirs:]) / (2 * eps)
+    T = lambda a: torch.tensor(np.asarray(a), dtype=torch.float32)
+    return (T(u0_rep).view(-1, 1, Nx), T(dl).view(-1, 1, Nx),
+            T(resp).view(-1, 1, Nx, Nt))
+
+
 def generate_pde_data(pde_type: str, cfg: ExperimentConfig, n_samples: int,
                       seed: int = 42) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
     """
@@ -212,7 +317,6 @@ def generate_pde_data(pde_type: str, cfg: ExperimentConfig, n_samples: int,
     if pde_type == 'heat':
         # Multi-scale: L varies, T ∝ L² (scaling symmetry: x→λx, t→λ²t)
         domain_lengths = [0.5, 0.7, 1.0, 1.4, 2.0]
-        # domain_lengths = [1.0, 1.0, 1.0, 1.0, 1.0]
         T_base = cfg.T_final  # T=1.0 at L=1.0
         n_gauss = n_samples // 3
         n_sine = n_samples // 3
@@ -283,7 +387,6 @@ def generate_pde_data(pde_type: str, cfg: ExperimentConfig, n_samples: int,
 
     elif pde_type == 'kdv':
         # KdV Scaling symmetry: x -> \lambda x, t -> \lambda^3 t, u -> \lambda^-2 u
-        # domain_lengths = [0.7 * 2*np.pi, 1.0 * 2*np.pi, 1.5 * 2*np.pi, 2.0 * 2*np.pi]
         domain_lengths = [1.0 * 2*np.pi, 1.0 * 2*np.pi, 1.0 * 2*np.pi, 1.0 * 2*np.pi]
         T_base = cfg.T_final
         L_base = 2*np.pi

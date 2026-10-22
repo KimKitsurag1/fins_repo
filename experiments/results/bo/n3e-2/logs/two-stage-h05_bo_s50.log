@@ -1,0 +1,6 @@
+$ exp50_two_stage.py --pde bo --seed 50 --data-seed 1050 --noise 0.03 --H 0.05 --K 200 --rel 0.1 --out fins_runs/bo_runs/n3e-2/two-stage-h05_bo_s50
+/usr/local/lib/python3.13/dist-packages/pysindy/feature_library/weak_pde_library.py:177: UserWarning: is_uniform and periodic have been deprecated.in favor of differetiation_method and diff_kwargs.
+  warnings.warn(
+[bo] data seed 1050, noise 0.03, thin 1: u_t = -4.452 x0_1 -0.072651 x0_111 +0.48413 x0x0_1 -0.058727 x0^2x0_1 +0.0051486 x0x0_111 -0.00020279 x0^2x0_111   (weak residual 9.07e-02; 6 s)
+  determining system 266 x 30: smallest singular values / largest 2.8e-17 3.6e-15 4.2e-03 9.2e-03 5.9e-02 6.4e-02 8.2e-02; hard algebra dimension 2 (k = 4); 3 s
+  saved fins_runs/bo_runs/n3e-2/two-stage-h05_bo_s50_soft.npz, fins_runs/bo_runs/n3e-2/two-stage-h05_bo_s50_hard.npz

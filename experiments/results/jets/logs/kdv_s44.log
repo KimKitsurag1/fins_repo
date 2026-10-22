@@ -1,0 +1,10 @@
+[kdv] seed 44: n 256, dt 0.002, nsub 32, nt 33, K 8; u in [-0.62, 3.65]; relative change over K 1.19; 84 pairs, 196 s
+  spectrum: -4.0e-17 1.0e-17 5.6e-13 1.4e-06 1.9e-04 1.6e-03 1.3e-02 2.2e-02 1.1e-01 1.8e-01 2.2e-01 2.9e-01 3.3e-01 4.3e-01 4.6e-01
+  true characteristics (fit residual 8.7e-16): u_x 1.2e-28  K3 -6.0e-18  K5 1.9e-13
+  expected rank 3: lambda4 / lambda3 2.41e+06; largest-ratio rank 3; held-out missing of the 3 lowest 0.0000 (random 1.789 +- 0.165)
+    eigenvector 1 (-4.0e-17): -1.00 u1, -0.04 u*u1, -0.04 u3, -0.00 u1*u2
+    eigenvector 2 (1.0e-17): +1.00 u*u1, +0.86 u3, +0.86 u1, +0.00 u1*u2
+    eigenvector 3 (5.6e-13): -1.00 u*u1, -0.86 u3, -0.22 u1*u2, -0.18 u1
+    eigenvector 4 (1.4e-06): +1.00 u2, -0.61 u, -0.51 u*u2, +0.38 u^2
+    eigenvector 5 (1.9e-04): -1.00 u, +0.94 1, +0.51 u2, +0.12 u^2
+  saved experiments/results/jets/kdv_s44.json/.npz

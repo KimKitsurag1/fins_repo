@@ -1,0 +1,42 @@
+$ exp41_baselines.py --pde bo --seed 42 --methods LieGAN,LaLiGAN,Augerino --out /content/drive/MyDrive/fins_runs/results/bo_runs/clean/baselines_bo_s42.npz
+NeuralOp FNO loaded successfully.
+[bo] seed 42, data seed 1042: training (1024, 1, 128, 128), evaluation (10, 128, 128), class dimension 4, degree 2, noise 0, thin 1, cuda
+    LieGAN: training in homogeneous ℝ⁴  (n_channel=4, λ=1.0, η=0.1, μ_sp=0.05, σ_init=1.0, K=256)...
+    LieGAN ep 1/100  D_r=0.378 D_f=0.434 G_adv=3.304 reg=0.790 sp=1.983 chreg=6.572 (1.8s)
+    LieGAN ep 10/100  D_r=0.418 D_f=0.492 G_adv=3.408 reg=0.883 sp=1.622 chreg=3.263 (1.6s)
+    LieGAN ep 20/100  D_r=0.623 D_f=0.649 G_adv=1.041 reg=0.920 sp=1.500 chreg=1.193 (1.5s)
+    LieGAN ep 30/100  D_r=0.674 D_f=0.679 G_adv=0.763 reg=0.923 sp=1.438 chreg=0.003 (1.5s)
+    LieGAN ep 40/100  D_r=0.674 D_f=0.677 G_adv=0.744 reg=0.914 sp=1.448 chreg=0.003 (1.5s)
+    LieGAN ep 50/100  D_r=0.670 D_f=0.678 G_adv=0.777 reg=0.898 sp=1.457 chreg=0.004 (1.6s)
+    LieGAN ep 60/100  D_r=0.679 D_f=0.679 G_adv=0.762 reg=0.856 sp=1.466 chreg=0.004 (1.5s)
+    LieGAN ep 70/100  D_r=0.687 D_f=0.684 G_adv=0.720 reg=0.745 sp=1.560 chreg=0.004 (1.4s)
+    LieGAN ep 80/100  D_r=0.693 D_f=0.692 G_adv=0.708 reg=0.571 sp=1.724 chreg=0.004 (1.3s)
+    LieGAN ep 90/100  D_r=0.691 D_f=0.694 G_adv=0.708 reg=0.490 sp=1.827 chreg=0.004 (1.2s)
+    LieGAN ep 100/100  D_r=0.693 D_f=0.692 G_adv=0.707 reg=0.474 sp=1.866 chreg=0.004 (1.2s)
+  LieGAN: 4 generators, 131 s; saved /content/drive/MyDrive/fins_runs/results/bo_runs/clean/baselines_bo_s42.npz
+    LaLiGAN: joint training  (input=16384D, latent=64D, n_channel=4, w_recon=1.0, w_GAN=0.01, w_reg=0.1)...
+    LaLiGAN ep 1/100  recon=0.3765  gan=1.439  reg=0.926  chreg=4.531  d=0.633  (5.6s)
+    LaLiGAN ep 10/100  recon=0.0579  gan=0.871  reg=0.997  chreg=1.201  d=0.647  (4.5s)
+    LaLiGAN ep 20/100  recon=0.0233  gan=0.694  reg=1.000  chreg=0.506  d=0.693  (5.4s)
+    LaLiGAN ep 30/100  recon=0.0273  gan=0.694  reg=1.000  chreg=0.297  d=0.693  (4.5s)
+    LaLiGAN ep 40/100  recon=0.0488  gan=65.820  reg=0.867  chreg=0.175  d=48.877  (4.9s)
+    LaLiGAN ep 50/100  recon=0.0119  gan=57.324  reg=0.014  chreg=0.176  d=39.941  (4.9s)
+    LaLiGAN ep 60/100  recon=0.0124  gan=64.941  reg=0.012  chreg=0.100  d=36.230  (4.6s)
+    LaLiGAN ep 70/100  recon=0.0091  gan=70.605  reg=0.009  chreg=0.090  d=32.471  (5.4s)
+    LaLiGAN ep 80/100  recon=0.0570  gan=71.484  reg=0.012  chreg=0.081  d=34.570  (4.5s)
+    LaLiGAN ep 90/100  recon=0.0077  gan=70.312  reg=0.009  chreg=0.072  d=31.823  (4.5s)
+    LaLiGAN ep 100/100  recon=0.0156  gan=67.285  reg=0.010  chreg=0.058  d=34.717  (5.4s)
+  LaLiGAN: 4 generators, 486 s; saved /content/drive/MyDrive/fins_runs/results/bo_runs/clean/baselines_bo_s42.npz
+    Augerino: equivariant training  (ncopies=1, λ=0.05, 7 generators)...
+    Augerino ep 1/80  task=3.2765e+00  reg=-0.0001  lr=1.00e-03  widths=[0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02]  (15.0s)
+    Augerino ep 8/80  task=2.0916e-01  reg=-0.0001  lr=9.76e-04  widths=[0.02, 0.02, 0.01, 0.02, 0.01, 0.01, 0.02]  (14.6s)
+    Augerino ep 16/80  task=9.2398e-02  reg=-0.0000  lr=9.05e-04  widths=[0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01]  (14.6s)
+    Augerino ep 24/80  task=5.8220e-02  reg=-0.0000  lr=7.94e-04  widths=[0.01, 0.01, 0.00, 0.01, 0.01, 0.00, 0.01]  (14.6s)
+    Augerino ep 32/80  task=3.7054e-02  reg=-0.0000  lr=6.55e-04  widths=[0.01, 0.01, 0.00, 0.01, 0.01, 0.00, 0.01]  (14.7s)
+    Augerino ep 40/80  task=2.4125e-02  reg=-0.0000  lr=5.00e-04  widths=[0.01, 0.01, 0.00, 0.01, 0.01, 0.00, 0.01]  (14.6s)
+    Augerino ep 48/80  task=2.1095e-02  reg=-0.0000  lr=3.45e-04  widths=[0.01, 0.01, 0.00, 0.01, 0.00, 0.00, 0.01]  (14.6s)
+    Augerino ep 56/80  task=1.5806e-02  reg=-0.0000  lr=2.06e-04  widths=[0.01, 0.01, 0.00, 0.01, 0.00, 0.00, 0.01]  (14.6s)
+    Augerino ep 64/80  task=1.2549e-02  reg=-0.0000  lr=9.55e-05  widths=[0.01, 0.01, 0.00, 0.01, 0.00, 0.00, 0.01]  (14.5s)
+    Augerino ep 72/80  task=1.1589e-02  reg=-0.0000  lr=2.45e-05  widths=[0.01, 0.01, 0.00, 0.01, 0.00, 0.00, 0.01]  (14.6s)
+    Augerino ep 80/80  task=1.1684e-02  reg=-0.0000  lr=0.00e+00  widths=[0.01, 0.01, 0.00, 0.01, 0.00, 0.00, 0.01]  (14.6s)
+  Augerino: 7 generators, 1168 s; saved /content/drive/MyDrive/fins_runs/results/bo_runs/clean/baselines_bo_s42.npz

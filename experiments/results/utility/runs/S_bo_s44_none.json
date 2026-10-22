@@ -1,0 +1,11 @@
+{
+ "pde": "bo",
+ "seed": 44,
+ "arm": "none",
+ "n_train": 512,
+ "epochs": 300,
+ "kind": "mixed",
+ "best_val": 0.018543317914009094,
+ "seconds": 118.23998856544495,
+ "device": "cuda"
+}

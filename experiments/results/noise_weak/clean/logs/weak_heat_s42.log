@@ -1,0 +1,13 @@
+$ exp49_weak.py --pde heat --op exact --seed 42 --data-seed 1042 --noise 0 --K 16 --stride 1 --wt 2 --wp 2 --wx auto --wx-factor 2 --save fins_runs/noise_weak_runs/clean/weak_heat_s42.npz
+  spatial modes from the data: n95 8 of a 256-point domain, 64 scored points -> M = 4
+  rollouts of 1120 start states: 0 s
+/usr/local/lib/python3.13/dist-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+  weak blocks for 34 basis fields, 112 starts, 9 x 2 tests: 6 s
+[heat, exact, weak] data seed 1042, 10 trajectories, degree 3, restricted class 34 of 60, K = 16, starts every 1, tests 9 x 2 (p = 2), mu 1.0, noise 0, thin 1; 7 s
+  ground truth in the restricted class: max relative fit residual 7.2e-14
+  lowest eigenvalues: -5.7e-16 -2.3e-16 -1.7e-16 -9.0e-17 -8.0e-17 3.8e-19 1.5e-16 2.4e-16 1.1e-11 2.0e-10 4.9e-02 1.2e-01 2.0e-01
+  algebra losses: ∂_x 1.7e-18  ∂_t 5.7e-17  u∂_u 5.8e-19  Galilean -3.0e-17  scaling 1.8e-07  projective 7.6e-07  b=1 9.7e-28  b=x 7.7e-28  b=x2+2at -4.7e-17  b=x3+6axt 5.9e-17   (lambda11 = 4.9e-02)
+  algebra inside the 10 lowest: ∂_x 1.00  ∂_t 1.00  u∂_u 1.00  Galilean 1.00  scaling 1.00  projective 1.00  b=1 1.00  b=x 1.00  b=x2+2at 1.00  b=x3+6axt 1.00
+  own count (largest eigenvalue ratio among the lowest 17, floor 1e-06): 10 (k = 10)
+  saved fins_runs/noise_weak_runs/clean/weak_heat_s42.npz

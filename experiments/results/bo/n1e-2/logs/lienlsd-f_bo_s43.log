@@ -1,0 +1,15 @@
+$ exp41_baselines.py --pde bo --seed 43 --methods LieNLSD_F,LieNLSD_F@eval --lienlsd-fit-points 163840 --lienlsd-val-points 32768 --noise 0.01 --out fins_runs/bo_runs/n1e-2/lienlsd-f_bo_s43.npz
+NeuralOp FNO loaded successfully.
+[bo] seed 43, data seed 1043: training (1024, 1, 128, 128), evaluation (10, 128, 128), class dimension 4, degree 2, noise 0.01, thin 1, cpu
+$ exp41_baselines.py --pde bo --seed 43 --methods LieNLSD_F,LieNLSD_F@eval --lienlsd-fit-points 163840 --lienlsd-val-points 32768 --noise 0.01 --out fins_runs/bo_runs/n1e-2/lienlsd-f_bo_s43.npz
+NeuralOp FNO loaded successfully.
+[bo] seed 43, data seed 1043: training (1024, 1, 128, 128), evaluation (10, 128, 128), class dimension 4, degree 2, noise 0.01, thin 1, cpu
+$ exp41_baselines.py --pde bo --seed 43 --methods LieNLSD_F,LieNLSD_F@eval --lienlsd-fit-points 163840 --lienlsd-val-points 32768 --noise 0.01 --out fins_runs/bo_runs/n1e-2/lienlsd-f_bo_s43.npz
+NeuralOp FNO loaded successfully.
+[bo] seed 43, data seed 1043: training (1024, 1, 128, 128), evaluation (10, 128, 128), class dimension 4, degree 2, noise 0.01, thin 1, cpu
+  LieNLSD_F: own count 2; {"jac_rel": NaN, "jac_rel_cols": [NaN, NaN, NaN, NaN], "rhs_rel_exact": NaN, "rhs_rel_fit": 0.25648022880598437, "n_own": 2, "sv_rel": [6.899952928532542e-17, 7.798156267716527e-17, 0.012263569429326548, 0.015108795324058094, 0.020985864030349355, 0.025055983000064643, 0.026543838715493304, 0.03187922518686535]}
+  LieNLSD_F: F Adan, 200 epochs, best epoch 200, held-out relative MSE 6.577e-02
+  LieNLSD_F: 4 generators, 518 s; saved fins_runs/bo_runs/n1e-2/lienlsd-f_bo_s43.npz
+  LieNLSD_F@eval: own count 4; {"jac_rel": NaN, "jac_rel_cols": [NaN, NaN, NaN, NaN], "rhs_rel_exact": NaN, "rhs_rel_fit": 0.25648022880598437, "n_own": 4, "sv_rel": [6.692032300326138e-17, 6.72378414320928e-17, 0.007168905707196342, 0.009038047278129147, 0.014033259768398034, 0.014415108097087018, 0.01702875575000311, 0.022238960949339432]}
+  LieNLSD_F@eval: F Adan, 200 epochs, best epoch 200, held-out relative MSE 6.577e-02
+  LieNLSD_F@eval: 4 generators, 1 s; saved fins_runs/bo_runs/n1e-2/lienlsd-f_bo_s43.npz

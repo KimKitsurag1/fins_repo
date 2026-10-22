@@ -51,21 +51,25 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
+from torch.func import jvp
 from torch.utils.data import DataLoader, TensorDataset
 
 from method_fins_components import (
+    ConstrainedGeneratorFNO,
     SingleGeneratorFNO,
     deflate_generator,
     create_grids,
     _fd_x_periodic,
     _fd_t,
     fd_t_high_order,
-)
+
+    PointwiseGenerator,)
 
 
 
 def train_solution_operator(train_ic, train_sol, train_x, train_t,
                              cfg, device, epochs: Optional[int] = None,
+                             tangent=None, lambda_tangent: float = 0.0,
                              verbose: bool = True,
                              equivariant: bool = True):
     """
@@ -77,8 +81,7 @@ def train_solution_operator(train_ic, train_sol, train_x, train_t,
             only (u_0, t_coord) as channels, so translation-equivariance
             under x is architectural (through FFT).
       - equivariant=False: FNOSurrogate from shared_modules — receives
-            (u_0, x_coord, t_coord). Use ONLY for v1-compatibility
-            experiments. Breaks ∂_x symmetry recovery.
+            (u_0, x_coord, t_coord). Breaks ∂_x symmetry recovery.
 
     Returns a frozen S_θ with requires_grad=False on its parameters.
     """
@@ -119,6 +122,24 @@ def train_solution_operator(train_ic, train_sol, train_x, train_t,
             u_pred = surrogate(u0, xc, tc)
             loss = F.mse_loss(u_pred, u)
 
+            if tangent is not None and lambda_tangent > 0:
+                # Tangent (Jacobian) matching on RANDOM directions. MSE on
+                # trajectories pins S but leaves dS free wherever the data
+                # do not excite it -- the surrogate reached 1.7 percent L2
+                # on Burgers with an O(1) residual on the true Galilean
+                # generator and could not tell it from a non-symmetry.
+                # Matching jvp(S)(u0, delta) to the solver's own response
+                # on random deltas constrains dS directly; no symmetry
+                # enters, so nothing downstream is circular.
+                t_u0, t_dl, t_resp = tangent
+                bi = torch.randint(0, t_u0.shape[0], (u0.shape[0],))
+                tu0, tdl, tre = (t_u0[bi].to(device), t_dl[bi].to(device),
+                                 t_resp[bi].to(device))
+                _, jv = jvp(lambda z: surrogate(z, xc, tc), (tu0,), (tdl,))
+                l_tan = ((jv - tre).pow(2).mean(dim=(1, 2, 3))
+                         / (tre.pow(2).mean(dim=(1, 2, 3)) + 1e-8)).mean()
+                loss = loss + lambda_tangent * l_tan
+
             opt.zero_grad()
             loss.backward()
             torch.nn.utils.clip_grad_norm_(surrogate.parameters(), 1.0)
@@ -151,7 +172,7 @@ def train_solution_operator(train_ic, train_sol, train_x, train_t,
 
 
 
-def _compute_Q_field(xi, eta, phi, u, dx, dt):
+def _compute_Q_field(xi, eta, phi, u, dx, dt, ut=None):
     """
     Characteristic Q = φ − ξ·u_x − η·u_t on the full space-time field.
 
@@ -164,12 +185,26 @@ def _compute_Q_field(xi, eta, phi, u, dx, dt):
     smooth synthetic data).
     """
     Nx = u.shape[2]
-    k = torch.fft.fftfreq(Nx, d=dx, device=u.device) * 2.0 * np.pi
-    k = k.view(1, 1, Nx, 1)
+    # dx, dt: scalars OR per-sample [B] tensors. Sample 0's spacing applied
+    # to the whole batch of the multi-scale heat data
+    # (L in {0.5..2.0}, T ~ L^2) inflates u_x up to 4x and u_t up to
+    # 16x on 80 percent of samples, pushing the network toward xi, eta -> 0.
+    base = torch.fft.fftfreq(Nx, d=1.0, device=u.device).view(1, 1, Nx, 1)
+    if torch.is_tensor(dx) and dx.dim() >= 1:
+        k = 2.0 * np.pi * base / dx.to(u.device).view(-1, 1, 1, 1)
+    else:
+        k = 2.0 * np.pi * base / float(dx)
     u_hat = torch.fft.fft(u, dim=2)
     u_x = torch.fft.ifft(1j * k * u_hat, dim=2).real
 
-    u_t = fd_t_high_order(u, dt)
+    if ut is not None:
+        # provided time derivative (e.g. the solver's own right-hand side on
+        # KdV, where finite differences of the stored field are aliased)
+        u_t = ut.to(u.device, u.dtype)
+    elif torch.is_tensor(dt) and dt.dim() >= 1:
+        u_t = fd_t_high_order(u, 1.0) / dt.to(u.device).view(-1, 1, 1, 1)
+    else:
+        u_t = fd_t_high_order(u, dt)
 
     return phi - xi * u_x - eta * u_t
 
@@ -178,7 +213,12 @@ def equivariance_loss_jvp(S_theta, xi, eta, phi,
                            u0, u_traj, x_coords, t_coords,
                            dx, dt, device,
                            t_margin: int = 2,
-                           normalize: bool = True):
+                           normalize: bool = True,
+                           channel_norm: str = 'none',
+                           ut=None,
+                           horizon=None,
+                           seam: float = 0.2,
+                           shoot_every=None):
     """
     FINS JVP equivariance residual.
 
@@ -204,24 +244,95 @@ def equivariance_loss_jvp(S_theta, xi, eta, phi,
 
     B, C, Nx, Nt = u_traj.shape
 
-    Q = _compute_Q_field(xi, eta, phi, u_traj, dx, dt)
+    Q = _compute_Q_field(xi, eta, phi, u_traj, dx, dt, ut=ut)
 
     Q_0 = Q[:, :, :, 0].contiguous()
 
     def S_fn(u0_):
         return S_theta(u0_, x_coords, t_coords)
 
-    _, dS_Q = jvp(S_fn, (u0,), (Q_0,))
+    if horizon is not None and shoot_every:
+        # Multiple shooting: the short-horizon condition from data states at
+        # t_j = 0, s, 2s, ... so the generator is constrained on the whole
+        # time axis (a single start at t = 0 leaves every later slice free,
+        # and even with the exact operator its minima miss one algebra
+        # direction -- exp30). Needs an autonomous operator (the stepper).
+        K = int(horizon)
+        starts = list(range(0, u_traj.shape[-1] - K - 1 + 1, int(shoot_every)))
+        J = len(starts)
+        us = torch.cat([u_traj[..., j] for j in starts], dim=0)
+        qs = torch.cat([Q[..., j] for j in starts], dim=0)
+        _, dSs = jvp(S_fn, (us,), (qs,))
+        xc = x_coords.to(dSs.device)[:, 0, :]
+        Lx = xc[:, -1] + (xc[:, 1] - xc[:, 0])
+        rel = (xc - xc[:, :1]) / Lx[:, None]
+        mask = ((rel >= seam) & (rel <= 1 - seam)).float()[:, None, :, None]
+        num = torch.zeros(u_traj.shape[0], device=dSs.device)
+        den = torch.zeros_like(num)
+        for n, j in enumerate(starts):
+            d = dSs[n * u_traj.shape[0]:(n + 1) * u_traj.shape[0], ..., 1:K + 1]
+            a = (d - Q[..., j:j + 1]) * mask
+            b = (Q[..., j + 1:j + K + 1] - Q[..., j:j + 1]) * mask
+            num = num + (a - b).pow(2).sum(dim=(1, 2, 3))
+            den = den + a.pow(2).sum(dim=(1, 2, 3)) + b.pow(2).sum(dim=(1, 2, 3))
+        return (num / (den + 1e-12)).mean()
 
+    _, dS_Q = jvp(S_fn, (u0,), (Q_0,))
+    # an operator may return fewer slices than the data (a stepper rolled out
+    # only horizon + 1 steps); score on the common length
+    T_op = dS_Q.shape[-1]
+    if T_op < Q.shape[-1]:
+        Q = Q[..., :T_op]
+        xi, eta, phi = xi[..., :T_op], eta[..., :T_op], phi[..., :T_op]
+
+    Nt = dS_Q.shape[-1]
     if Nt > 2 * t_margin:
         tsl = slice(t_margin, Nt - t_margin)
     else:
         tsl = slice(None)
 
+    if horizon is not None:
+        # Short-horizon increment form. The full-horizon condition is the
+        # symmetry of the PERIODIC problem and is blind to generators that
+        # change the period (scaling, projective): their Q0 is discontinuous
+        # at the seam and transport spreads it over the domain. Comparing
+        # increments dS(Q0) - Q0 against Q(t) - Q0 over the first `horizon`
+        # slices, away from the seam by a fraction `seam` of L, is local in
+        # time and space; as horizon -> 0 it is the Olver condition, with
+        # propagation done by the operator instead of differences of Q.
+        # Exact solver, Burgers, horizon 8, seam 0.2: all five true
+        # generators <= 0.03, non-symmetries >= 0.43; full horizon fails
+        # scaling / projective at 0.34 / 0.84.
+        K = min(int(horizon), dS_Q.shape[-1] - 1)
+        xc = x_coords.to(dS_Q.device)[:, 0, :]
+        Lx = xc[:, -1] + (xc[:, 1] - xc[:, 0])
+        rel = (xc - xc[:, :1]) / Lx[:, None]
+        mask = ((rel >= seam) & (rel <= 1 - seam)).float()[:, None, :, None]
+        a = (dS_Q[..., 1:K + 1] - Q[..., :1]) * mask
+        b = (Q[..., 1:K + 1] - Q[..., :1]) * mask
+        num = (a - b).pow(2).sum(dim=(1, 2, 3))
+        den = a.pow(2).sum(dim=(1, 2, 3)) + b.pow(2).sum(dim=(1, 2, 3)) + 1e-12
+        return (num / den).mean()
+
     resid = dS_Q[..., tsl] - Q[..., tsl]
 
     if not normalize:
         return resid.pow(2).mean()
+
+    if channel_norm == 'q':
+        # Relative characteristic error. Dividing by ||v|| makes the loss
+        # depend on the SCALE of the characteristic a channel produces:
+        # the eta term enters Q as eta * u_t, and on Burgers/KdV u_t is
+        # orders larger than on heat, so any sizeable eta inflates the
+        # numerator while the denominator only counts the raw coefficient.
+        # The optimiser answers by driving eta -> 0 -- measured channel
+        # energy xi/eta/phi = 0.98/0.00/0.01 on Burgers and 0.28/0.00/0.72
+        # on KdV against ground truths needing eta = 0.22 and 0.29, which
+        # puts d_t out of reach. Normalising by ||Q|| instead measures the
+        # condition dS[u0](Q0) = Q on its own scale and removes the
+        # incentive entirely.
+        q_norm_sq = Q[..., tsl].pow(2).mean(dim=(2, 3), keepdim=True) + 1e-8
+        return (resid.pow(2) / q_norm_sq).mean()
 
     v_sq = (xi.pow(2) + eta.pow(2) + phi.pow(2))[..., tsl]
     v_norm_sq = v_sq.mean(dim=(2, 3), keepdim=True) + 1e-6
@@ -284,6 +395,11 @@ def equivariance_loss(S_theta, xi, eta, phi,
             x_coords, t_coords, dx, dt, device, **kwargs,
         )
     elif mode == 'finite_tau':
+        kwargs.pop('channel_norm', None)     # jvp-only options
+        kwargs.pop('ut', None)
+        kwargs.pop('horizon', None)
+        kwargs.pop('seam', None)
+        kwargs.pop('shoot_every', None)
         return equivariance_loss_finite_tau(
             S_theta, xi, eta, phi, u0, u_traj,
             x_coords, t_coords, dx, dt, device, **kwargs,
@@ -301,7 +417,19 @@ def train_fins(train_sol, train_x, train_t,
                                 lr: float = 1e-3,
                                 lambda_norm: float = 1.0,
                                 loss_mode: str = 'jvp',
-                                use_ic_from_sol: bool = True):
+                                use_ic_from_sol: bool = True,
+                                lambda_b: float = 0.0,
+                                anchor: str = 'deflated',
+                                min_perp: float = 0.1,
+                                b_penalty: str = 'full',
+                                channel_norm: str = 'none',
+                                train_ut=None,
+                                batch_size=None,
+                                n_sub=None,
+                                horizon=None,
+                                seam: float = 0.2,
+                                shoot_every=None,
+                                generator: str = 'fno'):
     """
     Sequential deflation training with equivariance loss.
 
@@ -318,6 +446,20 @@ def train_fins(train_sol, train_x, train_t,
     Parameters mirror the deflation training interface in
     method_fins_components for compatibility.
     """
+    # Discovery cost scales with (samples / batch) x epochs x slots. With a
+    # rollout operator each evaluation unrolls Nt steps under jvp, so the
+    # published defaults (1024 samples, batch 8) cost ~77k unrolls and run
+    # for >10 h. n_sub and batch_size cut that without touching the method;
+    # the surrogate is trained on the full set regardless.
+    if n_sub is not None and n_sub < train_sol.shape[0]:
+        g = torch.Generator().manual_seed(0)
+        idx = torch.randperm(train_sol.shape[0], generator=g)[:n_sub]
+        train_sol, train_x, train_t = train_sol[idx], train_x[idx], train_t[idx]
+        if train_ut is not None:
+            train_ut = train_ut[idx]
+        print(f"    discovery uses {n_sub} of the training ICs")
+    bs = batch_size or cfg.batch_size
+
     B_total, _, Nx, Nt = train_sol.shape
 
     if use_ic_from_sol:
@@ -325,15 +467,27 @@ def train_fins(train_sol, train_x, train_t,
     else:
         raise NotImplementedError("Pass IC as separate tensor if needed")
 
+    # optional provided time derivative (solver RHS on KdV, where finite
+    # differences of the stored trajectory are aliased); a zero-width
+    # placeholder keeps the batch structure uniform when absent
+    ut_all = (train_ut if train_ut is not None
+              else torch.zeros(train_sol.shape[0], 0))
     loader = DataLoader(
-        TensorDataset(train_ic, train_sol, train_x, train_t),
-        batch_size=cfg.batch_size, shuffle=True,
+        TensorDataset(train_ic, train_sol, train_x, train_t, ut_all),
+        batch_size=bs, shuffle=True,
     )
 
-    dx = (train_x[0, 0, 1] - train_x[0, 0, 0]).item()
-    dt = (train_t[0, 0, 1] - train_t[0, 0, 0]).item()
+    # per-sample spacings for the multi-scale data, gathered per batch below
+    dx_all = (train_x[:, 0, 1] - train_x[:, 0, 0])
+    dt_all = (train_t[:, 0, 1] - train_t[:, 0, 0])
+    dx = dx_all.mean().item()          # log lines only
+    dt = dt_all.mean().item()
+    dx0 = dx_all[0].item()             # reference sample (index 0) spacings
+    dt0 = dt_all[0].item()
 
     ic_ref  = train_ic[:1].to(device)
+    # post-slot diagnostics must score the same target the loss optimises
+    ut_ref = train_ut[:1].to(device) if train_ut is not None else None
     u_ref   = train_sol[:1].to(device)
     xc_ref  = train_x[:1].to(device)
     tc_ref  = train_t[:1].to(device)
@@ -351,7 +505,15 @@ def train_fins(train_sol, train_x, train_t,
         print(f"    Generator {k+1}/{n_sym}  (frozen: {len(frozen_fields)})")
         print(f"    {'═'*50}")
 
-        gen_k = SingleGeneratorFNO(cfg).to(device)
+        # lambda_b > 0 selects the constrained ansatz phi = a(x,t) u + b(x,t)
+        # with a penalty on the b-share: on linear PDEs the unconstrained
+        # slots fill with the superposition subalgebra beta(x,t) d_u, which
+        # is an exact spurious symmetry and scores like the null model.
+        if generator == 'pointwise':
+            gen_k = PointwiseGenerator().to(device)
+        else:
+            gen_k = (ConstrainedGeneratorFNO(cfg) if lambda_b > 0
+                     else SingleGeneratorFNO(cfg)).to(device)
         opt = optim.AdamW(gen_k.parameters(), lr=lr, weight_decay=1e-4)
         sched = optim.lr_scheduler.CosineAnnealingLR(
             opt, epochs_per_gen, eta_min=lr * 0.01,
@@ -364,31 +526,59 @@ def train_fins(train_sol, train_x, train_t,
             nb = 0
 
             gen_k.train()
-            for u0_b, u_b, xc_b, tc_b in loader:
+            for u0_b, u_b, xc_b, tc_b, ut_b in loader:
                 u0_b = u0_b.to(device)
                 u_b  = u_b.to(device)
                 xc_b = xc_b.to(device)
                 tc_b = tc_b.to(device)
 
                 x_grid, t_grid = create_grids(xc_b, tc_b, device)
-                xi, eta, phi = gen_k(x_grid, t_grid, u_b)
+                out = gen_k(x_grid, t_grid, u_b)
+                xi, eta, phi = out[0], out[1], out[2]
+                b_field = out[3] if len(out) > 3 else None
 
                 xi_d, eta_d, phi_d = deflate_generator(
                     xi, eta, phi, frozen_fields,
                 )
 
+                dx_b = xc_b[:, 0, 1] - xc_b[:, 0, 0]      # [B], per sample
+                dt_b = tc_b[:, 0, 1] - tc_b[:, 0, 0]
                 l_eq = equivariance_loss(
                     S_theta, xi_d, eta_d, phi_d,
                     u0_b, u_b, xc_b, tc_b,
-                    dx, dt, device,
-                    mode=loss_mode,
+                    dx_b, dt_b, device,
+                    mode=loss_mode, channel_norm=channel_norm,
+                    ut=(ut_b.to(device) if ut_b.numel() else None),
+                    horizon=horizon, seam=seam, shoot_every=shoot_every,
                 )
 
                 v_d = torch.cat([xi_d, eta_d, phi_d], dim=1)
                 rms_d = v_d.pow(2).mean().sqrt() + 1e-8
-                l_norm = (rms_d - 1.0).pow(2)
+                if anchor == 'raw':
+                    # Anchor the RAW generator and only floor the deflated
+                    # norm. Anchoring the deflated field instructs the
+                    # optimiser to produce ||v_perp|| = 1 at every slot, so
+                    # a norm collapse can only ever signal an optimisation
+                    # failure, never exhaustion of directions (exp15); with
+                    # the raw anchor the deflated norm is free to collapse
+                    # when no independent direction is left.
+                    v_raw = torch.cat([xi, eta, phi], dim=1)
+                    l_norm = (v_raw.pow(2).mean().sqrt() + 1e-8 - 1.0).pow(2)
+                    l_norm = l_norm + 10.0 * torch.relu(min_perp - rms_d).pow(2)
+                else:
+                    l_norm = (rms_d - 1.0).pow(2)
 
                 loss = l_eq + lambda_norm * l_norm
+                if b_field is not None:
+                    if b_penalty == 'nonconst':
+                        # penalise only the (x,t)-varying part: kills the
+                        # superposition subalgebra beta(x,t) d_u while
+                        # leaving the constant boost phi = c of Burgers/KdV
+                        b_pen = b_field - b_field.mean(dim=(2, 3), keepdim=True)
+                    else:
+                        b_pen = b_field
+                    share_b = b_pen.pow(2).mean() / (phi.pow(2).mean() + 1e-12)
+                    loss = loss + lambda_b * share_b
 
                 opt.zero_grad()
                 loss.backward()
@@ -401,16 +591,23 @@ def train_fins(train_sol, train_x, train_t,
 
             sched.step()
 
-            if (epoch + 1) % 10 == 0 or epoch == 0:
+            ep_time = time.time() - t0
+            every = 1 if ep_time > 20.0 else 10
+            if (epoch + 1) % every == 0 or epoch == 0:
                 nbm = max(nb, 1)
                 print(f"      epoch {epoch+1}/{epochs_per_gen}: "
                       f"equiv={eq_sum/nbm:.6f}, "
                       f"norm_anchor={nm_sum/nbm:.4f}, "
-                      f"time={time.time()-t0:.1f}s")
+                      f"time={ep_time:.1f}s", flush=True)
+            if epoch == 0 and k == 0:
+                eta = ep_time * epochs_per_gen * n_sym / 3600.0
+                print(f"      [{nb} batches/epoch, {ep_time:.1f}s/epoch -> "
+                      f"about {eta:.1f} h for {n_sym} slots x "
+                      f"{epochs_per_gen} epochs]", flush=True)
 
         gen_k.eval()
         with torch.no_grad():
-            xi_f, eta_f, phi_f = gen_k(x_grid_ref, t_grid_ref, u_ref)
+            xi_f, eta_f, phi_f = (lambda o: o[:3])(gen_k(x_grid_ref, t_grid_ref, u_ref))
 
             raw_norm = torch.cat([xi_f, eta_f, phi_f], dim=1) \
                             .pow(2).mean().sqrt().item()
@@ -434,12 +631,14 @@ def train_fins(train_sol, train_x, train_t,
             raw_eq = equivariance_loss(
                 S_theta, xi_f, eta_f, phi_f,
                 ic_ref, u_ref, xc_ref, tc_ref,
-                dx, dt, device, mode=loss_mode,
+                dx0, dt0, device, mode=loss_mode, ut=ut_ref,
+                horizon=horizon, seam=seam, shoot_every=shoot_every,
             ).item()
             defl_eq = equivariance_loss(
                 S_theta, xi_d, eta_d, phi_d,
                 ic_ref, u_ref, xc_ref, tc_ref,
-                dx, dt, device, mode=loss_mode,
+                dx0, dt0, device, mode=loss_mode, ut=ut_ref,
+                horizon=horizon, seam=seam, shoot_every=shoot_every,
             ).item()
 
         frozen_fields.append((xi_d.detach(), eta_d.detach(), phi_d.detach()))
@@ -452,7 +651,7 @@ def train_fins(train_sol, train_x, train_t,
         print(f"        cos with frozen: [{cos_str}]")
 
         if k > 0 and defl_eq > 10 * raw_eq:
-            print(f"        ⚠ Equiv_defl >> Equiv_raw — "
+            print(f"        WARNING: Equiv_defl >> Equiv_raw — "
                   f"possible rank exhaustion")
 
         trained_models.append(gen_k)
@@ -463,7 +662,7 @@ def train_fins(train_sol, train_x, train_t,
     for k, model in enumerate(trained_models):
         model.eval()
         with torch.no_grad():
-            xi_f, eta_f, phi_f = model(x_grid_ref, t_grid_ref, u_ref)
+            xi_f, eta_f, phi_f = (lambda o: o[:3])(model(x_grid_ref, t_grid_ref, u_ref))
             xi_d, eta_d, phi_d = deflate_generator(
                 xi_f, eta_f, phi_f, frozen_fields[:k]
             )
@@ -471,12 +670,14 @@ def train_fins(train_sol, train_x, train_t,
             defl_e = equivariance_loss(
                 S_theta, xi_d, eta_d, phi_d,
                 ic_ref, u_ref, xc_ref, tc_ref,
-                dx, dt, device, mode=loss_mode,
+                dx0, dt0, device, mode=loss_mode, ut=ut_ref,
+                horizon=horizon, seam=seam, shoot_every=shoot_every,
             ).item()
             raw_e = equivariance_loss(
                 S_theta, xi_f, eta_f, phi_f,
                 ic_ref, u_ref, xc_ref, tc_ref,
-                dx, dt, device, mode=loss_mode,
+                dx0, dt0, device, mode=loss_mode, ut=ut_ref,
+                horizon=horizon, seam=seam, shoot_every=shoot_every,
             ).item()
         marker = ""
         if _prev is not None and defl_e > 5 * _prev:
@@ -509,7 +710,7 @@ def extract_fins_generators(trained_models, frozen_fields,
     for model in trained_models:
         model.eval()
         with torch.no_grad():
-            xi_f, eta_f, phi_f = model(x_grid, t_grid, u_eval)
+            xi_f, eta_f, phi_f = (lambda o: o[:3])(model(x_grid, t_grid, u_eval))
             xi_d, eta_d, phi_d = deflate_generator(
                 xi_f, eta_f, phi_f, current_frozen
             )
@@ -527,7 +728,9 @@ def extract_fins_generators(trained_models, frozen_fields,
 
 def sanity_check_equivariance(S_theta, pde_type, train_sol, train_x, train_t,
                                 cfg, device, alpha: float = 0.01,
-                                loss_mode: str = 'jvp', n_samples: int = 4):
+                                loss_mode: str = 'jvp', n_samples: int = 4,
+                                horizon=None, seam: float = 0.2,
+                                shoot_every=None):
     """
     Plug analytical ground-truth generators into the equivariance loss.
 
@@ -548,8 +751,9 @@ def sanity_check_equivariance(S_theta, pde_type, train_sol, train_x, train_t,
     t_np = train_t[0, 0].cpu().numpy()
     u_np = train_sol[0, 0].cpu().numpy()
 
-    dx = (xc[0, 0, 1] - xc[0, 0, 0]).item()
-    dt_scalar = (tc[0, 0, 1] - tc[0, 0, 0]).item()
+    # per-sample spacings: the n_samples evaluated here span several L
+    dx = xc[:, 0, 1] - xc[:, 0, 0]
+    dt_scalar = tc[:, 0, 1] - tc[:, 0, 0]
 
     if pde_type == 'heat':
         gt_list = GroundTruthAlgebra.heat_generators(x_np, t_np, u_np,
@@ -569,24 +773,70 @@ def sanity_check_equivariance(S_theta, pde_type, train_sol, train_x, train_t,
     print(f"    Small values (≲1e-2) ⇒ S_θ captures this symmetry.")
 
     Nx, Nt = u_sample.shape[2], u_sample.shape[3]
+
+    # Per-sample ground truth. Building every GT field from sample 0 and
+    # broadcasting it across the batch is wrong for any
+    # generator whose phi depends on u (heat v3/v4/v6, Burgers v4/v5, KdV
+    # scaling) and, on multi-scale data, wrong in the (x, t) grid as well.
+    # Measured bias at full budget: scaling 4.07x deterministic, Galilean
+    # 1.40x, projective 1.24x, and a sign flip for u d_u near the floor --
+    # roughly two orders optimistic at zero model error. Both numbers are
+    # printed; the per-sample value is the one to trust.
+    per_sample_gt = []
+    for k in range(n_samples):
+        u_k = train_sol[k, 0].cpu().numpy()
+        x_k = train_x[k, 0].cpu().numpy()
+        t_k = train_t[k, 0].cpu().numpy()
+        if pde_type == 'heat':
+            per_sample_gt.append(GroundTruthAlgebra.heat_generators(
+                x_k, t_k, u_k, alpha=alpha))
+        elif pde_type == 'burgers':
+            per_sample_gt.append(
+                GroundTruthAlgebra.burgers_generators(x_k, t_k, u_k))
+        else:
+            per_sample_gt.append(
+                GroundTruthAlgebra.kdv_generators(x_k, t_k, u_k))
+
     results = []
-    for name, (xi_np, eta_np, phi_np) in zip(gt_names, gt_list):
-        # Replicate the GT field across the batch
-        xi_t = torch.tensor(xi_np, dtype=torch.float32, device=device) \
-                    .view(1, 1, Nx, Nt).expand(n_samples, 1, Nx, Nt)
-        eta_t = torch.tensor(eta_np, dtype=torch.float32, device=device) \
-                     .view(1, 1, Nx, Nt).expand(n_samples, 1, Nx, Nt)
-        phi_t = torch.tensor(phi_np, dtype=torch.float32, device=device) \
-                     .view(1, 1, Nx, Nt).expand(n_samples, 1, Nx, Nt)
+    for gi, (name, (xi_np, eta_np, phi_np)) in enumerate(
+            zip(gt_names, gt_list)):
+        bc = [torch.tensor(a, dtype=torch.float32, device=device)
+              .view(1, 1, Nx, Nt).expand(n_samples, 1, Nx, Nt)
+              for a in (xi_np, eta_np, phi_np)]
+        ps = [torch.stack([torch.tensor(per_sample_gt[k][gi][c],
+                                        dtype=torch.float32, device=device)
+                           for k in range(n_samples)]).view(n_samples, 1,
+                                                            Nx, Nt)
+              for c in range(3)]
+        vals = []
+        for fields in (ps, bc):
+            with torch.enable_grad():
+                vals.append(equivariance_loss(
+                    S_theta, fields[0], fields[1], fields[2],
+                    ic_sample, u_sample, xc, tc,
+                    dx, dt_scalar, device,
+                    mode=loss_mode, normalize=True,
+                    horizon=horizon, seam=seam, shoot_every=shoot_every,
+                ).item())
+        val, val_bc = vals
+        print(f"      {name:>12}: equiv = {val:.4e}"
+              f"   (broadcast {val_bc:.4e},"
+              f" x{val_bc / max(val, 1e-30):.2f})")
+        results.append((name, val, val_bc))
 
-        with torch.enable_grad():
-            val = equivariance_loss(
-                S_theta, xi_t, eta_t, phi_t,
-                ic_sample, u_sample, xc, tc,
-                dx, dt_scalar, device,
-                mode=loss_mode, normalize=True,
-            ).item()
-        print(f"      {name:>12}: equiv = {val:.4e}")
-        results.append((name, val))
-
+    # a non-symmetry in the same units: the discovered slots' final `equiv`
+    # should sit near the GT values above and far below this line
+    z = torch.zeros_like(u_sample)
+    with torch.enable_grad():
+        ctrl = equivariance_loss(
+            S_theta, z, z, u_sample.clone(), ic_sample, u_sample, xc, tc,
+            dx, dt_scalar, device, mode=loss_mode, normalize=True,
+            horizon=horizon, seam=seam, shoot_every=shoot_every).item()
+    print(f"      {'u d_u':>12}: equiv = {ctrl:.4e}   (NOT a symmetry: the "
+          f"level a slot must stay well below)")
+    if horizon is not None:
+        print("      (same loss as training: short horizon"
+              + (f", multiple shooting every {shoot_every}" if shoot_every
+                 else ", single start") + ")")
+    results.append(("u d_u (control)", ctrl, ctrl))
     return results

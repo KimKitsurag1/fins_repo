@@ -1,0 +1,8 @@
+tau = tau(t) class: 48 of 60 fields; affine class 20
+[s42] exact: degree2 lambda6 1.1e-06 lambda7 3.2e-04 gap 284 rank 1 missing 0.0000; tau_t lambda6 1.1e-06 lambda7 4.4e-04 gap 391 rank 1 missing 0.0000; affine lambda6 1.1e-06 lambda7 3.8e-03 gap 3325 rank 1 missing 0.0000
+[s42] fno: degree2 lambda6 1.7e-05 lambda7 4.7e-04 gap 27 rank 6 missing 0.0014; tau_t lambda6 1.8e-05 lambda7 7.3e-04 gap 41 rank 6 missing 0.0004; affine lambda6 1.8e-05 lambda7 3.8e-03 gap 211 rank 6 missing 0.0000
+[s43] exact: degree2 lambda6 8.0e-07 lambda7 2.5e-04 gap 312 rank 2 missing 0.0000; tau_t lambda6 8.0e-07 lambda7 3.5e-04 gap 429 rank 2 missing 0.0000; affine lambda6 8.0e-07 lambda7 3.3e-03 gap 4135 rank 1 missing 0.0000
+[s43] fno: degree2 lambda6 9.7e-06 lambda7 3.2e-04 gap 33 rank 6 missing 0.0006; tau_t lambda6 9.9e-06 lambda7 4.6e-04 gap 47 rank 6 missing 0.0004; affine lambda6 1.0e-05 lambda7 3.3e-03 gap 330 rank 6 missing 0.0000
+[s44] exact: degree2 lambda6 1.0e-06 lambda7 2.3e-04 gap 224 rank 2 missing 0.0000; tau_t lambda6 1.0e-06 lambda7 3.1e-04 gap 306 rank 1 missing 0.0000; affine lambda6 1.0e-06 lambda7 3.4e-03 gap 3374 rank 2 missing 0.0000
+[s44] fno: degree2 lambda6 1.2e-05 lambda7 3.7e-04 gap 31 rank 6 missing 0.0004; tau_t lambda6 1.2e-05 lambda7 4.6e-04 gap 38 rank 6 missing 0.0002; affine lambda6 1.3e-05 lambda7 3.4e-03 gap 270 rank 6 missing 0.0002
+saved results/neural2d/tau_class.json

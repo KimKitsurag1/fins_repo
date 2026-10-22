@@ -1,0 +1,13 @@
+    Running batched PyTorch ETDRK4 solver on GPU for 1 samples...
+  band check, energy above k = Nx/4: u 2.1e-19, u_t 1.6e-16
+  per-trajectory one-step error: 0.002 0.002 0.003 0.003 0.002 0.003 0.002 0.002 0.002 0.002
+  rollout error relative to the data increment after 1 step(s): 0.002
+  rollout error relative to the data increment after 16 step(s): 0.001
+/usr/local/lib/python3.13/dist-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[kdv, stepper s42, periodic] data seed 1042, 10 trajectories, Nx 128, T 0.05, K = 16, seam band 0.2; L 6.283; within 0.1 of the seam / overall, rms of u: 9.5e-03, of u_x: 2.7e-02; u_t stencil, noise 0, thin 1
+  relative change of the basis characteristics, rms over k = 1..K steps: 3.9e-01
+  lowest eigenvalues: 4.8e-07 2.3e-06 4.6e-06 1.6e-05 1.7e-02 6.5e-02 1.1e-01
+  algebra losses: ∂_x 6.2e-07  ∂_t 9.5e-07  Galilean 5.5e-06  scaling 1.9e-05   (lambda5 = 1.7e-02)
+  algebra inside the 4 lowest: ∂_x 1.00  ∂_t 0.99  Galilean 1.00  scaling 1.00
+  saved fins_runs/verify_protocol_kdv/fins_kdv_s42.npz

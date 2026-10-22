@@ -1,0 +1,25 @@
+
+    Generating heat:   0%|          | 0/224 [00:00<?, ?it/s]
+    Generating heat:  49%|████▉     | 110/224 [00:00<00:00, 1088.97it/s]
+    Generating heat: 100%|██████████| 224/224 [00:00<00:00, 1248.71it/s]
+================================================================================
+EXP 9 - locality of dS_theta/du0  (heat, L = 1.000, Nx = 64, alpha = 0.01, full=False)
+surrogate test rel-L2 delta = 0.0717, n_train = 192, epochs = 80, device = cpu
+================================================================================
+t      sigma   r95 exact  r95 learned  ratio  leak exact  leak learned
+----------------------------------------------------------------------
+0.129  0.0508  0.094      0.375        4.0x   3.1e-05     0.140       
+0.258  0.0718  0.141      0.375        2.7x   5.5e-05     0.097       
+0.516  0.1016  0.203      0.375        1.8x   4.5e-05     0.037       
+1.000  0.1414  0.281      0.391        1.4x   0.0e+00     0.000       
+
+normalised |J| along x at t = 1.000 (centre = column 32):
+  exact : -----++++++++#######################################++++++++----
+  learned: +-++++-++-+-+++--++++++#++++##+###+##++++#++++++--+++--+++-+-++-
+  legend: # >=0.1   + >=0.01   - >=1e-3   . below
+
+Read-out: leak learned is the fraction of the surrogate Jacobian mass
+sitting outside the exact 4-sigma cone. The seam-windowed test of exp8
+is only as valid as this number is small.
+
+CSV -> experiments/results/exp9_surrogate_locality.csv

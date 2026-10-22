@@ -1,0 +1,6 @@
+$ -u exp71_kreider.py --pde kdv --seed 48 --noise 0.01 --variant sheet --K 9 --ell 2 --J 2 --K-surface 200 --ell-surface 2 --out fins_runs/noise_weak_runs/n1e-2/kreider-sheet_kdv_s48
+NeuralOp FNO loaded successfully.
+    Running batched PyTorch ETDRK4 solver on GPU for 1 samples...
+[kdv] Kreider sheet: data seed 1048, noise 0.01, thin 1, order 3, degree 2, K 9, ell 2, J 2; jets 34 s, rows and SVD 1 s
+  smallest singular values / largest: 4.2e-04 9.5e-04 1.1e-03 1.2e-03 1.3e-03 1.6e-03 1.7e-03 2.8e-03; own count 1 (k = 4)
+  saved fins_runs/noise_weak_runs/n1e-2/kreider-sheet_kdv_s48_soft.npz, fins_runs/noise_weak_runs/n1e-2/kreider-sheet_kdv_s48_hard.npz

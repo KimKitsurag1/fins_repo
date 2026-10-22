@@ -81,7 +81,7 @@ because this needs coefficients quadratic in (x, t).  Within the
 
 The projective and exact-Galilean generators with non-affine φ in u
 are structurally out of reach — this is the same kind of limit that
-LieGAN has for non-affine actions (and is honestly noted in Ko et al.
+LieGAN has for non-affine actions (and is noted in Ko et al.
 (2024) §A.2 when comparing to Augerino).
 
 Interface:

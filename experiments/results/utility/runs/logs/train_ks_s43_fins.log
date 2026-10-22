@@ -1,0 +1,13 @@
+$ exp72_utility.py train --pde ks --seed 43 --arm fins
+[ks s43 fins] part in W 2 (cosines 1.0000 1.0000 0.0015), S 1.706
+      epoch 30/300: train loss 1.581e-04 | held-out increment error 0.0793 (best 0.0793)
+      epoch 60/300: train loss 9.052e-05 | held-out increment error 0.0722 (best 0.0543)
+      epoch 90/300: train loss 3.378e-05 | held-out increment error 0.0316 (best 0.0316)
+      epoch 120/300: train loss 1.995e-05 | held-out increment error 0.0280 (best 0.0250)
+      epoch 150/300: train loss 2.335e-05 | held-out increment error 0.0354 (best 0.0208)
+      epoch 180/300: train loss 1.033e-05 | held-out increment error 0.0202 (best 0.0202)
+      epoch 210/300: train loss 1.135e-05 | held-out increment error 0.0170 (best 0.0153)
+      epoch 240/300: train loss 1.383e-05 | held-out increment error 0.0129 (best 0.0129)
+      epoch 270/300: train loss 7.981e-06 | held-out increment error 0.0126 (best 0.0126)
+      epoch 300/300: train loss 8.362e-06 | held-out increment error 0.0122 (best 0.0122)
+saved /content/drive/MyDrive/fins_runs/results/utility_runs/S_ks_s43_fins.pt (110 s)

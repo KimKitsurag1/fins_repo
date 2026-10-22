@@ -60,12 +60,12 @@ Expected recoveries:
     Burgers (5 GT):  ∂_x, ∂_t, t∂_x+∂_u, x∂_x+2t∂_t−u∂_u → 4 / 5
     KdV     (4 GT):  all four (all affine)             → 4 / 4
 
-Interface kept compatible with the rest of the pipeline:
+Interface shared with the rest of the pipeline:
     train_liegan(train_sol, pde_type, x_grid, t_grid, cfg, device)
     extract_liegan_generators(gen, sol_batch, x_grid, t_grid, cfg, device)
 
-The first function returns the trained LieGenerator (not a tuple as
-before — the discriminator is internal).  The second returns
+The first function returns the trained LieGenerator (the discriminator
+is internal).  The second returns
     generators_np : list of (ξ, η, φ) fields, each [Nx, Nt]
     norms         : np.ndarray of generator L² norms
 matching the convention of all other baselines.

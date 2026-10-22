@@ -1,0 +1,11 @@
+$ exp49_weak.py --pde heat --op learned --seed 43 --data-seed 1043 --tag _smooth_L1 --noise 0 --K 16 --stride 1 --wt 2 --wp 2 --wx auto --wx-factor 2 --save /content/drive/MyDrive/fins_runs/results/noise_weak_runs/clean/weak-learned_heat_s43.npz
+  spatial modes from the data: n95 8 of a 256-point domain, 64 scored points -> M = 4
+  rollouts of 1120 start states: 11 s
+  weak blocks for 34 basis fields, 112 starts, 9 x 2 tests: 797 s
+[heat, learned, weak] data seed 1043, 10 trajectories, degree 3, restricted class 34 of 60, K = 16, starts every 1, tests 9 x 2 (p = 2), mu 1.0, noise 0, thin 1; 798 s
+  ground truth in the restricted class: max relative fit residual 1.4e-14
+  lowest eigenvalues: 5.2e-06 7.5e-06 1.0e-05 1.2e-05 1.9e-05 4.0e-05 5.0e-05 6.4e-05 1.2e-04 1.6e-04 2.4e-02 1.1e-01 2.2e-01
+  algebra losses: ∂_x 2.3e-05  ∂_t 9.1e-06  u∂_u 2.3e-05  Galilean 3.1e-05  scaling 2.7e-05  projective 4.8e-05  b=1 5.3e-05  b=x 7.5e-05  b=x2+2at 1.2e-04  b=x3+6axt 1.5e-04   (lambda11 = 2.4e-02)
+  algebra inside the 10 lowest: ∂_x 1.00  ∂_t 1.00  u∂_u 1.00  Galilean 1.00  scaling 1.00  projective 1.00  b=1 1.00  b=x 1.00  b=x2+2at 1.00  b=x3+6axt 1.00
+  own count (largest eigenvalue ratio among the lowest 17, floor 1e-06): 10 (k = 10)
+  saved /content/drive/MyDrive/fins_runs/results/noise_weak_runs/clean/weak-learned_heat_s43.npz

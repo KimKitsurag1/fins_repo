@@ -1,0 +1,11 @@
+$ exp49_weak.py --pde bo --op learned --seed 44 --data-seed 1044 --tag  --noise 0 --K 16 --stride 1 --wt 2 --wp 2 --wx auto --wx-factor 2 --save /content/drive/MyDrive/fins_runs/results/bo_runs/clean/weak-learned_bo_s44.npz
+  spatial modes from the data: n95 6 of a 128-point domain, 77 scored points -> M = 7
+  rollouts of 1120 start states: 2 s
+  weak blocks for 19 basis fields, 112 starts, 15 x 2 tests: 102 s
+[bo, learned, weak] data seed 1044, 10 trajectories, degree 2, restricted class 19 of 30, K = 16, starts every 1, tests 15 x 2 (p = 2), mu 1.0, noise 0, thin 1; 102 s
+  ground truth in the restricted class: max relative fit residual 1.3e-14
+  lowest eigenvalues: 3.0e-07 5.1e-06 1.1e-05 6.5e-05 1.2e-03 3.8e-03 2.7e-02
+  algebra losses: ∂_x 6.2e-07  ∂_t 3.4e-07  Galilean 2.4e-05  scaling 2.9e-06   (lambda5 = 1.2e-03)
+  algebra inside the 4 lowest: ∂_x 1.00  ∂_t 0.98  Galilean 1.00  scaling 1.00
+  own count (largest eigenvalue ratio among the lowest 17, floor 1e-06): 4 (k = 4)
+  saved /content/drive/MyDrive/fins_runs/results/bo_runs/clean/weak-learned_bo_s44.npz

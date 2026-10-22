@@ -1,0 +1,5 @@
+$ -u exp71_kreider.py --pde heat --seed 43 --noise 0.1 --variant surface --K 9 --ell 2 --J 2 --K-surface 200 --ell-surface 2 --out fins_runs/noise_weak_runs/n1e-1/kreider-surface_heat_s43
+NeuralOp FNO loaded successfully.
+[heat] Kreider surface: data seed 1043, noise 0.1, thin 1, order 2, degree 3, K 9, ell 2, J 2, surface K 200, ell 2; jets 11 s, rows and SVD 19 s
+  smallest singular values / largest: 6.9e-17 6.9e-17 4.8e-09 2.6e-08 1.1e-07 4.4e-07 9.8e-07 2.1e-06 3.9e-06 5.2e-06 2.1e-05 2.5e-05 4.1e-05 4.8e-05; own count 10 (k = 10); {"normal_ut_share": 0.026345900971313122}
+  saved fins_runs/noise_weak_runs/n1e-1/kreider-surface_heat_s43_soft.npz, fins_runs/noise_weak_runs/n1e-1/kreider-surface_heat_s43_hard.npz

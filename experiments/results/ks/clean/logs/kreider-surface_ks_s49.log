@@ -1,0 +1,5 @@
+$ -u exp71_kreider.py --pde ks --seed 49 --noise 0.0 --variant surface --K 9 --ell 2 --J 2 --K-surface 200 --ell-surface 2 --out fins_runs/ks_runs/clean/kreider-surface_ks_s49
+NeuralOp FNO loaded successfully.
+[ks] Kreider surface: data seed 1049, noise 0, thin 1, order 4, degree 2, K 9, ell 2, J 2, surface K 200, ell 2; jets 38 s, rows and SVD 83 s
+  smallest singular values / largest: 8.5e-17 8.5e-17 2.1e-03 3.8e-03 8.9e-03 1.0e-02 1.2e-02; own count 2 (k = 3); {"normal_ut_share": 0.0626832967742745}
+  saved fins_runs/ks_runs/clean/kreider-surface_ks_s49_soft.npz, fins_runs/ks_runs/clean/kreider-surface_ks_s49_hard.npz

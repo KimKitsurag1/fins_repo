@@ -1,0 +1,8 @@
+$ exp72_utility.py evaluate --pde kdv --seed 43
+    Running batched PyTorch ETDRK4 solver on GPU for 1 samples...
+[kdv s43 none    ] in: one-step 1.35e-04, 16-step 1.53e-03 | out: one-step 1.32e-03, 16-step 1.90e-02
+[kdv s43 fins    ] in: one-step 1.52e-04, 16-step 1.67e-03 | out: one-step 4.65e-04, 16-step 7.11e-03
+[kdv s43 oracle  ] in: one-step 1.43e-04, 16-step 1.52e-03 | out: one-step 2.34e-04, 16-step 2.62e-03
+[kdv s43 lienlsd ] in: one-step 1.35e-04, 16-step 1.53e-03 | out: one-step 1.32e-03, 16-step 1.90e-02
+[kdv s43 shift   ] in: one-step 2.06e-04, 16-step 2.41e-03 | out: one-step 6.03e-03, 16-step 9.93e-02
+[kdv s43 wide    ] in: one-step 1.46e-04, 16-step 1.79e-03 | out: one-step 2.42e-04, 16-step 2.87e-03

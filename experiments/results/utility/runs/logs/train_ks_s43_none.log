@@ -1,0 +1,12 @@
+$ exp72_utility.py train --pde ks --seed 43 --arm none
+      epoch 30/300: train loss 1.940e-05 | held-out increment error 0.0340 (best 0.0340)
+      epoch 60/300: train loss 7.865e-06 | held-out increment error 0.0236 (best 0.0225)
+      epoch 90/300: train loss 3.564e-06 | held-out increment error 0.0178 (best 0.0167)
+      epoch 120/300: train loss 2.147e-06 | held-out increment error 0.0129 (best 0.0129)
+      epoch 150/300: train loss 1.541e-06 | held-out increment error 0.0093 (best 0.0093)
+      epoch 180/300: train loss 1.194e-06 | held-out increment error 0.0086 (best 0.0086)
+      epoch 210/300: train loss 1.011e-06 | held-out increment error 0.0076 (best 0.0076)
+      epoch 240/300: train loss 8.276e-07 | held-out increment error 0.0074 (best 0.0074)
+      epoch 270/300: train loss 9.540e-07 | held-out increment error 0.0071 (best 0.0071)
+      epoch 300/300: train loss 8.391e-07 | held-out increment error 0.0070 (best 0.0070)
+saved /content/drive/MyDrive/fins_runs/results/utility_runs/S_ks_s43_none.pt (108 s)

@@ -1,0 +1,35 @@
+[exact] seed 44: 16 training trajectories (data seed 4044), 8 held-out (seed 5044); grid 64^2 on [-8, 8)^2, scored |x|, |y| < 4.5; 51 snapshots, dt 0.02, K 8; u in [0.272, 2.122]
+  polynomial class (160 pairs, 24 s): relative change over K 3.04e-01
+    lowest eigenvalues: 1.6e-27 1.2e-16 8.2e-11 4.7e-09 3.6e-07 4.5e-06 4.7e-03 5.8e-03 1.0e-02 1.3e-02
+    algebra Rayleigh quotients: d_x 1.6e-27  d_y 1.1e-27  d_t 4.2e-09  rotation 3.4e-07  D1 3.2e-06  D2 1.2e-10
+    lowest 6 on held-out: missing (characteristics) 0.000, (fields) 0.000
+    random 8-dim subspaces of the class (100): missing (characteristics) 2.191 +- 0.186, (fields) 2.497 +- 0.167
+  algebra's own pencil on held-out pairs: eigenvalues 1.3e-27 2.1e-21 1.6e-10 9.6e-09 8.4e-07 1.0e-05
+  untrained network: missing (characteristics) 1.954, (fields) 2.817
+    step 0: held-out missing (characteristics) 1.954, (fields) 2.817; novel 0.98 0.96 0.97 0.39 0.39 0.77 (0 s)
+      loss 2.989e+00; batch eigenvalues 7.2e-03 1.2e-02 4.3e-02 1.3e-01 3.0e-01 6.0e-01 9.3e-01 9.7e-01
+    step 250: held-out missing (characteristics) 0.928, (fields) 0.748; novel 1.00 0.99 0.99 0.68 0.81 0.86 (628 s)
+      loss 2.113e-01; batch eigenvalues 2.4e-04 6.0e-04 1.5e-03 2.8e-03 3.2e-02 4.8e-02 5.5e-02 7.2e-02
+    step 500: held-out missing (characteristics) 0.119, (fields) 0.238; novel 1.00 1.00 1.00 1.00 0.97 0.95 (1191 s)
+      loss 1.559e-01; batch eigenvalues 5.0e-04 7.3e-04 9.2e-04 2.8e-03 6.4e-03 2.0e-02 3.0e-02 9.5e-02
+    step 750: held-out missing (characteristics) 0.084, (fields) 0.166; novel 1.00 1.00 1.00 1.00 0.98 0.96 (1247 s)
+      loss 5.141e-02; batch eigenvalues 4.9e-05 8.8e-05 2.1e-04 4.0e-04 1.3e-03 3.7e-03 1.7e-02 2.8e-02
+    step 1000: held-out missing (characteristics) 0.111, (fields) 0.183; novel 1.00 1.00 1.00 1.00 0.96 0.95 (1305 s)
+      loss 1.169e-01; batch eigenvalues 5.8e-05 1.4e-04 2.2e-04 9.3e-04 1.4e-03 1.9e-02 2.8e-02 6.7e-02
+    step 1250: held-out missing (characteristics) 0.096, (fields) 0.199; novel 1.00 1.00 1.00 1.00 0.97 0.95 (1363 s)
+      loss 1.020e-01; batch eigenvalues 1.0e-04 1.4e-04 2.6e-04 3.3e-04 1.1e-03 4.1e-03 2.3e-02 7.3e-02
+    step 1500: held-out missing (characteristics) 0.099, (fields) 0.228; novel 1.00 1.00 1.00 1.00 0.97 0.95 (1421 s)
+      loss 5.136e-02; batch eigenvalues 7.0e-05 1.1e-04 2.3e-04 1.2e-03 1.5e-03 1.1e-02 1.5e-02 2.2e-02
+    step 1750: held-out missing (characteristics) 0.102, (fields) 0.277; novel 1.00 1.00 1.00 1.00 0.97 0.95 (1633 s)
+      loss 3.441e-02; batch eigenvalues 5.6e-05 9.5e-05 2.5e-04 6.6e-04 8.3e-04 3.4e-03 1.3e-02 1.6e-02
+    step 2000: held-out missing (characteristics) 0.103, (fields) 0.374; novel 1.00 1.00 1.00 1.00 0.97 0.95 (2100 s)
+      loss 3.374e-02; batch eigenvalues 6.1e-05 7.0e-05 1.7e-04 9.7e-04 1.8e-03 8.8e-03 9.2e-03 1.3e-02
+    step 2250: held-out missing (characteristics) 0.103, (fields) 0.483; novel 1.00 1.00 1.00 1.00 0.97 0.95 (2708 s)
+      loss 1.707e-02; batch eigenvalues 6.1e-05 9.6e-05 1.6e-04 2.3e-04 3.0e-04 8.6e-04 6.1e-03 9.3e-03
+    step 2500: held-out missing (characteristics) 0.104, (fields) 0.544; novel 1.00 1.00 1.00 1.00 0.97 0.95 (3170 s)
+  trained network (3170 s): missing (characteristics) 0.104, (fields) 0.544; novel containment d_x 1.00 d_y 1.00 d_t 1.00 rotation 1.00 D1 0.97 D2 0.95
+    6 lowest directions of the span (training pairs): missing (characteristics) 0.111, (fields) 0.601; novel 1.00 1.00 1.00 1.00 0.97 0.95
+    eigenvalues in the span, training pairs: 6.9e-05 8.3e-05 1.6e-04 2.3e-04 3.3e-04 2.3e-03 7.5e-03 1.0e-02
+    held-out pairs, trained: 4.6e-05 7.3e-05 2.3e-04 4.5e-04 5.7e-04 4.1e-03 9.4e-03 1.5e-02
+    held-out pairs, untrained: 3.7e-03 8.7e-03 3.7e-02 1.0e-01 2.3e-01 4.1e-01 6.4e-01 8.1e-01
+  saved experiments/results/neural2d/exact_m8_mu001_s44.json/.pt/.npz

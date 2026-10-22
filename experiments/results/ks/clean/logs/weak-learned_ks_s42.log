@@ -1,0 +1,11 @@
+$ exp49_weak.py --pde ks --op learned --train-ic mixed --seed 42 --data-seed 1042 --tag  --noise 0 --K 16 --stride 1 --wt 2 --wp 2 --wx auto --wx-factor 2 --save /content/drive/MyDrive/fins_runs/results/ks_runs/clean/weak-learned_ks_s42.npz
+  spatial modes from the data: n95 4 of a 128-point domain, 77 scored points -> M = 5
+  rollouts of 1120 start states: 2 s
+  weak blocks for 19 basis fields, 112 starts, 11 x 2 tests: 101 s
+[ks, learned, weak] data seed 1042, 10 trajectories, degree 2, restricted class 19 of 30, K = 16, starts every 1, tests 11 x 2 (p = 2), mu 1.0, noise 0, thin 1; 101 s
+  ground truth in the restricted class: max relative fit residual 2.3e-14
+  lowest eigenvalues: 1.7e-06 4.0e-06 4.9e-06 4.0e-02 7.8e-02 3.3e-01
+  algebra losses: ∂_x 4.7e-06  ∂_t 2.1e-06  Galilean 5.5e-06   (lambda4 = 4.0e-02)
+  algebra inside the 3 lowest: ∂_x 1.00  ∂_t 1.00  Galilean 1.00
+  own count (largest eigenvalue ratio among the lowest 17, floor 1e-06): 3 (k = 3)
+  saved /content/drive/MyDrive/fins_runs/results/ks_runs/clean/weak-learned_ks_s42.npz

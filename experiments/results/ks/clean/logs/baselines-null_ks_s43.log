@@ -1,0 +1,11 @@
+$ exp41_baselines.py --pde ks --seed 43 --methods LieGAN,LaLiGAN,Augerino --untrained --out fins_runs/ks_runs/clean/baselines-null_ks_s43.npz
+NeuralOp FNO loaded successfully.
+$ exp41_baselines.py --pde ks --seed 43 --methods LieGAN,LaLiGAN,Augerino --untrained --out fins_runs/ks_runs/clean/baselines-null_ks_s43.npz
+NeuralOp FNO loaded successfully.
+[ks] seed 43, data seed 1043: training (1024, 1, 128, 128), evaluation (10, 128, 128), class dimension 3, degree 2, noise 0, thin 1, cpu
+    LieGAN: training in homogeneous ℝ⁴  (n_channel=3, λ=1.0, η=0.1, μ_sp=0.05, σ_init=1.0, K=256)...
+  LieGAN: 3 generators, 3 s; saved fins_runs/ks_runs/clean/baselines-null_ks_s43.npz
+    LaLiGAN: joint training  (input=16384D, latent=64D, n_channel=3, w_recon=1.0, w_GAN=0.01, w_reg=0.1)...
+  LaLiGAN: 3 generators, 5 s; saved fins_runs/ks_runs/clean/baselines-null_ks_s43.npz
+    Augerino: equivariant training  (ncopies=1, λ=0.05, 7 generators)...
+  Augerino: 7 generators, 1 s; saved fins_runs/ks_runs/clean/baselines-null_ks_s43.npz

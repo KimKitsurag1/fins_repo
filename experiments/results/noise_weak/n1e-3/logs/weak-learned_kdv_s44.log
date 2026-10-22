@@ -1,0 +1,20 @@
+$ exp49_weak.py --pde kdv --op learned --seed 44 --data-seed 1044 --tag _n1e-3 --noise 0.001 --K 16 --stride 1 --wt 2 --wp 2 --wx auto --wx-factor 2 --save fins_runs/noise_weak_runs/n1e-3/weak-learned_kdv_s44.npz
+    Running batched PyTorch ETDRK4 solver on GPU for 1 samples...
+  spatial modes from the data: n95 4 of a 128-point domain, 77 scored points -> M = 5
+  rollouts of 1120 start states: 224 s
+/usr/local/lib/python3.13/dist-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+$ exp49_weak.py --pde kdv --op learned --seed 44 --data-seed 1044 --tag _n1e-3 --noise 0.001 --K 16 --stride 1 --wt 2 --wp 2 --wx auto --wx-factor 2 --save fins_runs/noise_weak_runs/n1e-3/weak-learned_kdv_s44.npz
+    Running batched PyTorch ETDRK4 solver on GPU for 1 samples...
+  spatial modes from the data: n95 4 of a 128-point domain, 77 scored points -> M = 5
+  rollouts of 1120 start states: 83 s
+/usr/local/lib/python3.13/dist-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+  weak blocks for 19 basis fields, 112 starts, 11 x 2 tests: 3563 s
+[kdv, learned, weak] data seed 1044, 10 trajectories, degree 2, restricted class 19 of 30, K = 16, starts every 1, tests 11 x 2 (p = 2), mu 1.0, noise 0.001, thin 1; 3564 s
+  ground truth in the restricted class: max relative fit residual 2.1e-14
+  lowest eigenvalues: 2.0e-07 1.9e-06 2.4e-06 1.1e-05 5.3e-03 5.9e-02 1.0e-01
+  algebra losses: ∂_x 3.9e-07  ∂_t 4.0e-07  Galilean 2.8e-06  scaling 2.1e-06   (lambda5 = 5.3e-03)
+  algebra inside the 4 lowest: ∂_x 1.00  ∂_t 0.98  Galilean 1.00  scaling 1.00
+  own count (largest eigenvalue ratio among the lowest 17, floor 1e-06): 4 (k = 4)
+  saved fins_runs/noise_weak_runs/n1e-3/weak-learned_kdv_s44.npz

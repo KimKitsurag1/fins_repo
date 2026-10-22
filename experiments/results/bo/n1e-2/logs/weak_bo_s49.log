@@ -1,0 +1,11 @@
+$ exp49_weak.py --pde bo --op exact --seed 49 --data-seed 1049 --noise 0.01 --K 16 --stride 1 --wt 2 --wp 2 --wx auto --wx-factor 2 --save fins_runs/bo_runs/n1e-2/weak_bo_s49.npz
+  spatial modes from the data: n95 7 of a 128-point domain, 77 scored points -> M = 8
+  rollouts of 1120 start states: 17 s
+  weak blocks for 19 basis fields, 112 starts, 17 x 2 tests: 545 s
+[bo, exact, weak] data seed 1049, 10 trajectories, degree 2, restricted class 19 of 30, K = 16, starts every 1, tests 17 x 2 (p = 2), mu 1.0, noise 0.01, thin 1; 545 s
+  ground truth in the restricted class: max relative fit residual 1.2e-14
+  lowest eigenvalues: 4.6e-07 8.9e-07 3.1e-06 4.4e-06 1.2e-04 7.2e-03 1.7e-02
+  algebra losses: ∂_x 1.4e-06  ∂_t 8.5e-07  Galilean 1.5e-06  scaling 2.7e-06   (lambda5 = 1.2e-04)
+  algebra inside the 4 lowest: ∂_x 0.95  ∂_t 0.30  Galilean 1.00  scaling 0.99
+  own count (largest eigenvalue ratio among the lowest 17, floor 1e-06): 5 (k = 4)
+  saved fins_runs/bo_runs/n1e-2/weak_bo_s49.npz

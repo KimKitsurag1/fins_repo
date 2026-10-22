@@ -1,0 +1,8 @@
+$ exp39_localised.py --pde fb200 --op exact --seed 50 --data-seed 1050 --ic periodic --n 10 --K 16 --every 16 --thin 1 --interior --ut fd --noise 0 --save fins_runs/fb_runs/clean/pointwise_fb200_s50.npz
+  band check, energy above k = Nx/4: u 4.5e-15, u_t 2.3e-12
+[fb200, exact, periodic] data seed 1050, 10 trajectories, Nx 128, T 1.0, K = 16, seam band 0.2; L 6.283; within 0.1 of the seam / overall, rms of u: 1.6e-02, of u_x: 5.4e-02; u_t fd, noise 0, thin 1
+  relative change of the basis characteristics, rms over k = 1..K steps: 2.0e-01
+  lowest eigenvalues: -6.1e-17 4.2e-20 7.7e-14 2.1e-13 8.7e-09 1.3e-03 3.8e-03 1.1e-02
+  algebra losses: ∂_x 2.3e-19  ∂_t 1.1e-13  Galilean -1.4e-17  scaling 8.6e-15  projective 8.5e-10   (lambda6 = 1.3e-03)
+  algebra inside the 5 lowest: ∂_x 1.00  ∂_t 1.00  Galilean 1.00  scaling 1.00  projective 1.00
+  saved fins_runs/fb_runs/clean/pointwise_fb200_s50.npz

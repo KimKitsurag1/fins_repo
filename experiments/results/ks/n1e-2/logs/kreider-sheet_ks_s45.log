@@ -1,0 +1,5 @@
+$ -u exp71_kreider.py --pde ks --seed 45 --noise 0.01 --variant sheet --K 9 --ell 2 --J 2 --K-surface 200 --ell-surface 2 --out fins_runs/ks_runs/n1e-2/kreider-sheet_ks_s45
+NeuralOp FNO loaded successfully.
+[ks] Kreider sheet: data seed 1045, noise 0.01, thin 1, order 4, degree 2, K 9, ell 2, J 2; jets 45 s, rows and SVD 3 s
+  smallest singular values / largest: 1.1e-05 3.5e-05 3.3e-04 1.1e-03 1.5e-03 1.6e-03 1.9e-03; own count 2 (k = 3)
+  saved fins_runs/ks_runs/n1e-2/kreider-sheet_ks_s45_soft.npz, fins_runs/ks_runs/n1e-2/kreider-sheet_ks_s45_hard.npz

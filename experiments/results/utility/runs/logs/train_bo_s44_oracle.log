@@ -1,0 +1,13 @@
+$ exp72_utility.py train --pde bo --seed 44 --arm oracle
+[bo s44 oracle] part in W 2 (cosines 1.0000 1.0000), S 0.3714
+      epoch 30/300: train loss 2.037e-04 | held-out increment error 0.1199 (best 0.1199)
+      epoch 60/300: train loss 7.238e-05 | held-out increment error 0.0641 (best 0.0641)
+      epoch 90/300: train loss 2.702e-05 | held-out increment error 0.0374 (best 0.0374)
+      epoch 120/300: train loss 2.306e-05 | held-out increment error 0.0308 (best 0.0305)
+      epoch 150/300: train loss 1.101e-05 | held-out increment error 0.0251 (best 0.0251)
+      epoch 180/300: train loss 8.419e-06 | held-out increment error 0.0221 (best 0.0221)
+      epoch 210/300: train loss 5.690e-06 | held-out increment error 0.0207 (best 0.0207)
+      epoch 240/300: train loss 5.345e-06 | held-out increment error 0.0198 (best 0.0198)
+      epoch 270/300: train loss 5.330e-06 | held-out increment error 0.0195 (best 0.0195)
+      epoch 300/300: train loss 5.795e-06 | held-out increment error 0.0194 (best 0.0194)
+saved /content/drive/MyDrive/fins_runs/results/utility_runs/S_bo_s44_oracle.pt (114 s)

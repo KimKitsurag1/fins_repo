@@ -1,0 +1,7 @@
+(UT1) MET (9/9): none: OOD >= 3 ID; ratios ks 42 108, ks 43 75.4, ks 44 106, kdv 42 24.3, kdv 43 12.4, kdv 44 24.8, bo 42 21.3, bo 43 13.3, bo 44 17.1
+(UT2) MET (9/9): oracle OOD <= 1.5 wide OOD; ratios ks 42 0.936, ks 43 1.03, ks 44 0.913, kdv 42 1.09, kdv 43 0.914, kdv 44 0.936, bo 42 1.07, bo 43 0.883, bo 44 0.932
+(UT3) MET (8/8): fins OOD <= 0.5 none OOD (a part in W); ratios ks 42 0.0402, ks 43 0.0458, ks 44 0.043, kdv 42 0.112, kdv 43 0.375, kdv 44 0.105, bo 42 0.312, bo 44 0.273
+(UT4) NOT MET (5/6): fins OOD <= 1.5 oracle OOD (KS, KdV); ratios ks 42 1.14, ks 43 1.08, ks 44 1.12, kdv 42 1.36, kdv 43 2.71, kdv 44 1.32
+(UT5) MET (9/9): shift OOD >= none OOD; ratios ks 42 5.88, ks 43 7.13, ks 44 7.39, kdv 42 9.11, kdv 43 5.23, kdv 44 8.24, bo 42 5.45, bo 43 3.27, bo 44 7.05
+(UT6) MET (9/9): fins, oracle ID <= 2.5 none ID; ratios ks 42 2.01, ks 43 1.63, ks 44 1.95, kdv 42 1.48, kdv 43 1.09, kdv 44 1.06, bo 42 1.73, bo 43 1, bo 44 1.19
+(UT7) NOT MET (7/9): lienlsd OOD <= 1.5 oracle OOD (KS); >= 0.8 none OOD (KdV, BO); ratios ks 42 1.64, ks 43 1.59, ks 44 1.41, kdv 42 1, kdv 43 1, kdv 44 1, bo 42 1, bo 43 1, bo 44 1

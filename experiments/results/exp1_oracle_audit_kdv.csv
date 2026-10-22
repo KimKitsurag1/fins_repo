@@ -1,0 +1,13 @@
+pde,setting,generator,resid_v_norm,resid_q_norm
+kdv,torus_repo_grid,d_x,3.261422e-18,1.362381e-18
+kdv,torus_repo_grid,d_t,5.522763e+01,3.404253e-01
+kdv,torus_repo_grid,Galilean,6.257499e-06,2.867274e-06
+kdv,torus_repo_grid,scaling,9.813658e+00,6.330301e-01
+kdv,torus_resolved,d_x,1.598509e-19,2.109252e-19
+kdv,torus_resolved,d_t,2.823131e-03,2.694803e-07
+kdv,torus_resolved,Galilean,1.311235e-05,1.774143e-05
+kdv,torus_resolved,scaling,3.474854e+02,9.967259e-01
+kdv,wide,d_x,2.718849e-20,2.621445e-18
+kdv,wide,d_t,2.883180e-06,7.936832e-06
+kdv,wide,Galilean,1.824942e-08,2.115673e-07
+kdv,wide,scaling,2.918263e-04,3.837773e-02

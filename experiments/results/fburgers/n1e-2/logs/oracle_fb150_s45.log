@@ -1,0 +1,3 @@
+$ exp56_wsindy.py --pde fb150 --seed 45 --data-seed 1045 --data eval --noise 0.01 --oracle 0.5,0.75,1,1.25,1.5,1.75 --out fins_runs/fb_runs/n1e-2/oracle_fb150_s45
+[fb150] oracle, eval data (10 trajectories), data seed 1045, noise 0.01: u_t = -0.0018133 d0(u^1) -0.00046158 d1(u^1) +0.026566 d2(u^1) -0.04915 (-L^0.5)(u^1) +0.21348 (-L^1.25)(u^1) +0.0020135 d0(u^2) -0.49948 d1(u^2) +0.00029181 d2(u^2) +0.004978 d0(u^3) +0.00085609 d1(u^3) +0.00072932 d2(u^3) -0.0071115 d0(u^4) -0.0014608 d1(u^4) -0.0012504 d2(u^4)   (lambda 1.00e-04, residual 3.29e-02); exponent at which the terms balance: none; 5 s
+  saved fins_runs/fb_runs/n1e-2/oracle_fb150_s45_oracle.json

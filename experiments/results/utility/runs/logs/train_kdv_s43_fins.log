@@ -1,0 +1,14 @@
+$ exp72_utility.py train --pde kdv --seed 43 --arm fins
+    Running batched PyTorch ETDRK4 solver on GPU for 1 samples...
+[kdv s43 fins] part in W 2 (cosines 0.9999 0.9958 0.0610 0.0010), S 0.628
+      epoch 30/300: train loss 8.737e-05 | held-out increment error 0.1195 (best 0.1195)
+      epoch 60/300: train loss 3.091e-05 | held-out increment error 0.0644 (best 0.0644)
+      epoch 90/300: train loss 1.477e-05 | held-out increment error 0.0445 (best 0.0445)
+      epoch 120/300: train loss 1.281e-05 | held-out increment error 0.0391 (best 0.0391)
+      epoch 150/300: train loss 9.886e-06 | held-out increment error 0.0320 (best 0.0320)
+      epoch 180/300: train loss 1.000e-05 | held-out increment error 0.0359 (best 0.0308)
+      epoch 210/300: train loss 7.916e-06 | held-out increment error 0.0290 (best 0.0290)
+      epoch 240/300: train loss 9.201e-06 | held-out increment error 0.0275 (best 0.0275)
+      epoch 270/300: train loss 7.024e-06 | held-out increment error 0.0272 (best 0.0272)
+      epoch 300/300: train loss 7.809e-06 | held-out increment error 0.0272 (best 0.0272)
+saved /content/drive/MyDrive/fins_runs/results/utility_runs/S_kdv_s43_fins.pt (114 s)

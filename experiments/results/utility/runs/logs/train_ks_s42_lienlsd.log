@@ -1,0 +1,13 @@
+$ exp72_utility.py train --pde ks --seed 42 --arm lienlsd
+[ks s42 lienlsd] part in W 2 (cosines 1.0000 1.0000 0.0000), S 1.723
+      epoch 30/300: train loss 3.426e-04 | held-out increment error 0.1384 (best 0.0961)
+      epoch 60/300: train loss 4.825e-04 | held-out increment error 0.1585 (best 0.0429)
+      epoch 90/300: train loss 9.689e-05 | held-out increment error 0.0913 (best 0.0429)
+      epoch 120/300: train loss 4.145e-04 | held-out increment error 0.0798 (best 0.0246)
+      epoch 150/300: train loss 1.152e-05 | held-out increment error 0.0190 (best 0.0190)
+      epoch 180/300: train loss 1.023e-05 | held-out increment error 0.0156 (best 0.0156)
+      epoch 210/300: train loss 6.593e-06 | held-out increment error 0.0129 (best 0.0129)
+      epoch 240/300: train loss 8.019e-06 | held-out increment error 0.0116 (best 0.0115)
+      epoch 270/300: train loss 4.968e-06 | held-out increment error 0.0106 (best 0.0105)
+      epoch 300/300: train loss 4.356e-06 | held-out increment error 0.0104 (best 0.0104)
+saved /content/drive/MyDrive/fins_runs/results/utility_runs/S_ks_s42_lienlsd.pt (113 s)

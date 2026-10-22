@@ -1,0 +1,13 @@
+$ exp72_utility.py train --pde kdv --seed 43 --arm wide
+    Running batched PyTorch ETDRK4 solver on GPU for 1 samples...
+      epoch 30/300: train loss 7.693e-05 | held-out increment error 0.1301 (best 0.1301)
+      epoch 60/300: train loss 2.521e-05 | held-out increment error 0.0731 (best 0.0731)
+      epoch 90/300: train loss 1.159e-05 | held-out increment error 0.0484 (best 0.0484)
+      epoch 120/300: train loss 8.559e-06 | held-out increment error 0.0426 (best 0.0426)
+      epoch 150/300: train loss 5.454e-06 | held-out increment error 0.0342 (best 0.0342)
+      epoch 180/300: train loss 5.107e-06 | held-out increment error 0.0316 (best 0.0316)
+      epoch 210/300: train loss 4.254e-06 | held-out increment error 0.0301 (best 0.0301)
+      epoch 240/300: train loss 4.134e-06 | held-out increment error 0.0298 (best 0.0296)
+      epoch 270/300: train loss 4.026e-06 | held-out increment error 0.0291 (best 0.0290)
+      epoch 300/300: train loss 4.197e-06 | held-out increment error 0.0291 (best 0.0290)
+saved /content/drive/MyDrive/fins_runs/results/utility_runs/S_kdv_s43_wide.pt (108 s)

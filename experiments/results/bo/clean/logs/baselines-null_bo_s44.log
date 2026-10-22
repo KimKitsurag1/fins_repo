@@ -1,0 +1,9 @@
+$ exp41_baselines.py --pde bo --seed 44 --methods LieGAN,LaLiGAN,Augerino --untrained --out fins_runs/bo_runs/clean/baselines-null_bo_s44.npz
+NeuralOp FNO loaded successfully.
+[bo] seed 44, data seed 1044: training (1024, 1, 128, 128), evaluation (10, 128, 128), class dimension 4, degree 2, noise 0, thin 1, cpu
+    LieGAN: training in homogeneous ℝ⁴  (n_channel=4, λ=1.0, η=0.1, μ_sp=0.05, σ_init=1.0, K=256)...
+  LieGAN: 4 generators, 2 s; saved fins_runs/bo_runs/clean/baselines-null_bo_s44.npz
+    LaLiGAN: joint training  (input=16384D, latent=64D, n_channel=4, w_recon=1.0, w_GAN=0.01, w_reg=0.1)...
+  LaLiGAN: 4 generators, 1 s; saved fins_runs/bo_runs/clean/baselines-null_bo_s44.npz
+    Augerino: equivariant training  (ncopies=1, λ=0.05, 7 generators)...
+  Augerino: 7 generators, 0 s; saved fins_runs/bo_runs/clean/baselines-null_bo_s44.npz

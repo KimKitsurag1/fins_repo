@@ -1,0 +1,13 @@
+$ exp72_utility.py train --pde ks --seed 44 --arm shift
+[ks s44 shift] part in W 2 (cosines 1.0000 1.0000), S 1.742
+      epoch 30/300: train loss 6.190e-03 | held-out increment error 0.3425 (best 0.3425)
+      epoch 60/300: train loss 4.803e-03 | held-out increment error 0.2523 (best 0.2523)
+      epoch 90/300: train loss 5.672e-03 | held-out increment error 0.2856 (best 0.2523)
+      epoch 120/300: train loss 4.697e-03 | held-out increment error 0.2589 (best 0.2523)
+      epoch 150/300: train loss 4.282e-03 | held-out increment error 0.2270 (best 0.2270)
+      epoch 180/300: train loss 5.115e-03 | held-out increment error 0.2554 (best 0.2270)
+      epoch 210/300: train loss 5.549e-03 | held-out increment error 0.2798 (best 0.2270)
+      epoch 240/300: train loss 4.158e-03 | held-out increment error 0.2402 (best 0.2262)
+      epoch 270/300: train loss 4.666e-03 | held-out increment error 0.2299 (best 0.2262)
+      epoch 300/300: train loss 4.208e-03 | held-out increment error 0.2343 (best 0.2262)
+saved /content/drive/MyDrive/fins_runs/results/utility_runs/S_ks_s44_shift.pt (112 s)

@@ -1,0 +1,15 @@
+$ exp40_window.py --pde heat --op heat-kernel --smooth --only-L 1 --n 10 --seed 44 --data-seed 1044 --K 16 --every 16 --thin 1 --interior --noise 0 --save fins_runs/noise_weak_runs/clean/pointwise_heat_s44.npz
+kernel (moments): sum 1.000000000000; multiplier error relative to the increment over the data band 4.3e-07; max |multiplier| on [0, pi] 1.000
+  band check, energy above k = Nx/4: u 8.5e-33, u_t 9.2e-28
+  per-trajectory one-step error: 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000
+  rollout error relative to the data increment after 1 step(s): u 0.000, u_x 0.000
+  rollout error relative to the data increment after 16 step(s): u 0.000, u_x 0.000
+/usr/local/lib/python3.13/dist-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+  edge leak: rms response in the scored region to a unit impulse at the window edge, max over 16 steps: 4.1e-103
+[heat, heat-kernel operator r = 6] seed 44, data seed 1044, 10 trajectories, window 4 periods (256 points), scored on the central 64, degree 3, K = 16, mu_rel = 1.0, u_x fd, noise 0, thin 1
+  relative change of the basis characteristics, rms over k = 1..K steps: 2.2e-01
+  lowest eigenvalues: 5.2e-17 6.6e-17 3.0e-16 1.0e-15 1.1e-15 1.2e-15 8.6e-13 3.4e-10 9.9e-10 2.6e-08 5.5e-04 1.9e-03 2.2e-03
+  algebra losses: ∂_x 1.2e-15  ∂_t 8.3e-13  u∂_u 2.3e-16  Galilean 5.8e-10  scaling 3.9e-08  projective 1.1e-09  b=1 8.7e-29  b=x 1.4e-28  b=x2+2at 1.1e-16  b=x3+6axt 4.5e-16   (lambda11 = 5.5e-04)
+  algebra inside the 10 lowest: ∂_x 1.00  ∂_t 1.00  u∂_u 1.00  Galilean 1.00  scaling 1.00  projective 1.00  b=1 1.00  b=x 1.00  b=x2+2at 1.00  b=x3+6axt 1.00
+  saved fins_runs/noise_weak_runs/clean/pointwise_heat_s44.npz

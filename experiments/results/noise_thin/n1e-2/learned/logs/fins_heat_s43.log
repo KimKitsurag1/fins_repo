@@ -1,0 +1,37 @@
+$ exp40_window.py --pde heat --op cno --smooth --only-L 1 --n 10 --tag _smooth_L1_n1e-2 --train-if-missing --seed 43 --data-seed 1043 --score-margin 96 --train-margin 6 --unroll 4 --K 16 --every 16 --noise 0.01 --thin 1 --interior --save /content/drive/MyDrive/fins_runs/results/noise_thin_learned_runs/n1e-2/fins_heat_s43.npz
+Traceback (most recent call last):
+  File "/content/fins/fins_repo/experiments/exp40_window.py", line 32, in <module>
+    import exp31_polynomial_discovery as e31                   # noqa: E402
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/content/fins/fins_repo/experiments/exp31_polynomial_discovery.py", line 43, in <module>
+    from stepper_surrogate import Stepper, train_stepper       # noqa: E402
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/content/fins/fins_repo/experiments/../pde/stepper_surrogate.py", line 16, in <module>
+    from neuralop.models import FNO
+ModuleNotFoundError: No module named 'neuralop'
+$ exp40_window.py --pde heat --op cno --smooth --only-L 1 --n 10 --tag _smooth_L1_n1e-2 --train-if-missing --seed 43 --data-seed 1043 --score-margin 96 --train-margin 6 --unroll 4 --K 16 --every 16 --noise 0.01 --thin 1 --interior --save /content/drive/MyDrive/fins_runs/results/noise_thin_learned_runs/n1e-2/fins_heat_s43.npz
+training heat cno stepper on 1024 trajectories (smooth), seed 43, 400 epochs, window 256, unroll 4, cuda
+      cno stepper epoch 1/400: train loss 8.965e-04 | held-out increment error 0.984 (best inf)
+      cno stepper epoch 40/400: train loss 7.877e-05 | held-out increment error 0.496 (best 0.496)
+      cno stepper epoch 80/400: train loss 6.802e-05 | held-out increment error 0.454 (best 0.454)
+      cno stepper epoch 120/400: train loss 6.601e-05 | held-out increment error 0.452 (best 0.450)
+      cno stepper epoch 160/400: train loss 6.528e-05 | held-out increment error 0.447 (best 0.447)
+      cno stepper epoch 200/400: train loss 6.674e-05 | held-out increment error 0.447 (best 0.447)
+      cno stepper epoch 240/400: train loss 6.461e-05 | held-out increment error 0.456 (best 0.446)
+      cno stepper epoch 280/400: train loss 6.298e-05 | held-out increment error 0.451 (best 0.444)
+      cno stepper epoch 320/400: train loss 6.505e-05 | held-out increment error 0.442 (best 0.442)
+      cno stepper epoch 360/400: train loss 6.424e-05 | held-out increment error 0.442 (best 0.442)
+      cno stepper epoch 400/400: train loss 6.391e-05 | held-out increment error 0.442 (best 0.441)
+      cno stepper: returning the best held-out state (increment error 0.441)
+saved /content/drive/MyDrive/fins_runs/results/S_theta_heat_s43_g64x128_cno_smooth_L1_n1e-2.pt
+  band check, energy above k = Nx/4: u 1.6e-05, u_t 3.5e-01   FLAG: u_t lives where the operator has seen little
+  per-trajectory one-step error: 0.658 0.658 0.753 0.756 0.687 0.388 0.462 0.552 0.605 0.536
+  rollout error relative to the data increment after 1 step(s): u 0.653, u_x 0.708
+  rollout error relative to the data increment after 16 step(s): u 0.094, u_x 0.259
+  edge leak: rms response in the scored region to a unit impulse at the window edge, max over 16 steps: 6.7e-11
+[heat, cno operator r = 0] seed 43, data seed 1043, 10 trajectories, window 4 periods (256 points), scored on the central 64, degree 3, K = 16, mu_rel = 1.0, u_x fd, noise 0.01, thin 1
+  relative change of the basis characteristics, rms over k = 1..K steps: 2.8e-01
+  lowest eigenvalues: 2.1e-04 2.8e-04 5.0e-04 8.9e-04 1.2e-03 1.9e-03 4.9e-03 1.2e-02 2.1e-02 2.8e-02 4.2e-02 5.1e-02 5.4e-02
+  algebra losses: ∂_x 3.4e-02  ∂_t 3.4e-01  u∂_u 5.4e-04  Galilean 2.3e-03  scaling 3.6e-01  projective 8.0e-02  b=1 3.0e-04  b=x 2.9e-04  b=x2+2at 3.4e-04  b=x3+6axt 4.7e-04   (lambda11 = 4.2e-02)
+  algebra inside the 10 lowest: ∂_x 0.75  ∂_t 0.00  u∂_u 1.00  Galilean 1.00  scaling 0.04  projective 1.00  b=1 1.00  b=x 1.00  b=x2+2at 1.00  b=x3+6axt 1.00
+  saved /content/drive/MyDrive/fins_runs/results/noise_thin_learned_runs/n1e-2/fins_heat_s43.npz

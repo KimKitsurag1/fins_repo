@@ -1,0 +1,4 @@
+    Running batched PyTorch ETDRK4 solver on GPU for 1 samples...
+/usr/local/lib/python3.13/dist-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+s44 n1e-2    K=16  gain |k|>32: 1 step 0.039, K steps 0.000 (exact 0.561);  0<|k|<=32: 1 step 0.443, K steps 0.354

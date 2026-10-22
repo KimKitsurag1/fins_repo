@@ -1,0 +1,11 @@
+$ exp39_localised.py --pde bo --op stepper --train-ic mixed --seed 42 --data-seed 1042 --ic periodic --n 10 --K 16 --every 16 --thin 1 --interior --ut fd --noise 0 --save /content/drive/MyDrive/fins_runs/results/bo_runs/clean/pointwise-learned_bo_s42.npz
+  band check, energy above k = Nx/4: u 3.2e-07, u_t 7.3e-05
+  per-trajectory one-step error: 0.001 0.001 0.002 0.002 0.003 0.002 0.001 0.003 0.001 0.001
+  rollout error relative to the data increment after 1 step(s): 0.002
+  rollout error relative to the data increment after 16 step(s): 0.002
+[bo, stepper s42, periodic] data seed 1042, 10 trajectories, Nx 128, T 0.2, K = 16, seam band 0.2; L 6.283; within 0.1 of the seam / overall, rms of u: 9.9e-02, of u_x: 1.4e-02; u_t fd, noise 0, thin 1
+  relative change of the basis characteristics, rms over k = 1..K steps: 8.9e-01
+  lowest eigenvalues: 1.7e-06 8.4e-06 1.8e-05 2.9e-05 4.4e-04 1.5e-03 1.8e-03
+  algebra losses: ∂_x 2.1e-06  ∂_t 2.5e-06  Galilean 1.2e-05  scaling 4.0e-06   (lambda5 = 4.4e-04)
+  algebra inside the 4 lowest: ∂_x 1.00  ∂_t 0.81  Galilean 1.00  scaling 1.00
+  saved /content/drive/MyDrive/fins_runs/results/bo_runs/clean/pointwise-learned_bo_s42.npz

@@ -1,0 +1,32 @@
+$ exp49_weak.py --pde kdv --op learned --seed 43 --data-seed 1043 --tag _n1e-3 --noise 0.001 --K 16 --stride 1 --wt 2 --wp 2 --wx auto --wx-factor 2 --save fins_runs/noise_weak_runs/n1e-3/weak-learned_kdv_s43.npz
+    Running batched PyTorch ETDRK4 solver on GPU for 1 samples...
+  spatial modes from the data: n95 4 of a 128-point domain, 77 scored points -> M = 5
+  rollouts of 1120 start states: 107 s
+/usr/local/lib/python3.13/dist-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+$ exp49_weak.py --pde kdv --op learned --seed 43 --data-seed 1043 --tag _n1e-3 --noise 0.001 --K 16 --stride 1 --wt 2 --wp 2 --wx auto --wx-factor 2 --save fins_runs/noise_weak_runs/n1e-3/weak-learned_kdv_s43.npz
+    Running batched PyTorch ETDRK4 solver on GPU for 1 samples...
+  spatial modes from the data: n95 4 of a 128-point domain, 77 scored points -> M = 5
+  rollouts of 1120 start states: 126 s
+/usr/local/lib/python3.13/dist-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+$ exp49_weak.py --pde kdv --op learned --seed 43 --data-seed 1043 --tag _n1e-3 --noise 0.001 --K 16 --stride 1 --wt 2 --wp 2 --wx auto --wx-factor 2 --save fins_runs/noise_weak_runs/n1e-3/weak-learned_kdv_s43.npz
+    Running batched PyTorch ETDRK4 solver on GPU for 1 samples...
+  spatial modes from the data: n95 4 of a 128-point domain, 77 scored points -> M = 5
+  rollouts of 1120 start states: 108 s
+/usr/local/lib/python3.13/dist-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+$ exp49_weak.py --pde kdv --op learned --seed 43 --data-seed 1043 --tag _n1e-3 --noise 0.001 --K 16 --stride 1 --wt 2 --wp 2 --wx auto --wx-factor 2 --save fins_runs/noise_weak_runs/n1e-3/weak-learned_kdv_s43.npz
+    Running batched PyTorch ETDRK4 solver on GPU for 1 samples...
+  spatial modes from the data: n95 4 of a 128-point domain, 77 scored points -> M = 5
+  rollouts of 1120 start states: 84 s
+/usr/local/lib/python3.13/dist-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+  weak blocks for 19 basis fields, 112 starts, 11 x 2 tests: 3683 s
+[kdv, learned, weak] data seed 1043, 10 trajectories, degree 2, restricted class 19 of 30, K = 16, starts every 1, tests 11 x 2 (p = 2), mu 1.0, noise 0.001, thin 1; 3684 s
+  ground truth in the restricted class: max relative fit residual 2.3e-14
+  lowest eigenvalues: 2.4e-06 1.7e-05 3.0e-05 1.0e-04 6.7e-03 4.8e-02 7.3e-02
+  algebra losses: ∂_x 3.7e-06  ∂_t 3.8e-06  Galilean 3.4e-05  scaling 2.0e-05   (lambda5 = 6.7e-03)
+  algebra inside the 4 lowest: ∂_x 1.00  ∂_t 0.80  Galilean 1.00  scaling 1.00
+  own count (largest eigenvalue ratio among the lowest 17, floor 1e-06): 4 (k = 4)
+  saved fins_runs/noise_weak_runs/n1e-3/weak-learned_kdv_s43.npz

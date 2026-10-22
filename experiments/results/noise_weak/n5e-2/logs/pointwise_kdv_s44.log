@@ -1,0 +1,9 @@
+$ exp39_localised.py --pde kdv --op exact --ic periodic --n 10 --seed 44 --data-seed 1044 --K 16 --every 16 --thin 1 --interior --ut fd --noise 0.05 --save fins_runs/noise_weak_runs/n5e-2/pointwise_kdv_s44.npz
+    Running batched PyTorch ETDRK4 solver on GPU for 1 samples...
+  band check, energy above k = Nx/4: u 7.1e-04, u_t 4.7e-01   FLAG: u_t lives where the operator has seen little
+[kdv, exact, periodic] data seed 1044, 10 trajectories, Nx 128, T 0.05, K = 16, seam band 0.2; L 6.283; within 0.1 of the seam / overall, rms of u: 3.9e-02, of u_x: 4.1e-01; u_t fd, noise 0.05, thin 1
+  relative change of the basis characteristics, rms over k = 1..K steps: 1.3e+00
+  lowest eigenvalues: 4.6e-03 8.8e-03 1.8e-02 3.4e-02 5.3e-02 5.4e-02 1.1e-01
+  algebra losses: ∂_x 1.6e-01  ∂_t 3.0e-01  Galilean 1.3e-01  scaling 2.9e-01   (lambda5 = 5.3e-02)
+  algebra inside the 4 lowest: ∂_x 0.01  ∂_t 0.00  Galilean 0.98  scaling 0.94
+  saved fins_runs/noise_weak_runs/n5e-2/pointwise_kdv_s44.npz

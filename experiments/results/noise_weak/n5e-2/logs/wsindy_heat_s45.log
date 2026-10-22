@@ -1,0 +1,4 @@
+$ exp56_wsindy.py --pde heat --seed 45 --data eval --noise 0.05 --out fins_runs/noise_weak_runs/n5e-2/wsindy_heat_s45
+[heat] eval data (10 trajectories), data seed 1045, noise 0.05: u_t = +0.0099851 d2(u^1)   (lambda 1.48e-03, residual 1.62e-01; m 31,17, p 9,11, 940 rows; 0 s)
+  determining system 72 x 60: smallest singular values / largest 6.9e-18 3.0e-17 6.0e-17 8.7e-17 9.8e-17 9.8e-17 9.8e-17 9.8e-17 2.6e-16 3.6e-15 2.0e-01 3.0e-01 3.3e-01; hard algebra dimension 10 (k = 10); 1 s
+  saved fins_runs/noise_weak_runs/n5e-2/wsindy_heat_s45_soft.npz, fins_runs/noise_weak_runs/n5e-2/wsindy_heat_s45_hard.npz

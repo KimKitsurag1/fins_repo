@@ -1,0 +1,12 @@
+exact_kdv_s42.npz: k_true 4; escaped k = 1..7: abel 0.005 0.003 0.043 0.318 0.528 0.630; closure-gated rank 4; largest-ratio rank 2
+exact_kdv_s43.npz: k_true 4; escaped k = 1..7: abel 0.007 0.002 0.043 0.409 0.713 0.612; closure-gated rank 4; largest-ratio rank 2
+exact_kdv_s44.npz: k_true 4; escaped k = 1..7: abel 0.006 0.003 0.054 0.377 0.585 0.576; closure-gated rank 4; largest-ratio rank 2
+fresh/exact_kdv_s42.npz: k_true 4; escaped k = 1..7: abel 0.004 0.003 0.046 0.393 0.660 0.635; closure-gated rank 4; largest-ratio rank 2
+fresh/exact_kdv_s43.npz: k_true 4; escaped k = 1..7: abel 0.005 0.003 0.069 0.378 0.619 0.600; closure-gated rank 4; largest-ratio rank 2
+fresh/exact_kdv_s44.npz: k_true 4; escaped k = 1..7: abel 0.005 0.002 0.044 0.456 0.722 0.649; closure-gated rank 4; largest-ratio rank 2
+exact_heat_s42.npz: k_true 10; escaped k = 1..13: abel 0.013 0.025 0.096 0.006 0.000 0.294 0.100 0.117 0.099 0.137 0.142 0.185; closure-gated rank 10; largest-ratio rank 6
+exact_heat_s43.npz: k_true 10; escaped k = 1..13: abel 0.005 0.001 0.007 0.103 0.000 0.057 0.102 0.122 0.102 0.136 0.244 0.270; closure-gated rank 7; largest-ratio rank 6
+exact_heat_s44.npz: k_true 10; escaped k = 1..13: abel 0.002 0.002 0.149 0.282 0.000 0.081 0.123 0.148 0.130 0.165 0.227 0.280; closure-gated rank 7; largest-ratio rank 6
+fresh/exact_heat_s42.npz: k_true 10; escaped k = 1..13: abel 0.197 0.245 0.239 0.004 0.000 0.058 0.102 0.119 0.102 0.167 0.183 0.229; closure-gated rank 7; largest-ratio rank 6
+fresh/exact_heat_s43.npz: k_true 10; escaped k = 1..13: abel 0.002 0.000 0.006 0.062 0.000 0.056 0.104 0.126 0.102 0.173 0.250 0.223; closure-gated rank 7; largest-ratio rank 6
+fresh/exact_heat_s44.npz: k_true 10; escaped k = 1..13: abel 0.000 0.006 0.095 0.788 0.000 0.380 0.102 0.129 0.102 0.132 0.238 0.272; closure-gated rank 6; largest-ratio rank 6

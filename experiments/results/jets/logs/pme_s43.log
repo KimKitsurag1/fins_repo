@@ -1,0 +1,9 @@
+[pme] seed 43: n 128, dt 0.004, nsub 6, nt 33, K 8; u in [0.27, 1.50]; relative change over K 0.94; 84 pairs, 47 s
+  spectrum: 6.7e-18 1.7e-10 1.1e-04 3.4e-04 5.0e-04 5.9e-03 6.5e-03 2.3e-02 4.2e-02 6.8e-02 9.3e-02 1.4e-01 1.6e-01 1.9e-01 2.1e-01
+  true characteristics (fit residual 1.2e-14): u_x 4.7e-29  u u_xx + u_x^2 1.7e-10
+  expected rank 2: lambda3 / lambda2 6.27e+05; largest-ratio rank 1; held-out missing of the 2 lowest 0.0000 (random 1.554 +- 0.213)
+    eigenvector 1 (6.7e-18): +1.00 u1, -0.00 u*u2, -0.00 u1^2, -0.00 1
+    eigenvector 2 (1.7e-10): -1.00 u*u2, -1.00 u1^2, -0.08 u1, -0.00 1
+    eigenvector 3 (1.1e-04): -1.00 1, +0.48 u, -0.06 u^2, -0.03 u2
+    eigenvector 4 (3.4e-04): -1.00 u*u1, -0.63 u1, -0.37 u1*u2, +0.20 u^2*u1
+  saved experiments/results/jets/pme_s43.json/.npz

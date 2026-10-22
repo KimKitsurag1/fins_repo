@@ -1,0 +1,16 @@
+NeuralOp FNO loaded successfully.
+    Running batched PyTorch solver on GPU for 1024 samples...
+    Running batched PyTorch solver on GPU for 10 samples...
+[burgers] seed 44, data seed 1044: training (1024, 1, 64, 128), evaluation (10, 64, 128), class dimension 5, degree 2, cuda
+    LIG/Ko-et-al: n_sym=5, σ=0.4, τ=3.0, w=(sym=1.0, ortho=3.0, lips=1.0), adjoint=False, grid=64×128
+    LIG ep 1/10 lr=1e-03 | L_sym=-14.532  L_ortho=3.255  L_lips=0.000  L_sob=0.000  (172.6s)
+    LIG ep 2/10 lr=1e-03 | L_sym=-16.501  L_ortho=1.031  L_lips=0.000  L_sob=0.000  (171.6s)
+    LIG ep 3/10 lr=1e-03 | L_sym=-16.614  L_ortho=0.163  L_lips=0.000  L_sob=0.000  (171.2s)
+    LIG ep 4/10 lr=1e-03 | L_sym=-16.690  L_ortho=0.142  L_lips=0.000  L_sob=0.000  (171.9s)
+    LIG ep 5/10 lr=1e-03 | L_sym=-16.603  L_ortho=0.139  L_lips=0.000  L_sob=0.000  (172.1s)
+    LIG ep 6/10 lr=1e-04 | L_sym=-16.899  L_ortho=0.031  L_lips=0.000  L_sob=0.000  (171.4s)
+    LIG ep 7/10 lr=1e-04 | L_sym=-16.904  L_ortho=0.025  L_lips=0.000  L_sob=0.000  (171.3s)
+    LIG ep 8/10 lr=1e-04 | L_sym=-16.914  L_ortho=0.024  L_lips=0.000  L_sob=0.000  (172.2s)
+    LIG ep 9/10 lr=1e-04 | L_sym=-16.966  L_ortho=0.039  L_lips=0.000  L_sob=10.523  (172.4s)
+    LIG ep 10/10 lr=1e-04 | L_sym=-17.024  L_ortho=0.042  L_lips=0.000  L_sob=3.619  (172.7s)
+  LIG_k: 5 generators, 1720 s; saved /content/drive/MyDrive/fins_runs/results/baselines_burgers_s44.npz

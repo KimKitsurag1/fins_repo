@@ -1,0 +1,12 @@
+  learned operator fins_runs/S_theta_heat_s44_g64x128_cno_smooth_L1.pt: parameter checksum 4.7355270667e+03
+/usr/local/lib/python3.13/dist-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[heat] operator seed 44, data seed 1044, 10 trajectories, K = 16, 60 basis fields, algebra 10: ∂_x ∂_t u∂_u Galilean scaling projective b=1 b=x b=x2+2at b=x3+6axt
+  transport error eta = ||E D^-1/2|| = 3.010721e-01; along the algebra eta_V = 3.338377e-02
+  exact operator: losses of the algebra 7.2e-16 2.3e-08 1.1e-16 8.4e-10 5.9e-08 1.5e-09 6.4e-29 1.0e-28 6.6e-17 2.4e-16; floor ||M P_V D^-1/2|| = 2.783e-04
+  exact sigma_k = 2.236e-04, sigma_(k+1) = 2.006e-02 (lambda_(k+1) = 4.026e-04); floor removed sigma'_(k+1) = 2.006e-02
+  learned, exact normaliser: sigma~_k = 3.027e-02, sigma~_(k+1) = 3.231e-02; losses of the algebra 3.1e-04 2.7e-04 2.8e-05 4.3e-05 2.9e-04 5.5e-05 5.4e-04 4.6e-04 4.3e-04 4.7e-04 (max 5.44e-04, eta_V^2 = 1.11e-03)
+  Weyl: max_i |sigma~_i - sigma_i| = 3.005e-02 <= eta: True
+  sufficient condition: eta' = ||(M P_V + E) D^-1/2|| = 3.011e-01 (eta + floor 3.014e-01) vs sigma'_(k+1) / 2 = 1.003e-02 -> fails; angle bound none
+  implemented (normaliser D_theta): lambda_k = 9.158e-04, lambda_(k+1) = 1.043e-03; losses of the algebra max 5.438e-04; sigma_theta / sigma~ in [0.999, 1.059], bound [0.769, 1.804]
+  (iii) share outside the k lowest learned eigenvectors / bound (loss / lambda_(k+1))^1/2: ∂_x 0.058/0.543  ∂_t 0.080/0.509  u∂_u 0.024/0.164  Galilean 0.033/0.202  scaling 0.051/0.531  projective 0.028/0.229  b=1 0.573/0.722  b=x 0.453/0.664  b=x2+2at 0.282/0.645  b=x3+6axt 0.312/0.673   holds: True

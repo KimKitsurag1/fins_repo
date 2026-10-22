@@ -1,0 +1,7 @@
+$ exp72_utility.py evaluate --pde ks --seed 44
+[ks s44 none    ] in: one-step 1.59e-04, 16-step 2.05e-03 | out: one-step 1.56e-02, 16-step 2.17e-01
+[ks s44 fins    ] in: one-step 3.00e-04, 16-step 4.00e-03 | out: one-step 8.77e-04, 16-step 9.33e-03
+[ks s44 oracle  ] in: one-step 2.87e-04, 16-step 3.72e-03 | out: one-step 8.23e-04, 16-step 8.31e-03
+[ks s44 lienlsd ] in: one-step 3.00e-04, 16-step 3.62e-03 | out: one-step 1.04e-03, 16-step 1.17e-02
+[ks s44 shift   ] in: one-step 2.15e-03, 16-step 3.30e-02 | out: one-step 1.83e-01, 16-step 1.60e+00
+[ks s44 wide    ] in: one-step 3.15e-04, 16-step 4.30e-03 | out: one-step 8.40e-04, 16-step 9.10e-03

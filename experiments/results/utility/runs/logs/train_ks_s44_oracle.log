@@ -1,0 +1,13 @@
+$ exp72_utility.py train --pde ks --seed 44 --arm oracle
+[ks s44 oracle] part in W 2 (cosines 1.0000 1.0000), S 1.742
+      epoch 30/300: train loss 6.853e-05 | held-out increment error 0.0494 (best 0.0494)
+      epoch 60/300: train loss 9.321e-05 | held-out increment error 0.0427 (best 0.0427)
+      epoch 90/300: train loss 2.929e-05 | held-out increment error 0.0249 (best 0.0249)
+      epoch 120/300: train loss 2.168e-05 | held-out increment error 0.0230 (best 0.0230)
+      epoch 150/300: train loss 3.016e-05 | held-out increment error 0.0279 (best 0.0230)
+      epoch 180/300: train loss 7.403e-06 | held-out increment error 0.0148 (best 0.0144)
+      epoch 210/300: train loss 5.896e-06 | held-out increment error 0.0133 (best 0.0126)
+      epoch 240/300: train loss 3.384e-06 | held-out increment error 0.0110 (best 0.0110)
+      epoch 270/300: train loss 4.467e-06 | held-out increment error 0.0107 (best 0.0106)
+      epoch 300/300: train loss 4.219e-06 | held-out increment error 0.0102 (best 0.0102)
+saved /content/drive/MyDrive/fins_runs/results/utility_runs/S_ks_s44_oracle.pt (110 s)

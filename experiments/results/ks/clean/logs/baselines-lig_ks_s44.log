@@ -1,0 +1,15 @@
+$ exp41_baselines.py --pde ks --seed 44 --methods LIG --lig-epochs 10 --batch-size 1 --out /content/drive/MyDrive/fins_runs/results/ks_runs/clean/baselines-lig_ks_s44.npz
+NeuralOp FNO loaded successfully.
+[ks] seed 44, data seed 1044: training (1024, 1, 128, 128), evaluation (10, 128, 128), class dimension 3, degree 2, noise 0, thin 1, cuda
+    LIG/Ko-et-al: n_sym=3, σ=0.4, τ=3.0, w=(sym=1.0, ortho=3.0, lips=1.0), adjoint=True, grid=128×128
+    LIG ep 1/10 lr=1e-03 | L_sym=-0.634  L_ortho=0.236  L_lips=0.000  L_sob=0.000  (557.6s)
+    LIG ep 2/10 lr=1e-03 | L_sym=-0.999  L_ortho=0.052  L_lips=0.000  L_sob=0.000  (556.5s)
+    LIG ep 3/10 lr=1e-03 | L_sym=-1.038  L_ortho=0.033  L_lips=0.000  L_sob=0.000  (557.2s)
+    LIG ep 4/10 lr=1e-03 | L_sym=-1.059  L_ortho=0.023  L_lips=0.000  L_sob=0.000  (556.5s)
+    LIG ep 5/10 lr=1e-03 | L_sym=-1.080  L_ortho=0.015  L_lips=0.000  L_sob=0.000  (557.0s)
+    LIG ep 6/10 lr=1e-04 | L_sym=-1.111  L_ortho=0.002  L_lips=0.000  L_sob=0.000  (557.2s)
+    LIG ep 7/10 lr=1e-04 | L_sym=-1.112  L_ortho=0.002  L_lips=0.000  L_sob=0.000  (557.2s)
+    LIG ep 8/10 lr=1e-04 | L_sym=-1.116  L_ortho=0.002  L_lips=0.000  L_sob=0.000  (557.1s)
+    LIG ep 9/10 lr=1e-04 | L_sym=-1.102  L_ortho=0.026  L_lips=0.000  L_sob=4.536  (558.1s)
+    LIG ep 10/10 lr=1e-04 | L_sym=-1.108  L_ortho=0.013  L_lips=0.000  L_sob=0.275  (557.7s)
+  LIG: 3 generators, 5573 s; saved /content/drive/MyDrive/fins_runs/results/ks_runs/clean/baselines-lig_ks_s44.npz

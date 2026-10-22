@@ -1,0 +1,11 @@
+$ exp39_localised.py --pde fb125 --op stepper --train-ic mixed --seed 44 --data-seed 1044 --ic periodic --n 10 --K 16 --every 16 --thin 1 --interior --ut fd --noise 0 --save /content/drive/MyDrive/fins_runs/results/fb_runs/clean/pointwise-learned_fb125_s44.npz
+  band check, energy above k = Nx/4: u 1.7e-07, u_t 6.6e-06
+  per-trajectory one-step error: 0.040 0.010 0.020 0.015 0.011 0.029 0.009 0.014 0.010 0.023
+  rollout error relative to the data increment after 1 step(s): 0.021
+  rollout error relative to the data increment after 16 step(s): 0.018
+[fb125, stepper s44, periodic] data seed 1044, 10 trajectories, Nx 128, T 1.0, K = 16, seam band 0.2; L 6.283; within 0.1 of the seam / overall, rms of u: 4.9e-02, of u_x: 3.3e-02; u_t fd, noise 0, thin 1
+  relative change of the basis characteristics, rms over k = 1..K steps: 2.4e-01
+  lowest eigenvalues: 3.7e-05 1.6e-04 3.2e-04 3.7e-04 7.8e-04 1.1e-03 2.3e-03
+  algebra losses: ∂_x 9.6e-04  ∂_t 3.8e-04  Galilean 3.8e-04  scaling 9.2e-04   (lambda5 = 7.8e-04)
+  algebra inside the 4 lowest: ∂_x 0.53  ∂_t 0.98  Galilean 0.87  scaling 0.79
+  saved /content/drive/MyDrive/fins_runs/results/fb_runs/clean/pointwise-learned_fb125_s44.npz

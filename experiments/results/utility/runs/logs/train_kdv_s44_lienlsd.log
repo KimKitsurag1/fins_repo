@@ -1,0 +1,14 @@
+$ exp72_utility.py train --pde kdv --seed 44 --arm lienlsd
+    Running batched PyTorch ETDRK4 solver on GPU for 1 samples...
+[kdv s44 lienlsd] part in W 1 (cosines 1.0000 0.0000), S 0.6271
+      epoch 30/300: train loss 2.100e-05 | held-out increment error 0.0334 (best 0.0334)
+      epoch 60/300: train loss 7.311e-06 | held-out increment error 0.0180 (best 0.0180)
+      epoch 90/300: train loss 3.100e-06 | held-out increment error 0.0129 (best 0.0129)
+      epoch 120/300: train loss 2.727e-06 | held-out increment error 0.0130 (best 0.0114)
+      epoch 150/300: train loss 1.646e-06 | held-out increment error 0.0104 (best 0.0098)
+      epoch 180/300: train loss 1.480e-06 | held-out increment error 0.0086 (best 0.0086)
+      epoch 210/300: train loss 1.438e-06 | held-out increment error 0.0083 (best 0.0083)
+      epoch 240/300: train loss 1.365e-06 | held-out increment error 0.0079 (best 0.0079)
+      epoch 270/300: train loss 1.389e-06 | held-out increment error 0.0078 (best 0.0077)
+      epoch 300/300: train loss 1.335e-06 | held-out increment error 0.0077 (best 0.0076)
+saved /content/drive/MyDrive/fins_runs/results/utility_runs/S_kdv_s44_lienlsd.pt (106 s)

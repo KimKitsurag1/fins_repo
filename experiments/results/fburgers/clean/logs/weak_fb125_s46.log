@@ -1,0 +1,14 @@
+$ exp49_weak.py --pde fb125 --op exact --seed 46 --data-seed 1046 --noise 0 --K 16 --stride 1 --wt 2 --wp 2 --wx auto --wx-factor 2 --save fins_runs/fb_runs/clean/weak_fb125_s46.npz
+  spatial modes from the data: n95 4 of a 128-point domain, 77 scored points -> M = 5
+  rollouts of 1120 start states: 18 s
+$ exp49_weak.py --pde fb125 --op exact --seed 46 --data-seed 1046 --noise 0 --K 16 --stride 1 --wt 2 --wp 2 --wx auto --wx-factor 2 --save fins_runs/fb_runs/clean/weak_fb125_s46.npz
+  spatial modes from the data: n95 4 of a 128-point domain, 77 scored points -> M = 5
+  rollouts of 1120 start states: 15 s
+  weak blocks for 19 basis fields, 112 starts, 11 x 2 tests: 513 s
+[fb125, exact, weak] data seed 1046, 10 trajectories, degree 2, restricted class 19 of 30, K = 16, starts every 1, tests 11 x 2 (p = 2), mu 1.0, noise 0, thin 1; 514 s
+  ground truth in the restricted class: max relative fit residual 1.2e-14
+  lowest eigenvalues: -5.8e-16 3.8e-20 3.6e-16 3.0e-05 1.3e-04 1.3e-02 2.9e-02
+  algebra losses: ∂_x 7.1e-20  ∂_t 1.4e-27  Galilean -7.0e-17  scaling 4.0e-06   (lambda5 = 1.3e-04)
+  algebra inside the 4 lowest: ∂_x 1.00  ∂_t 1.00  Galilean 1.00  scaling 1.00
+  own count (largest eigenvalue ratio among the lowest 17, floor 1e-06): 5 (k = 4)
+  saved fins_runs/fb_runs/clean/weak_fb125_s46.npz

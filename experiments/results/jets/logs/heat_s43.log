@@ -1,0 +1,14 @@
+[heat] seed 43: n 128, dt 0.005, nsub 1, nt 33, K 8; u in [-6.22, 4.36]; relative change over K 0.61; 84 pairs, 34 s
+  spectrum: -4.2e-17 -1.4e-17 -6.6e-18 -6.3e-18 -4.8e-18 0.0e+00 3.1e-31 1.7e-03 4.5e-03 9.0e-03 1.0e-02 1.2e-02 1.7e-02 2.8e-02 1.7e-01
+  true characteristics (fit residual 4.4e-16): 1 1.4e-31  u 7.1e-31  u_x 7.2e-29  u_xx 7.5e-27  u_xxx 3.7e-25  u_4x 1.8e-23  u_5x 7.3e-22
+  expected rank 7: lambda8 / lambda7 5.54e+27; largest-ratio rank 7; held-out missing of the 7 lowest 0.0000 (random 3.042 +- 0.244)
+    eigenvector 1 (-4.2e-17): -1.00 u1, +0.12 u, +0.10 u2, -0.05 u3
+    eigenvector 2 (-1.4e-17): +1.00 u2, +0.91 u1, +0.74 u, +0.12 u3
+    eigenvector 3 (-6.6e-18): -1.00 u, -0.90 u2, +0.18 u1, +0.16 u3
+    eigenvector 4 (-6.3e-18): -1.00 u1, -0.17 u, -0.11 u3, -0.09 u2
+    eigenvector 5 (-4.8e-18): +1.00 u1, -0.41 u, -0.36 u2, -0.14 u3
+    eigenvector 6 (0.0e+00): +1.00 1, +0.00 u, +0.00 u1, +0.00 u^2
+    eigenvector 7 (3.1e-31): +1.00 u, +0.05 1, +0.00 u2, +0.00 u1
+    eigenvector 8 (1.7e-03): +1.00 u^2, -0.93 1, +0.40 u, +0.06 u*u2
+    eigenvector 9 (4.5e-03): -1.00 u*u1, -0.17 u1, -0.15 u, +0.08 u^2
+  saved experiments/results/jets/heat_s43.json/.npz

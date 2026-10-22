@@ -1,0 +1,11 @@
+[flows] seed 42: data 4042/5042, K 8, eps [0.003, 0.01, 0.03, 0.1, 0.3, 1.0], 4 pairs; windowed coordinates |x|, |y| <= 6 kept, zero beyond 7.75; projection on; polynomial lowest 7.7e-28 1.3e-16 9.6e-13 6.6e-10 1.3e-07 1.1e-06 3.2e-04 5.0e-04 8.6e-04 9.6e-04 (65 s)
+  network direction 1    tau share 0.99, r1 1.86e-03 | E(eps): 1.68e-03 (0.003)  1.65e-03 (0.010)  1.59e-03 (0.029)  1.42e-03 (0.088)  1.17e-03 (0.217)  1.09e-03 (0.469)  [114 s, max steps 485]
+  network direction 2    tau share 0.27, r1 1.60e-03 | E(eps): 1.55e-03 (0.003)  1.55e-03 (0.010)  1.55e-03 (0.030)  1.55e-03 (0.099)  1.57e-03 (0.292)  1.76e-03 (0.855)  [37 s, max steps 139]
+  network direction 3    tau share 0.00, r1 3.70e-03 | E(eps): 3.33e-03 (0.003)  3.33e-03 (0.010)  3.33e-03 (0.030)  3.34e-03 (0.099)  3.40e-03 (0.290)  4.47e-03 (0.822)  [58 s, max steps 228]
+  network direction 4    tau share 0.04, r1 3.07e-03 | E(eps): 2.92e-03 (0.003)  2.92e-03 (0.010)  2.91e-03 (0.030)  2.89e-03 (0.099)  2.87e-03 (0.290)  3.29e-03 (0.830)  [54 s, max steps 173]
+  network direction 5    tau share 0.14, r1 9.95e-03 | E(eps): 9.98e-03 (0.003)  9.89e-03 (0.010)  9.64e-03 (0.030)  8.86e-03 (0.098)  6.93e-03 (0.279)  5.61e-03 (0.774)  [124 s, max steps 481]
+  network direction 6    tau share 0.00, r1 7.45e-03 | E(eps): 8.04e-03 (0.003)  8.03e-03 (0.010)  8.02e-03 (0.030)  7.99e-03 (0.100)  8.04e-03 (0.298)  8.56e-03 (0.982)  [66 s, max steps 267]
+  network direction 7    tau share 0.01, r1 8.38e-03 | E(eps): 8.80e-03 (0.003)  8.76e-03 (0.010)  8.65e-03 (0.030)  8.29e-03 (0.100)  7.48e-03 (0.303)  7.37e-03 (1.025)  [86 s, max steps 348]
+  network direction 8    tau share 0.03, r1 1.29e-02 | E(eps): 1.34e-02 (0.003)  1.34e-02 (0.010)  1.34e-02 (0.030)  1.37e-02 (0.101)  1.67e-02 (0.309)  inf (1.076)  [161 s, max steps 655]
+      first eps with E >= 10 E(0.003) or non-finite: 1; min of T_s u0 -6.507 (block -5.037); failed flows 0, failed evolutions 2 of 4
+saved results/neural2d/flows/flows_net_m8_s42.json

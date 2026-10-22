@@ -24,11 +24,23 @@ class GroundTruthAlgebra:
         ]
 
     @staticmethod
-    def burgers_generators(x, t, u):
+    def burgers_generators(x, t, u, a=2 * np.pi):
+        # Algebra of u_t + a u u_x = b u_xx on the LABELLED grid. The repo's
+        # Burgers solver multiplies integer wavenumbers by 2 pi a second time
+        # (data_generation.solve_burgers), so the stored data obey
+        # u_t + 2 pi u u_x = 4 pi^2 nu u_xx on x in [0, 2 pi) -- a unit-domain
+        # Burgers equation with nu = 0.01. Measured: PDE residual 0.85 for
+        # the textbook form, 0.035 for a = 2 pi; through the solver, Galilean
+        # (t, 0, 1) has residual 1.22 and (2 pi t, 0, 1) 1.5e-4. With
+        # u~ = a u the textbook algebra maps to: Galilean (a t, 0, 1),
+        # projective (x t, t^2, x / a - t u); d_x, d_t, scaling unchanged.
+        # a = 1 recovers the textbook algebra (phi = x - t u, exp17).
         zeros, ones = np.zeros_like(u), np.ones_like(u)
         X, T = np.meshgrid(x, t, indexing='ij')
-        return [(ones, zeros, zeros), (zeros, ones, zeros), (T, zeros, ones),
-                (X, 2 * T, -u), (X * T, T ** 2, -(X + T * u))]
+        return [(ones, zeros, zeros), (zeros, ones, zeros),
+                (a * T, zeros, ones),
+                (X, 2 * T, -u),
+                (X * T, T ** 2, X / a - T * u)]
 
     @staticmethod
     def kdv_generators(x, t, u):
@@ -58,12 +70,6 @@ def get_gt_names(pde):
 
 class Metrics:
     @staticmethod
-    # def grassmann_distance(A, B):
-    #     Ao, _ = np.linalg.qr(A)
-    #     Bo, _ = np.linalg.qr(B)
-    #     # Compute principal angles using all basis vectors (natively handles matrices of unequal rank)
-    #     s = np.linalg.svd(Ao.T @ Bo, compute_uv=False)
-    #     return float(np.sqrt(np.sum(np.arccos(np.clip(s, -1.0, 1.0)) ** 2)))
     def grassmann_distance(A, B):
         """
         Subspace distance between col-spans of A and B.
@@ -152,11 +158,11 @@ class Metrics:
                 gt_idx = ci[pos]
                 score = sim[idx, gt_idx]
                 gt_name = gt_names[gt_idx] if gt_idx < len(gt_names) else f"GT_{gt_idx}"
-                quality = "★" if score > 0.8 else "●" if score > 0.5 else "○"
+                quality = "high" if score > 0.8 else "mid " if score > 0.5 else "low "
                 lines.append(f"    {quality} v_{idx + 1}{norm_str} → {gt_name} (cos={score:.3f})")
                 matching[idx] = (gt_idx, gt_name, score)
             else:
-                lines.append(f"    ○ v_{idx + 1}{norm_str} → no match")
+                lines.append(f"    low  v_{idx + 1}{norm_str} → no match")
                 matching[idx] = (None, None, 0.0)
 
         return {'matrix': sim, 'matching': matching, 'report_lines': lines}

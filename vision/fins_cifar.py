@@ -8,8 +8,17 @@ Usage:
     pip install -r requirements.txt
     python fins_cifar.py
 
-Parameters are configured in the CONFIG dict below. Auto-resumes from
-saved results and checkpoints if interrupted; simply re-run to continue.
+Parameters are configured in the CONFIG dict below; command-line flags override
+them (python fins_cifar.py --help). Without flags the script reproduces the CONFIG
+run. Auto-resumes from saved results and checkpoints if interrupted.
+
+Controls (flags):
+    --methods fins,null_init,null_smooth --paired
+                                              learned generators vs two chance levels of the
+                                              learned per-slot magnitudes
+    --cifar-train-size N [--sym-gen-subset M] training-set size of the classifier
+                                              (and of the generator fit)
+    --base-aug                                random crop and flip in every arm
 
 Outputs (under ./outputs/):
     fins_cifar_results.json     - per-seed accuracy across all methods
@@ -20,6 +29,7 @@ Runtime: ~30-45 min per seed on A100/V100; ~1.5 h on T4.
 """
 
 # ---- Imports ----
+import argparse
 import os, json, math
 from typing import Callable, Dict, List, Tuple
 
@@ -63,7 +73,43 @@ CONFIG = {
     "out_json":         "fins_cifar_results.json",
     "encoder_name":     "dinov2_vits14",
     "save_sym_gen":     True,      # save sym_gen weights per seed
+    "sym_micro_batch":  None,      # encoder terms in slices (same gradient, lower memory; T4: 4)
 }
+
+ALL_METHODS = ["no_aug", "fins", "null_init", "null_smooth", "randaug", "autoaug", "trivialaug"]
+
+# Command-line overrides of CONFIG
+_ap = argparse.ArgumentParser(description="FINS on CIFAR-10")
+_ap.add_argument("--n-seeds", type=int, default=None)
+_ap.add_argument("--seed-start", type=int, default=None)
+_ap.add_argument("--full", action="store_true", help="all baselines (smoke_test off)")
+_ap.add_argument("--methods", default=None, help="comma list from " + ",".join(ALL_METHODS))
+_ap.add_argument("--cifar-train-size", type=int, default=None, help="classifier training images")
+_ap.add_argument("--sym-gen-subset", type=int, default=None, help="generator fit images (capped at the training set)")
+_ap.add_argument("--epochs-sym-gen", type=int, default=None)
+_ap.add_argument("--epochs-resnet", type=int, default=None)
+_ap.add_argument("--sym-micro-batch", type=int, default=None,
+                 help="generator training: encoder terms in slices of this size (same gradient, lower memory)")
+_ap.add_argument("--paired", action="store_true",
+                 help="reseed before every arm: same classifier init, data order and augmentation draws")
+_ap.add_argument("--base-aug", action="store_true", help="random crop (pad 4) and horizontal flip in every arm")
+_ap.add_argument("--out-dir", default=None)
+_ap.add_argument("--out-json", default=None)
+_ap.add_argument("--sym-gen-dir", default=None, help="generator checkpoints (default: out_dir/sym_gen_checkpoints)")
+_args, _ = _ap.parse_known_args()
+for _k in ("n_seeds", "seed_start", "cifar_train_size", "sym_gen_subset", "epochs_sym_gen", "epochs_resnet",
+           "sym_micro_batch", "out_dir", "out_json"):
+    if getattr(_args, _k) is not None:
+        CONFIG[_k] = getattr(_args, _k)
+if _args.full:
+    CONFIG["smoke_test"] = False
+CONFIG["paired"] = _args.paired
+CONFIG["base_aug"] = _args.base_aug
+CONFIG["methods"] = (_args.methods.split(",") if _args.methods else
+                     ["no_aug", "fins"] if CONFIG["smoke_test"] else
+                     ["no_aug", "fins", "randaug", "autoaug", "trivialaug"])
+if set(CONFIG["methods"]) - set(ALL_METHODS):
+    raise SystemExit(f"unknown methods: {sorted(set(CONFIG['methods']) - set(ALL_METHODS))}")
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 print(f"Device: {DEVICE}")
@@ -76,13 +122,16 @@ OUT_DIR = CONFIG["out_dir"]
 os.makedirs(OUT_DIR, exist_ok=True)
 
 OUT_JSON       = os.path.join(OUT_DIR, CONFIG["out_json"])
-SYM_GEN_DIR    = os.path.join(OUT_DIR, "sym_gen_checkpoints")
+SYM_GEN_DIR    = _args.sym_gen_dir or os.path.join(OUT_DIR, "sym_gen_checkpoints")
 if CONFIG["save_sym_gen"]:
     os.makedirs(SYM_GEN_DIR, exist_ok=True)
 
 print(f"Results JSON  : {OUT_JSON}")
 if CONFIG["save_sym_gen"]:
     print(f"Sym_gen ckpts : {SYM_GEN_DIR}")
+print(f"Methods       : {','.join(CONFIG['methods'])}; paired {CONFIG['paired']}; base aug {CONFIG['base_aug']}")
+with open(os.path.splitext(OUT_JSON)[0] + "_config.json", "w") as _f:
+    json.dump(CONFIG, _f, indent=2)
 
 
 # Reproducibility
@@ -144,12 +193,20 @@ def build_corruptions_cifar(severity_scale=1.0):
     }
 
 
+
+def load_dinov2(name, **kw):
+    """DINOv2 from a local clone (env DINOV2_REPO) or the hub cache, without GitHub API validation."""
+    repo = os.environ.get("DINOV2_REPO", "")
+    if os.path.isdir(repo):
+        return torch.hub.load(repo, name, source="local", **kw)
+    return torch.hub.load("facebookresearch/dinov2", name, skip_validation=True, trust_repo=True, **kw)
+
 # Encoder target — DINOv2-ViT-S/14
 class EncoderTarget(nn.Module):
     def __init__(self, name="dinov2_vits14", image_size=224):
         super().__init__()
         self.image_size = image_size
-        self.model = torch.hub.load("facebookresearch/dinov2", name)
+        self.model = load_dinov2(name)
         self.feature_dim = self.model.embed_dim
         for p in self.model.parameters():
             p.requires_grad_(False)
@@ -183,6 +240,20 @@ class MultiSymmetryFNO(nn.Module):
             phi = out[:, 5*i + 2:5*i + 5]
             gens.append((xi, eta, phi))
         return gens
+
+
+class ScaledGenerators(nn.Module):
+    """Generators of `base` with per-slot scales on (xi, eta) and on phi."""
+    def __init__(self, base, s_geo, s_phi):
+        super().__init__()
+        self.base = base
+        self.N_sym = base.N_sym
+        self.register_buffer("s_geo", torch.tensor(s_geo, dtype=torch.float32))
+        self.register_buffer("s_phi", torch.tensor(s_phi, dtype=torch.float32))
+
+    def forward(self, x_grid, y_grid, img):
+        return [(xi * self.s_geo[i], eta * self.s_geo[i], phi * self.s_phi[i])
+                for i, (xi, eta, phi) in enumerate(self.base(x_grid, y_grid, img))]
 
 
 def create_normalized_grids(B, H, W, device):
@@ -296,11 +367,88 @@ def phi_geom_balance_loss(gens, target_ratio=0.5):
     return loss / len(gens)
 
 
+# Chance levels at the learned per-slot magnitudes
+@torch.no_grad()
+def slot_rms(gen, images, n_probe=256):
+    """Per-slot RMS of (xi, eta) and of phi on `images`."""
+    gen.eval()
+    img = images[:n_probe].to(DEVICE)
+    B, _, H, W = img.shape
+    xg, yg = create_normalized_grids(B, H, W, DEVICE)
+    return [(float((xi ** 2 + eta ** 2).mean().sqrt()), float((phi ** 2).mean().sqrt()))
+            for xi, eta, phi in gen(xg, yg, img)]
+
+
+@torch.no_grad()
+def null_init(learned, images, seed):
+    """The generator network at initialisation (own init stream), rescaled slot by slot to the learned
+    RMS of (xi, eta) and of phi. Its fields are nearly constant: global translations and colour shifts."""
+    target = slot_rms(learned, images)
+    torch.manual_seed(seed + 1_000_003)
+    base = MultiSymmetryFNO(N_sym=learned.N_sym).to(DEVICE).eval()
+    got = slot_rms(base, images)
+    s_geo = [t[0] / max(g[0], 1e-12) for t, g in zip(target, got)]
+    s_phi = [t[1] / max(g[1], 1e-12) for t, g in zip(target, got)]
+    print("  learned RMS of (xi, eta) / phi per slot: " + "  ".join(f"{g:.3g}/{q:.3g}" for g, q in target))
+    return ScaledGenerators(base, s_geo, s_phi).to(DEVICE).eval()
+
+
+class SmoothFieldGenerators(nn.Module):
+    """Image-independent random smooth fields per slot: Fourier modes 1 <= |k|_inf <= kmax on [-1, 1]^2,
+    amplitudes ~ 1 / (1 + |k|^2), no constant mode, scaled to the given RMS of (xi, eta) and of phi."""
+    def __init__(self, rms, H, W, seed, kmax=3):
+        super().__init__()
+        g = torch.Generator().manual_seed(seed + 2_000_003)
+        y, x = torch.meshgrid(torch.linspace(-1, 1, H), torch.linspace(-1, 1, W), indexing="ij")
+        modes = [(kx, ky) for kx in range(kmax + 1) for ky in range(-kmax, kmax + 1) if (kx, ky) > (0, 0)]
+
+        def field(n):
+            f = torch.zeros(n, H, W)
+            for kx, ky in modes:
+                ph = math.pi * (kx * x + ky * y)
+                a, b = torch.randn(2, n, 1, 1, generator=g)
+                f += (a * torch.cos(ph) + b * torch.sin(ph)) / (1 + kx * kx + ky * ky)
+            return f
+
+        self.N_sym = len(rms)
+        xs, es, ps = [], [], []
+        for r_geo, r_phi in rms:
+            xe = field(2)
+            xe = xe * r_geo / xe.pow(2).sum(0).mean().sqrt()
+            p = field(3)
+            p = p * r_phi / p.pow(2).mean().sqrt()
+            xs.append(xe[:1]); es.append(xe[1:]); ps.append(p)
+        self.register_buffer("xi", torch.stack(xs))
+        self.register_buffer("eta", torch.stack(es))
+        self.register_buffer("phi", torch.stack(ps))
+
+    def forward(self, x_grid, y_grid, img):
+        B = img.shape[0]
+        return [(self.xi[i].expand(B, -1, -1, -1).contiguous(), self.eta[i].expand(B, -1, -1, -1).contiguous(),
+                 self.phi[i].expand(B, -1, -1, -1).contiguous()) for i in range(self.N_sym)]
+
+
+def random_crop_flip(img, pad=4):
+    """Random crop after zero padding and random horizontal flip, per image (standard CIFAR augmentation)."""
+    B, C, H, W = img.shape
+    padded = F.pad(img, (pad, pad, pad, pad))
+    i = torch.randint(0, 2 * pad + 1, (B,), device=img.device)
+    j = torch.randint(0, 2 * pad + 1, (B,), device=img.device)
+    rows = (i[:, None] + torch.arange(H, device=img.device)[None])[:, None, :, None]
+    cols = (j[:, None] + torch.arange(W, device=img.device)[None])[:, None, None, :]
+    out = padded[torch.arange(B, device=img.device)[:, None, None, None],
+                 torch.arange(C, device=img.device)[None, :, None, None], rows, cols]
+    flip = torch.rand(B, device=img.device) < 0.5
+    return torch.where(flip[:, None, None, None], out.flip(-1), out)
+
+
 # Training
 def train_sym_gen(train_images, encoder, *, N_sym=6, epochs=12, batch_size=32,
                    w_olver=1.0, w_finite_tau=1.0, w_balance=10.0,
                    w_ortho=1.0, w_lips=0.01, w_manifold=0.1,
-                   olver_eps=0.01, tau_probe=0.3):
+                   olver_eps=0.01, tau_probe=0.3, micro_batch=None):
+    """micro_batch: encoder terms in slices of this size, backpropagated slice by slice; the batch-level
+    terms (orthogonality, balance, smoothness) on the whole batch. Same gradient, lower peak memory."""
     G = MultiSymmetryFNO(N_sym=N_sym).to(DEVICE)
     opt = optim.Adam(G.parameters(), lr=1e-4)
     loader = DataLoader(TensorDataset(train_images, torch.zeros(len(train_images))),
@@ -313,16 +461,39 @@ def train_sym_gen(train_images, encoder, *, N_sym=6, epochs=12, batch_size=32,
             B, _, H, W = img.shape
             xg, yg = create_normalized_grids(B, H, W, DEVICE)
             gens = G(xg, yg, img)
-            l_olv = encoder_olver_loss(gens, encoder, img, eps=olver_eps) if w_olver > 0 else torch.tensor(0., device=DEVICE)
-            l_ft  = encoder_finite_tau_loss(gens, encoder, img, tau_probe=tau_probe) if w_finite_tau > 0 else torch.tensor(0., device=DEVICE)
-            l_or  = ortho_loss(gens)
-            l_lp  = lipschitz_loss(gens)
-            l_bl  = phi_geom_balance_loss(gens)
-            l_mn  = encoder_manifold_loss(gens, encoder, img, tau_probe=tau_probe)
-            loss = w_olver*l_olv + w_finite_tau*l_ft + w_ortho*l_or + w_lips*l_lp + w_balance*l_bl + w_manifold*l_mn
-            opt.zero_grad(); loss.backward(); opt.step()
-            ls["olver"] += float(l_olv.detach()); ls["ftau"] += float(l_ft.detach())
-            ls["bal"]   += float(l_bl.detach()); ls["tot"]  += float(loss.detach())
+            if micro_batch is None or micro_batch >= B:
+                l_olv = encoder_olver_loss(gens, encoder, img, eps=olver_eps) if w_olver > 0 else torch.tensor(0., device=DEVICE)
+                l_ft  = encoder_finite_tau_loss(gens, encoder, img, tau_probe=tau_probe) if w_finite_tau > 0 else torch.tensor(0., device=DEVICE)
+                l_or  = ortho_loss(gens)
+                l_lp  = lipschitz_loss(gens)
+                l_bl  = phi_geom_balance_loss(gens)
+                l_mn  = encoder_manifold_loss(gens, encoder, img, tau_probe=tau_probe)
+                loss = w_olver*l_olv + w_finite_tau*l_ft + w_ortho*l_or + w_lips*l_lp + w_balance*l_bl + w_manifold*l_mn
+                opt.zero_grad(); loss.backward(); opt.step()
+                l_olv, l_ft, l_bl, tot = float(l_olv.detach()), float(l_ft.detach()), float(l_bl.detach()), float(loss.detach())
+            else:
+                opt.zero_grad()
+                l_olv = l_ft = l_mn = 0.0
+                for s0 in range(0, B, micro_batch):
+                    sl = slice(s0, s0 + micro_batch)
+                    part = [(xi[sl], eta[sl], phi[sl]) for xi, eta, phi in gens]
+                    frac = img[sl].shape[0] / B
+                    o = encoder_olver_loss(part, encoder, img[sl], eps=olver_eps) if w_olver > 0 else torch.tensor(0., device=DEVICE)
+                    f = encoder_finite_tau_loss(part, encoder, img[sl], tau_probe=tau_probe) if w_finite_tau > 0 else torch.tensor(0., device=DEVICE)
+                    m = encoder_manifold_loss(part, encoder, img[sl], tau_probe=tau_probe)
+                    (frac * (w_olver*o + w_finite_tau*f + w_manifold*m)).backward(retain_graph=True)
+                    l_olv += frac * float(o.detach()); l_ft += frac * float(f.detach()); l_mn += frac * float(m.detach())
+                    del part, o, f, m
+                l_or  = ortho_loss(gens)
+                l_lp  = lipschitz_loss(gens)
+                l_bl  = phi_geom_balance_loss(gens)
+                rest = w_ortho*l_or + w_lips*l_lp + w_balance*l_bl
+                rest.backward()
+                opt.step()
+                tot = w_olver*l_olv + w_finite_tau*l_ft + w_manifold*l_mn + float(rest.detach())
+                l_bl = float(l_bl.detach())
+            ls["olver"] += l_olv; ls["ftau"] += l_ft
+            ls["bal"]   += l_bl; ls["tot"]  += tot
             nb += 1
         print(f"    epoch {ep+1:2d}/{epochs}  olver={ls['olver']/nb:.3f}  ftau={ls['ftau']/nb:.3f}  bal={ls['bal']/nb:.4f}  tot={ls['tot']/nb:.3f}")
     G.eval()
@@ -361,7 +532,7 @@ def make_resnet18_cifar(num_classes=10):
     return net
 
 
-def train_resnet18_cifar(imgs, lbls, num_classes=10, epochs=30, batch_size=128, lr=0.1):
+def train_resnet18_cifar(imgs, lbls, num_classes=10, epochs=30, batch_size=128, lr=0.1, base_aug=False):
     net = make_resnet18_cifar(num_classes).to(DEVICE)
     opt = optim.SGD(net.parameters(), lr=lr, momentum=0.9, weight_decay=5e-4)
     sched = optim.lr_scheduler.CosineAnnealingLR(opt, T_max=epochs)
@@ -369,7 +540,10 @@ def train_resnet18_cifar(imgs, lbls, num_classes=10, epochs=30, batch_size=128, 
     for ep in range(epochs):
         net.train()
         for img, lbl in loader:
-            loss = F.cross_entropy(net(img.to(DEVICE)), lbl.to(DEVICE))
+            img = img.to(DEVICE)
+            if base_aug:
+                img = random_crop_flip(img)
+            loss = F.cross_entropy(net(img), lbl.to(DEVICE))
             opt.zero_grad(); loss.backward(); opt.step()
         sched.step()
         if (ep+1) % 5 == 0:
@@ -402,57 +576,81 @@ def make_aug_batch(images, transform, n_aug=3):
 def run_one_seed(seed, train_imgs, train_lbls, test_imgs, test_lbls, cfg):
     seed_all(seed)
     corruptions = build_corruptions_cifar()
+    methods = cfg["methods"]
+
+    def arm(name):
+        if cfg["paired"]:
+            seed_all(seed)
+        print(f"  arm {name}")
 
     # 1. Sym_gen training (on subset)
-    perm = np.random.RandomState(seed).permutation(len(train_imgs))
-    sub = train_imgs[perm[:cfg["sym_gen_subset"]]]
-    print(f"  loading encoder {cfg['encoder_name']}...")
-    encoder = EncoderTarget(name=cfg["encoder_name"], image_size=224).to(DEVICE)
+    sym_gen = sub = None
+    if {"fins", "null_init", "null_smooth"} & set(methods):
+        perm = np.random.RandomState(seed).permutation(len(train_imgs))
+        sub = train_imgs[perm[:cfg["sym_gen_subset"]]]
+        tag = "" if (len(train_imgs), len(sub)) == (50000, 5000) else f"_train{len(train_imgs)}_fit{len(sub)}"
+        print(f"  loading encoder {cfg['encoder_name']}...")
+        encoder = EncoderTarget(name=cfg["encoder_name"], image_size=224).to(DEVICE)
 
-    # Check for cached sym_gen weights (resume after disconnect)
-    sym_gen_path = os.path.join(SYM_GEN_DIR, f"sym_gen_seed{seed}.pt") if cfg["save_sym_gen"] else None
-    if sym_gen_path and os.path.exists(sym_gen_path):
-        print(f"  found cached sym_gen at {sym_gen_path} — loading...")
-        sym_gen = MultiSymmetryFNO(N_sym=cfg["N_sym"]).to(DEVICE)
-        # weights_only=False required for PyTorch 2.6+: NeuralOp FNO state_dict
-        # contains activation function refs (gelu) that the safe loader blocks.
-        _state = torch.load(sym_gen_path, map_location=DEVICE, weights_only=False)
-        # Pop _metadata key (NeuralOp FNO serialization quirk — see visualize script).
-        _state.pop("_metadata", None)
-        sym_gen.load_state_dict(_state)
-        sym_gen.eval()
-    else:
-        print(f"  training sym_gen on {cfg['sym_gen_subset']} CIFAR images...")
-        sym_gen = train_sym_gen(sub, encoder,
-                                N_sym=cfg["N_sym"], epochs=cfg["epochs_sym_gen"],
-                                w_olver=cfg["w_olver"], w_finite_tau=cfg["w_finite_tau"],
-                                w_balance=cfg["w_balance"],
-                                olver_eps=cfg["olver_eps"], tau_probe=cfg["tau_probe"])
-        if sym_gen_path:
-            torch.save(sym_gen.state_dict(), sym_gen_path)
-            print(f"  ✓ saved sym_gen to {sym_gen_path}")
+        # Check for cached sym_gen weights (resume after disconnect)
+        sym_gen_path = os.path.join(SYM_GEN_DIR, f"sym_gen_seed{seed}{tag}.pt") if cfg["save_sym_gen"] else None
+        if sym_gen_path and os.path.exists(sym_gen_path):
+            print(f"  found cached sym_gen at {sym_gen_path} — loading...")
+            sym_gen = MultiSymmetryFNO(N_sym=cfg["N_sym"]).to(DEVICE)
+            # weights_only=False required for PyTorch 2.6+: NeuralOp FNO state_dict
+            # contains activation function refs (gelu) that the safe loader blocks.
+            _state = torch.load(sym_gen_path, map_location=DEVICE, weights_only=False)
+            # Pop _metadata key (NeuralOp FNO serialization quirk — see visualize script).
+            _state.pop("_metadata", None)
+            sym_gen.load_state_dict(_state)
+            sym_gen.eval()
+        else:
+            print(f"  training sym_gen on {len(sub)} CIFAR images...")
+            sym_gen = train_sym_gen(sub, encoder,
+                                    N_sym=cfg["N_sym"], epochs=cfg["epochs_sym_gen"],
+                                    w_olver=cfg["w_olver"], w_finite_tau=cfg["w_finite_tau"],
+                                    w_balance=cfg["w_balance"],
+                                    olver_eps=cfg["olver_eps"], tau_probe=cfg["tau_probe"],
+                                    micro_batch=cfg["sym_micro_batch"])
+            if sym_gen_path:
+                torch.save(sym_gen.state_dict(), sym_gen_path)
+                print(f"  saved sym_gen to {sym_gen_path}")
+        del encoder
+        if DEVICE == "cuda":
+            torch.cuda.empty_cache()
 
     results = {}
 
     # 2. no_aug
-    print("  training ResNet-18 no_aug...")
-    net = train_resnet18_cifar(train_imgs, train_lbls, epochs=cfg["epochs_resnet"])
-    results["no_aug"] = evaluate_corruptions_cifar(net, test_imgs, test_lbls, corruptions)
+    if "no_aug" in methods:
+        arm("no_aug")
+        print("  training ResNet-18 no_aug...")
+        net = train_resnet18_cifar(train_imgs, train_lbls, epochs=cfg["epochs_resnet"], base_aug=cfg["base_aug"])
+        results["no_aug"] = evaluate_corruptions_cifar(net, test_imgs, test_lbls, corruptions)
 
-    # 3. fins
-    print(f"  building FINS augmented set...")
-    aug_imgs = augment_fins(train_imgs, sym_gen,
-                                     n_aug=cfg["n_aug"], tau_range=cfg["tau_range"],
-                                     n_active=cfg["n_active"])
-    aug_lbls = train_lbls.repeat(cfg["n_aug"] + 1)
-    print(f"    augmented size: {len(aug_imgs)}")
-    print("  training ResNet-18 on FINS-augmented data...")
-    net = train_resnet18_cifar(aug_imgs, aug_lbls, epochs=cfg["epochs_resnet"])
-    results["fins"] = evaluate_corruptions_cifar(net, test_imgs, test_lbls, corruptions)
-    del aug_imgs; torch.cuda.empty_cache()
-
-    if cfg["smoke_test"]:
-        return results
+    # 3. fins (learned generators) and the two chance levels at the learned per-slot magnitudes
+    for name in ("fins", "null_init", "null_smooth"):
+        if name not in methods:
+            continue
+        if name == "fins":
+            gen = sym_gen
+        elif name == "null_init":
+            gen = null_init(sym_gen, sub, seed)
+        else:
+            gen = SmoothFieldGenerators(slot_rms(sym_gen, sub), *train_imgs.shape[-2:], seed).to(DEVICE).eval()
+        arm(name)
+        print(f"  building {name} augmented set...")
+        aug_imgs = augment_fins(train_imgs, gen,
+                                n_aug=cfg["n_aug"], tau_range=cfg["tau_range"],
+                                n_active=cfg["n_active"])
+        aug_lbls = train_lbls.repeat(cfg["n_aug"] + 1)
+        print(f"    augmented size: {len(aug_imgs)}")
+        print(f"  training ResNet-18 on {name}-augmented data...")
+        net = train_resnet18_cifar(aug_imgs, aug_lbls, epochs=cfg["epochs_resnet"], base_aug=cfg["base_aug"])
+        results[name] = evaluate_corruptions_cifar(net, test_imgs, test_lbls, corruptions)
+        del aug_imgs
+        if DEVICE == "cuda":
+            torch.cuda.empty_cache()
 
     # 4. Baselines: RandAug / AutoAug / TrivialAug
     for name, policy in [
@@ -460,14 +658,19 @@ def run_one_seed(seed, train_imgs, train_lbls, test_imgs, test_lbls, cfg):
         ("autoaug",    transforms.AutoAugment(transforms.AutoAugmentPolicy.CIFAR10)),
         ("trivialaug", transforms.TrivialAugmentWide()),
     ]:
+        if name not in methods:
+            continue
+        arm(name)
         tfm = transforms.Compose([transforms.ToPILImage(), policy, transforms.ToTensor()])
         print(f"  building {name}-augmented set...")
         aug_imgs = make_aug_batch(train_imgs, tfm, n_aug=cfg["n_aug"])
         aug_lbls = train_lbls.repeat(cfg["n_aug"] + 1)
         print(f"  training ResNet-18 on {name}-augmented data...")
-        net = train_resnet18_cifar(aug_imgs, aug_lbls, epochs=cfg["epochs_resnet"])
+        net = train_resnet18_cifar(aug_imgs, aug_lbls, epochs=cfg["epochs_resnet"], base_aug=cfg["base_aug"])
         results[name] = evaluate_corruptions_cifar(net, test_imgs, test_lbls, corruptions)
-        del aug_imgs; torch.cuda.empty_cache()
+        del aug_imgs
+        if DEVICE == "cuda":
+            torch.cuda.empty_cache()
 
     return results
 
@@ -501,7 +704,7 @@ if os.path.exists(OUT_JSON):
     try:
         with open(OUT_JSON) as f:
             all_results = json.load(f)
-        print(f"\n✓ Found existing results: {len(all_results)} seed(s) already completed.")
+        print(f"\nFound existing results: {len(all_results)} seed(s) already completed.")
         if len(all_results) >= CONFIG["n_seeds"]:
             print(f"  All {CONFIG['n_seeds']} seeds already done. Skipping to results display.")
         else:
@@ -519,7 +722,7 @@ for i in range(len(all_results), CONFIG["n_seeds"]):
     # Save after each seed so disconnect costs at most one seed
     with open(OUT_JSON, "w") as f:
         json.dump(all_results, f, indent=2)
-    print(f"  ✓ seed {seed} complete, results saved to {OUT_JSON}")
+    print(f"  seed {seed} complete, results saved to {OUT_JSON}")
 
 
 # Pretty results table
@@ -553,12 +756,28 @@ for c in corr_names + ["avg_corrupt"]:
     print(line)
 
 # Deltas vs no_aug
-if "fins" in methods:
+if "fins" in methods and "no_aug" in methods:
     print(f"\n{'Δ vs no_aug':<16s}")
     for c in corr_names + ["avg_corrupt"]:
         d = agg["fins"][c] - agg["no_aug"][c]
-        symbol = "✓" if d > 0.005 else ("✗" if d < -0.005 else "≈")
+        symbol = "better" if d > 0.005 else ("worse" if d < -0.005 else "tie")
         print(f"  {c:<16s}  {d:+.3f}  {symbol}")
+
+# Controls: learned vs untrained generators (paired seeds), FINS vs the best baseline
+def _avg(r):
+    return float(np.mean([r[c] for c in corr_names if c != "clean"]))
+
+for _null in ("null_init", "null_smooth"):
+    if "fins" in methods and _null in methods:
+        d = [_avg(r["fins"]) - _avg(r[_null]) for r in all_results]
+        print(f"\nfins - {_null}, avg_corrupt per seed: " + " ".join(f"{x:+.3f}" for x in d)
+              + f"; mean {np.mean(d):+.3f} +/- {np.std(d):.3f}; fins ahead on {sum(x > 0 for x in d)}/{len(d)}")
+_base = [m for m in ("randaug", "autoaug", "trivialaug") if m in methods]
+if "fins" in methods and _base:
+    best = max(_base, key=lambda m: agg[m]["avg_corrupt"])
+    g = [_avg(r["fins"]) - _avg(r[best]) for r in all_results]
+    print(f"FINS - {best} (best baseline on average), avg_corrupt per seed: " + " ".join(f"{x:+.3f}" for x in g)
+          + f"; mean {np.mean(g):+.3f} +/- {np.std(g):.3f}; FINS ahead on {sum(x > 0 for x in g)}/{len(g)}")
 
 print(f"\nResults saved to {OUT_JSON}")
 if CONFIG["save_sym_gen"]:

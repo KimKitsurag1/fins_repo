@@ -1,0 +1,16 @@
+--- a/pde/ground_truth.py	2026-08-19 01:56:36.729042047 +0000
++++ b/pde/ground_truth.py	2026-08-19 01:56:36.729325351 +0000
+@@ -28,7 +28,12 @@
+         zeros, ones = np.zeros_like(u), np.ones_like(u)
+         X, T = np.meshgrid(x, t, indexing='ij')
+         return [(ones, zeros, zeros), (zeros, ones, zeros), (T, zeros, ones),
+-                (X, 2 * T, -u), (X * T, T ** 2, -(X + T * u))]
++                (X, 2 * T, -u),
++                # Projective generator corrected: the previous
++                # phi = -(x + t u) fails the determining equation
++                # with defect -2(u + x u_x); the symmetry of
++                # u_t + u u_x = nu u_xx is phi = x - t u.
++                (X * T, T ** 2, X - T * u)]
+ 
+     @staticmethod
+     def kdv_generators(x, t, u):

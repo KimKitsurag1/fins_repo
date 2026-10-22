@@ -1,0 +1,12 @@
+[flows] seed 42: data 4042/5042, K 8, eps [0.003, 0.01, 0.03, 0.1, 0.3, 1.0], 4 pairs; windowed coordinates |x|, |y| <= 6 kept, zero beyond 7.75; projection on; polynomial lowest 7.7e-28 1.3e-16 9.6e-13 6.6e-10 1.3e-07 1.1e-06 3.2e-04 5.0e-04 8.6e-04 9.6e-04 (44 s)
+  network direction 1    tau share 0.68, r1 3.89e-03 | E(eps): 3.61e-03 (0.003)  3.59e-03 (0.010)  3.51e-03 (0.030)  3.27e-03 (0.097)  2.76e-03 (0.277)  2.07e-03 (0.747)  [64 s, max steps 254]
+  network direction 2    tau share 0.23, r1 1.30e-02 | E(eps): 1.60e-02 (0.003)  1.57e-02 (0.010)  1.48e-02 (0.029)  1.24e-02 (0.093)  8.91e-03 (0.242)  6.67e-03 (0.539)  [341 s, max steps 1550]
+  network direction 3    tau share 0.66, r1 3.97e-03 | E(eps): 3.76e-03 (0.003)  3.73e-03 (0.010)  3.65e-03 (0.030)  3.41e-03 (0.096)  2.91e-03 (0.269)  2.21e-03 (0.685)  [68 s, max steps 401]
+  network direction 4    tau share 0.66, r1 4.68e-03 | E(eps): 4.55e-03 (0.003)  4.52e-03 (0.010)  4.45e-03 (0.030)  4.19e-03 (0.097)  3.59e-03 (0.272)  2.10e-03 (0.698)  [95 s, max steps 401]
+  network direction 5    tau share 0.53, r1 4.64e-03 | E(eps): 4.25e-03 (0.003)  4.22e-03 (0.010)  4.13e-03 (0.030)  3.89e-03 (0.099)  3.58e-03 (0.291)  3.56e-03 (0.891)  [69 s, max steps 343]
+  network direction 6    tau share 0.01, r1 2.82e-03 | E(eps): 3.04e-03 (0.003)  3.02e-03 (0.010)  2.97e-03 (0.030)  2.83e-03 (0.101)  2.57e-03 (0.308)  2.94e-03 (1.102)  [41 s, max steps 216]
+  network direction 7    tau share 0.91, r1 9.76e-02 | E(eps): 7.53e-02 (0.003)  7.40e-02 (0.010)  7.09e-02 (0.029)  6.26e-02 (0.092)  5.37e-02 (0.249)  inf (nan)  [221 s, max steps 1233]
+      first eps with E >= 10 E(0.003) or non-finite: 1; min of T_s u0 +nan (block +nan); failed flows 4, failed evolutions 0 of 4
+  network direction 8    tau share 0.92, r1 9.90e-02 | E(eps): 8.15e-02 (0.003)  8.12e-02 (0.010)  8.07e-02 (0.030)  8.16e-02 (0.102)  inf (nan)  inf (nan)  [401 s, max steps 2067]
+      first eps with E >= 10 E(0.003) or non-finite: 0.3; min of T_s u0 -12.614 (block -7.985); failed flows 0, failed evolutions 4 of 4
+saved results/neural2d/flows/flows_net_m8_mu001_s42.json

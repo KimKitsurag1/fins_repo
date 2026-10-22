@@ -1,0 +1,13 @@
+$ exp72_utility.py train --pde bo --seed 44 --arm fins
+[bo s44 fins] part in W 2 (cosines 0.9997 0.9985 0.0407 0.0023), S 0.3714
+      epoch 30/300: train loss 2.040e-04 | held-out increment error 0.1216 (best 0.1216)
+      epoch 60/300: train loss 1.071e-04 | held-out increment error 0.0674 (best 0.0674)
+      epoch 90/300: train loss 1.094e-04 | held-out increment error 0.0592 (best 0.0467)
+      epoch 120/300: train loss 3.464e-05 | held-out increment error 0.0338 (best 0.0338)
+      epoch 150/300: train loss 2.746e-05 | held-out increment error 0.0291 (best 0.0291)
+      epoch 180/300: train loss 2.624e-05 | held-out increment error 0.0301 (best 0.0272)
+      epoch 210/300: train loss 2.408e-05 | held-out increment error 0.0240 (best 0.0240)
+      epoch 240/300: train loss 1.853e-05 | held-out increment error 0.0235 (best 0.0235)
+      epoch 270/300: train loss 1.728e-05 | held-out increment error 0.0227 (best 0.0227)
+      epoch 300/300: train loss 1.921e-05 | held-out increment error 0.0226 (best 0.0226)
+saved /content/drive/MyDrive/fins_runs/results/utility_runs/S_bo_s44_fins.pt (120 s)

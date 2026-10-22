@@ -1,0 +1,5 @@
+$ -u exp71_kreider.py --pde heat --seed 46 --noise 0.05 --variant sheet --K 9 --ell 2 --J 2 --K-surface 200 --ell-surface 2 --out fins_runs/noise_weak_runs/n5e-2/kreider-sheet_heat_s46
+NeuralOp FNO loaded successfully.
+[heat] Kreider sheet: data seed 1046, noise 0.05, thin 1, order 2, degree 3, K 9, ell 2, J 2; jets 12 s, rows and SVD 1 s
+  smallest singular values / largest: 3.1e-05 5.3e-05 8.2e-05 1.0e-04 1.5e-04 1.5e-04 1.8e-04 2.3e-04 2.7e-04 3.1e-04 3.7e-04 4.9e-04 5.6e-04 5.8e-04; own count 1 (k = 10)
+  saved fins_runs/noise_weak_runs/n5e-2/kreider-sheet_heat_s46_soft.npz, fins_runs/noise_weak_runs/n5e-2/kreider-sheet_heat_s46_hard.npz

@@ -1,0 +1,11 @@
+$ exp49_weak.py --pde fb150 --op exact --seed 45 --data-seed 1045 --noise 0 --K 16 --stride 1 --wt 2 --wp 2 --wx auto --wx-factor 2 --save fins_runs/fb_runs/clean/weak_fb150_s45.npz
+  spatial modes from the data: n95 4 of a 128-point domain, 77 scored points -> M = 5
+  rollouts of 1120 start states: 14 s
+  weak blocks for 19 basis fields, 112 starts, 11 x 2 tests: 460 s
+[fb150, exact, weak] data seed 1045, 10 trajectories, degree 2, restricted class 19 of 30, K = 16, starts every 1, tests 11 x 2 (p = 2), mu 1.0, noise 0, thin 1; 460 s
+  ground truth in the restricted class: max relative fit residual 1.2e-14
+  lowest eigenvalues: -5.1e-17 1.5e-19 7.9e-16 6.0e-06 7.8e-05 2.0e-02 4.1e-02
+  algebra losses: ∂_x 2.3e-19  ∂_t 4.6e-29  Galilean 1.1e-16  scaling 1.5e-06   (lambda5 = 7.8e-05)
+  algebra inside the 4 lowest: ∂_x 1.00  ∂_t 1.00  Galilean 1.00  scaling 1.00
+  own count (largest eigenvalue ratio among the lowest 17, floor 1e-06): 5 (k = 4)
+  saved fins_runs/fb_runs/clean/weak_fb150_s45.npz

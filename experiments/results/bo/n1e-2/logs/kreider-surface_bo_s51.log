@@ -1,0 +1,5 @@
+$ -u exp71_kreider.py --pde bo --seed 51 --noise 0.01 --variant surface --K 9 --ell 2 --J 2 --K-surface 200 --ell-surface 2 --out fins_runs/bo_runs/n1e-2/kreider-surface_bo_s51
+NeuralOp FNO loaded successfully.
+[bo] Kreider surface: data seed 1051, noise 0.01, thin 1, order 3, degree 2, K 9, ell 2, J 2, surface K 200, ell 2; jets 40 s, rows and SVD 93 s
+  smallest singular values / largest: 8.7e-17 8.7e-17 7.0e-06 2.3e-05 4.8e-05 2.3e-04 3.1e-04 3.5e-04; own count 2 (k = 4); {"normal_ut_share": 0.07280116973217557}
+  saved fins_runs/bo_runs/n1e-2/kreider-surface_bo_s51_soft.npz, fins_runs/bo_runs/n1e-2/kreider-surface_bo_s51_hard.npz

@@ -1,0 +1,17 @@
+{
+ "pde": "bo",
+ "seed": 42,
+ "arm": "shift",
+ "n_train": 512,
+ "epochs": 300,
+ "kind": "mixed",
+ "dim": 2,
+ "cosines": [
+  1.0,
+  1.0
+ ],
+ "S": 0.3722878858452591,
+ "best_val": 0.05500226840376854,
+ "seconds": 110.18006896972656,
+ "device": "cuda"
+}
