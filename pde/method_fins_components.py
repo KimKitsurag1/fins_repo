@@ -41,6 +41,7 @@ from typing import List, Tuple
 from torch.utils.data import DataLoader, TensorDataset
 
 from shared_modules import make_fno
+from config import ExperimentConfig
 
 
 
@@ -54,7 +55,6 @@ class ConstrainedGeneratorFNO(nn.Module):
     """
     def __init__(self, cfg=None):
         super().__init__()
-        from config import ExperimentConfig
         cfg = cfg or ExperimentConfig()
         self.fno = make_fno(3, 4, cfg)
 
@@ -109,7 +109,6 @@ class SingleGeneratorFNO(nn.Module):
     """
     def __init__(self, cfg=None):
         super().__init__()
-        from config import ExperimentConfig
         cfg = cfg or ExperimentConfig()
         self.fno = make_fno(3, 3, cfg)
 

@@ -1,10 +1,17 @@
+"""One arm of the tangent-training test (README_EXPERIMENTS.md, exp27): trains S_theta with a tangent penalty and reports
+the relative L2 error, the held-out Jacobian error and the residuals of the Galilean field and u d_u.
+Input: a torch file with u0, u, x, t, the tangent fields and 'held' (u0, direction, response); the script that wrote it
+is not in the repository.
+
+Run:  python exp27_tangent_arm.py <lambda> <epochs> <tangent key> <data.pt>
+"""
 import numpy as np, torch, sys, io, contextlib, time
 sys.path.insert(0, '.'); sys.path.insert(0, '../experiments')
 from torch.func import jvp
 from config import ExperimentConfig
 from method_fins import train_solution_operator, equivariance_loss
 lam = float(sys.argv[1]); epochs = int(sys.argv[2])
-d = torch.load('/tmp/tangent_data.pt', weights_only=False)
+d = torch.load(sys.argv[4], weights_only=False)
 u0, u, x, t = d['u0'], d['u'], d['x'], d['t']
 n, Nx, Nt = u.shape
 cfg = ExperimentConfig(); cfg.device='cpu'

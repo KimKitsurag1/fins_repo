@@ -1,5 +1,5 @@
 """Figure: the first evaluation trajectory of seed 42 for each equation (space-time, scaled by its maximum |u|), read
-from the registered runs in FINS_RESULTS_DIR, which store the evaluation data they were scored on.
+from the reported runs in FINS_RESULTS_DIR, which store the evaluation data they were scored on.
 
 Run:  python make_fig_data.py [--out fig_data.pdf]
 """

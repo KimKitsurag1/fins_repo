@@ -34,6 +34,7 @@ import exp_common as C
 from config import ExperimentConfig
 from data_generation import generate_pde_data
 from ground_truth import Metrics
+from scipy.optimize import linear_sum_assignment
 
 PDES = ("heat", "burgers", "kdv")
 GT_NAMES = {"heat": ["d_x", "d_t", "u d_u", "Galilean", "scaling",
@@ -104,7 +105,6 @@ def vec_metrics(disc_vecs, gt_vecs):
     dn = A / (np.linalg.norm(A, axis=0, keepdims=True) + 1e-30)
     gn = B / (np.linalg.norm(B, axis=0, keepdims=True) + 1e-30)
     sim = np.abs(dn.T @ gn)
-    from scipy.optimize import linear_sum_assignment
     ri, ci = linear_sum_assignment(-sim)
     return d, float(sim[ri, ci].mean())
 

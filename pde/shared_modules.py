@@ -65,11 +65,10 @@ class SimpleFNO2d(nn.Module):
 def make_fno_1d(in_ch=1, out_ch=1, cfg=None):
     cfg = cfg or ExperimentConfig()
     if HAS_NEURALOP:
-        from neuralop.models import FNO as NeuralOpFNOBase
         class NeuralOpFNO1d(nn.Module):
             def __init__(self, in_ch, out_ch, modes, width, n_layers):
                 super().__init__()
-                self.fno = NeuralOpFNOBase(n_modes=(modes,), hidden_channels=width,
+                self.fno = NeuralOpFNO(n_modes=(modes,), hidden_channels=width,
                                            in_channels=in_ch, out_channels=out_ch,
                                            n_layers=n_layers)
             def forward(self, x):

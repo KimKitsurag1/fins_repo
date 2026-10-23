@@ -21,8 +21,6 @@ class PDESolver:
 
     @staticmethod
     def solve_burgers(u0, nu, T, Nt, dt_internal=1e-4, verbose=False):
-        import torch
-        import numpy as np
 
         if isinstance(u0, torch.Tensor):
             u0_np = u0.cpu().numpy()
@@ -57,7 +55,6 @@ class PDESolver:
         kmax = torch.max(torch.abs(k))
         dealias = (torch.abs(k) <= (2.0 / 3.0 * kmax)).unsqueeze(0)  # [1, Nx]
 
-        from tqdm import tqdm
         iterator = tqdm(range(n_int + 1), desc='      Burgers', leave=False) \
                 if verbose else range(n_int + 1)
 
@@ -94,8 +91,6 @@ class PDESolver:
         KdV solver (ETDRK4) with PyTorch GPU batching.
         Returns an array of shape (Batch, Nx, Nt) or (Nx, Nt); the solution is not clipped.
         """
-        import torch
-        import numpy as np
         
         # Check if batched
         if isinstance(u0, torch.Tensor):
@@ -165,7 +160,6 @@ class PDESolver:
         
         solution = torch.zeros((Batch, Nx, Nt), dtype=torch.float64, device=device)
         
-        from tqdm import tqdm
         iterator = tqdm(range(n_int + 1), desc='      KdV PyTorch Batched', leave=False) if verbose else range(n_int + 1)
         
         sc = 0

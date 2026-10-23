@@ -26,6 +26,7 @@ import numpy as np
 
 import exp_common as C
 from ground_truth import Metrics, GroundTruthAlgebra, get_gt_names
+from scipy.optimize import linear_sum_assignment
 
 NX, NT, T, L, ALPHA = 64, 128, 1.0, 1.0, 0.01
 
@@ -72,7 +73,6 @@ def main():
         sim = np.abs(Q_null.T @ Q_gt) / (
             np.linalg.norm(Q_null, axis=0)[:, None]
             * np.linalg.norm(Q_gt, axis=0)[None, :] + 1e-12)
-        from scipy.optimize import linear_sum_assignment
         ri, ci = linear_sum_assignment(-sim)
         c_q.append(float(sim[ri, ci].mean()))
 

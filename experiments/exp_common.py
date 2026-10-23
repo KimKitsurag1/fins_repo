@@ -72,7 +72,7 @@ def etdrk4_solve(u0, L, T, Nt, dt, lin_symbol, nonlin_factory):
 
     lin_symbol(k) -> complex array Lk; nonlin_factory(k, mask) -> N(v_hat).
     Used for the wide-domain controls; the torus (L = 2 pi) runs go through
-    the repository solvers instead, so the audit uses the paper's own data
+    the repository solvers instead, so the audit uses the conference version's data
     pipeline.
     """
     B, Nx = u0.shape
@@ -369,6 +369,7 @@ def sanity_check_equivariance_fixed(S_theta, pde_type, train_sol, train_x,
     on the heat Galilean and projective generators at zero model error).
     Here every sample gets fields built from its own (x, t, u).
     """
+    # lazy: this module is numpy-only for the oracle scripts; torch loads here
     import torch
     from ground_truth import GroundTruthAlgebra, get_gt_names
     from method_fins import equivariance_loss

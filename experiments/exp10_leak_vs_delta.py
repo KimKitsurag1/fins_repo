@@ -11,7 +11,7 @@ per budget measured on the SAME S_theta.
           residual restricted to x in [m, L - m] (exp8)
 
 The question this answers: the oracle reaches R(0.05 L) ~ 1e-7 on the
-paper's own grid, but the window removes the seam only from the residual,
+conference version's grid, but the window removes the seam only from the residual,
 not from the input. If R(m) on the surrogate falls with delta, the windowed
 test is usable and the rank-6 regime is reachable in the pipeline. If R(m)
 plateaus while delta keeps falling, the limit is architectural: the FNO's

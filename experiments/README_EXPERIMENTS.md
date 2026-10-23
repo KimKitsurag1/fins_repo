@@ -1,19 +1,23 @@
-# FINS post-review experiment suite
+# FINS experiment log
 
-Seven experiment scripts addressing the three meta-review concerns of the
-Discovery Science 2026 rejection (Proposition 1 insufficiently proven;
-ground-truth algebras possibly inconsistent with the periodic experimental
-setup; main result overstated), plus a verified patch for a bias in the
-repository's sanity check. Scripts live in `experiments/` inside the FINS
-repository and import from `../pde` unchanged; the only repository
-modification proposed is the patch file.
+Chronological record of every experiment run for this project, development runs and side studies included; most of
+them are not in the paper. The paper's numbers come from the scripts listed in the top-level README. Entries keep the
+wording of their date; where it differs from the paper:
 
-Environment of these runs: CPU-only, torch 2.13, numpy/scipy; `neuraloperator`
-absent, so `make_fno` falls back to `SimpleFNO2d` (the repository's own
-guard). Experiments 1-4 and 8 are oracle-level (no surrogate) and the
-numbers below are final. Experiments 5-7 were run in `--smoke` mode and 9
-with a small CPU surrogate, to validate mechanics; paper-scale numbers
-require the full config on GPU.
+- *registered*, *pre-registration*: settings, scored quantities and expected outcomes written into this log before
+  the runs on the reported seeds; *verdict* (MET / NOT MET) compares the outcome with that expectation.
+- *own count*: the automatic count of the paper (dimension at the largest ratio of consecutive eigenvalues);
+  *m = k reading*: the m = k_B readout.
+- *readings* of Kreider et al.: the solutions and equation variants; *equation surface*: the equation variant.
+- *mock reviews*: critical feedback on drafts given by the language models declared in the paper (Section 4.5,
+  Use of Generative AI); some of it led to additional experiments.
+- *PDE paper*, *paper_pde*, *the paper* with a section or table number: earlier drafts; numbering refers to those
+  drafts. *The paper's own grid* and *Section 6 of the paper* (vision) refer to the earlier conference version.
+
+The first block below (exp1-exp14) tests the earlier conference version: whether its Proposition 1 holds, whether its
+ground-truth algebras hold on the periodic setup, and whether its main result is overstated. It ran CPU-only with
+torch 2.13 and numpy/scipy; without `neuraloperator`, `make_fno` falls back to `SimpleFNO2d`. Experiments 1-4 and 8
+are oracle-level (no surrogate); 5-7 ran in `--smoke` mode and 9 with a small CPU surrogate.
 
 ## Files
 
@@ -177,11 +181,8 @@ experiments/
                                  by determining equation + windowed JVP
   exp14_nonlinear_breaking.py    eps^2 detection law on a nonlinear operator
                                  (forced Burgers)
-  patch_burgers_projective.diff  OPT-IN fix of the Burgers v5 generator in
-                                 ground_truth.py (changes all Burgers
-                                 scoring; apply consciously)
-  patch_sanity_per_sample.diff   fix for method_fins.sanity_check_equivariance
-                                 and alpha propagation in get_gt_generators
+  (two patch files, since merged into pde/ground_truth.py and
+   pde/method_fins.py and removed)
   results/*.csv                  outputs of these runs
 ```
 
@@ -322,7 +323,7 @@ the exp8/exp12A anomaly. Consequences: the Burgers ground-truth subspace of
 Table 1 was partly wrong for ALL six methods; the v5 column of Table 3
 tracked a non-symmetry, so its plateau under IC enrichment was guaranteed a
 priori (the v3 orbit-coverage story is unaffected); Section 5.1's formula
-needs correction. Apply `patch_burgers_projective.diff` and re-score.
+needs correction. Fixed in `pde/ground_truth.py` (the patch is merged).
 
 **exp12 — short-horizon predictions (final).** KdV wrap-around: confirmed —
 the Q-normalised scaling residual on the wide domain falls monotonically
@@ -8931,10 +8932,9 @@ the xi channel already spreads over the whole domain at the 1e-2 level
 delta by construction. For the paper-scale claim, pass a trained
 checkpoint: `python exp7_receptive_field.py --checkpoint sym_gen.pt`.
 
-## The patch
+## The patch (merged into pde/method_fins.py)
 
-`patch_sanity_per_sample.diff` (apply from repo root: `patch -p1 <
-experiments/patch_sanity_per_sample.diff`, or `git apply`):
+The per-sample sanity check, first shipped as a patch file:
 
 1. `method_fins.sanity_check_equivariance` built all ground-truth fields
    from sample 0 and broadcast them across the batch. For generators whose
@@ -8965,8 +8965,5 @@ independent per-sample implementation on a trained surrogate.
   heat data uses L in {0.5, 0.7, 1.0, 1.4, 2.0} with T proportional to
   L^2; Section 5.1's v4/v6 formulas omit alpha while `ground_truth.py`
   includes it (the code is correct).
-- Hygiene before journal submission: remove `.idea/`, remove commented-out
-  code blocks (in particular the alternative `grassmann_distance`
-  implementation next to the active one), replace the review-only license
-  in README with a real one, replace the anonymised 4open.science link
-  with a permanent citable one.
+- Hygiene before journal submission (done): `.idea/` and commented-out
+  code blocks removed, MIT license, permanent repository link.

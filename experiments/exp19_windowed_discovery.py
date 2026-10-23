@@ -55,6 +55,7 @@ from ground_truth import GroundTruthAlgebra, Metrics, get_gt_names
 from method_fins import train_solution_operator
 from method_fins_components import (SingleGeneratorFNO, create_grids,
                                     deflate_generator, fd_t_high_order)
+from shared_modules_v2 import FNOSurrogateEquivariant
 
 L, ALPHA = E10.L, 0.01
 
@@ -146,7 +147,6 @@ def main():
         S = OracleHeatOperator(ALPHA, L).to(device)
         print("  operator: EXACT (delta_J = 0)")
     elif os.path.exists(ck):
-        from shared_modules_v2 import FNOSurrogateEquivariant
         S = FNOSurrogateEquivariant(cfg).to(device)
         st = torch.load(ck, map_location=device, weights_only=False)
         st.pop("_metadata", None)

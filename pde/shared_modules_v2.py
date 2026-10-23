@@ -24,6 +24,7 @@ Drop-in replacement:
 import torch
 import torch.nn as nn
 from shared_modules import make_fno
+from config import ExperimentConfig
 
 
 class FNOSurrogateEquivariant(nn.Module):
@@ -41,7 +42,6 @@ class FNOSurrogateEquivariant(nn.Module):
     """
     def __init__(self, cfg=None):
         super().__init__()
-        from config import ExperimentConfig
         cfg = cfg or ExperimentConfig()
         self.Nt = cfg.time_steps
         # Two channels: u0_broadcast + t_coord

@@ -1,10 +1,15 @@
 # Core
-torch>=2.0,<2.7
-torchvision>=0.15
+torch>=2.0
 numpy>=1.24
 scipy>=1.10
+sympy>=1.12
 matplotlib>=3.7
 tqdm>=4.65
 
-# Neural operators
-neuraloperator>=0.3.0  
+# Optional: baselines and side experiments
+# neuraloperator>=0.3.0   # FNO of the earlier pipeline; a built-in fallback is used without it
+# torchdiffeq>=0.2        # LIG
+# pysindy==2.1.0          # sensitivity configuration of the two-stage pipeline
+# Adan (LieNLSD): pip install git+https://github.com/sail-sg/Adan.git
+# torchvision>=0.15       # vision/
+# pyqg                    # two-dimensional side experiments

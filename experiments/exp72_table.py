@@ -1,5 +1,5 @@
 """Rows of the paper's table tab:use (exp72: a discovered symmetry as data augmentation) and the numbers the text of its
-section quotes for the registered runs, from results/utility (summary.json, spans_<pde>_s<seed>.npz). --zero-mean adds
+section quotes for the reported runs, from results/utility (summary.json, spans_<pde>_s<seed>.npz). --zero-mean adds
 the boost that FINS reads through the zero-mean Kuramoto-Sivashinsky steppers (exp53's ablation:
 weak-learned-attractor_ks_s<seed>.npz under FINS_RESULTS_DIR/ks_runs/clean); --spans prints the boost of further spans
 files of KS (e.g. the development run's closed-loop span, fins_runs/utility_dev/ks_mixed_n256_e150).

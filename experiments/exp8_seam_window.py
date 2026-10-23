@@ -33,6 +33,7 @@ import os
 import numpy as np
 
 import exp_common as C
+import argparse as _ap
 
 NT, T, ALPHA, NU = 128, 1.0, 0.01, 0.01
 THRESH = 1e-2
@@ -88,7 +89,6 @@ def report(title, rows, names, L, diff_len=None):
 
 
 def main():
-    import argparse as _ap
     _p = _ap.ArgumentParser()
     _p.add_argument("--seed", type=int, default=0)
     SEED = _p.parse_args().seed
@@ -100,7 +100,7 @@ def main():
     print(f"threshold = {THRESH:g}; full-domain values are the m = 0 row")
     print("=" * 78)
 
-    # ---- heat, exact operator, the paper's own grid --------------------
+    # ---- heat, exact operator, the conference version's grid ---------------
     for L, Nx in [(2 * np.pi, 64), (1.0, 64)]:
         x = np.linspace(0, L, Nx, endpoint=False)
         u0 = np.concatenate([C.ic_heat_gauss(8, x, L, rng),

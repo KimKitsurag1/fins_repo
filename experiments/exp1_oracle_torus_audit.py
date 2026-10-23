@@ -8,7 +8,7 @@ Design
 ------
 For each PDE the solution operator is evaluated without any surrogate:
   heat     — exact Fourier multiplier (linear, dS = S), repo IC families;
-  Burgers  — the repository solver `PDESolver.solve_burgers` (the paper's own
+  Burgers  — the repository solver `PDESolver.solve_burgers` (the conference version's
              data pipeline), dS via batched central finite differences;
   KdV      — dealiased ETDRK4 (same scheme family as the repo solver, save
              grid snapped to linspace(0,T,Nt)), cross-validated against
@@ -33,6 +33,7 @@ import time
 import numpy as np
 
 import exp_common as C
+from data_generation import PDESolver
 
 NX, NT, T = 64, 128, 1.0
 ALPHA, NU = 0.01, 0.01
@@ -119,7 +120,6 @@ def run_heat(rng, writer):
 
 
 def run_burgers(rng, writer):
-    from data_generation import PDESolver
     t = np.linspace(0, T, NT)
     L = 2 * np.pi
     x = np.linspace(0, L, NX, endpoint=False)
@@ -181,7 +181,6 @@ def run_kdv(rng, writer, validate_repo=False):
     print(f"\n  KdV torus solver self-convergence (dt 5e-5 vs 2.5e-5): "
           f"{np.abs(base-conv).max()/np.abs(conv).max():.2e}")
     if validate_repo:
-        from data_generation import PDESolver
         rep = np.asarray(PDESolver.solve_kdv(u0, T, NT))
         print(f"  KdV vs repository ETDRK4 on base trajectories:      "
               f"{np.abs(base-rep).max()/np.abs(rep).max():.2e}")

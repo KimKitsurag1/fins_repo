@@ -53,7 +53,7 @@ def main():
     print("=" * 78)
     out = []
 
-    # heat, the paper's own grid
+    # heat, the conference version's grid
     L, Nx, T = 2 * np.pi, 64, 1.0
     x = np.linspace(0, L, Nx, endpoint=False); t = np.linspace(0, T, NT)
     u0 = np.concatenate([C.ic_heat_gauss(8, x, L, rng),

@@ -26,6 +26,7 @@ import exp_common as C
 from config import ExperimentConfig
 from data_generation import generate_pde_data
 from method_fins import train_solution_operator, sanity_check_equivariance
+import csv, os
 
 
 def rel_l2(S, ic, sol, xc, tc, device, bs=16):
@@ -73,7 +74,6 @@ def main():
     print(f"EXP 5 - delta sweep ({args.pde}, device={device}, "
           f"smoke={args.smoke})")
     print("=" * 78)
-    import csv, os
     path = os.path.join(C.RESULTS_DIR, "exp5_delta_sweep.csv")
 
     def dump(rows):
@@ -124,12 +124,12 @@ def main():
                     S, args.pde, sols[te], xs[te], ts[te], cfg, device,
                     alpha=cfg.alpha_heat, loss_mode=mode, n_samples=4)
                 dev = max(abs(vf - vo) / (abs(vo) + 1e-30)
-                          for (_, vf), (_, vo) in zip(fixed, orig))
+                          for (_, vf), (_, _, vo) in zip(fixed, orig))
                 if dev < 1e-6:
                     print("    [repo sanity identical to per-sample]")
                 else:
                     print("    repo (sample-0 broadcast) for comparison:")
-                    for (name, vf), (_, vo) in zip(fixed, orig):
+                    for (name, vf), (_, _, vo) in zip(fixed, orig):
                         print(f"      {name:>12}: repo = {vo:.4e}   "
                               f"ratio fixed/repo = "
                               f"{vf / (vo + 1e-30):7.2f}")

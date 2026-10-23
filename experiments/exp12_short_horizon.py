@@ -29,13 +29,13 @@ import numpy as np
 import exp_common as C
 import exp1_oracle_torus_audit as E1
 import exp8_seam_window as E8
+import argparse as _ap
 
 NT = 128
 THRESH = 1e-2
 
 
 def main():
-    import argparse as _ap
     _p = _ap.ArgumentParser()
     _p.add_argument("--seed", type=int, default=0)
     SEED = _p.parse_args().seed

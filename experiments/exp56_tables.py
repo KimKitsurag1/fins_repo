@@ -1,10 +1,10 @@
-"""Experiment 56's tables (README_EXPERIMENTS.md, 08.10), reported without predictions:
+"""Experiment 56's tables (README_EXPERIMENTS.md, 08.10):
 
 readouts  the time-scaling exponent a-hat and its containment (exponent_readout.py) of every row exp51's scorer
           reads, on Benjamin-Ono (bo_runs), KdV (noise_weak_runs) and Burgers (burgers_runs), every condition and seed:
           results/exponent/summary.{json,md}.
-paired    the paired readouts from the summaries' JSON: m = k beside the soft two-stage readouts, the own count beside
-          the hard ones, missing and spurious dimensions and the dimension read: results/paired/summary.md.
+paired    the paired readouts from the summaries' JSON: the m = k_B readout beside the soft two-stage readouts, the
+          automatic count (own count) beside the hard ones, missing and spurious dimensions and the dimension read: results/paired/summary.md.
 
 Run (after the summaries):  python exp56_tables.py readouts|paired
 """

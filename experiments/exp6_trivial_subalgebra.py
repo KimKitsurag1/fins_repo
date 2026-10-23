@@ -43,6 +43,7 @@ from ground_truth import Metrics
 from method_fins import train_solution_operator, equivariance_loss
 from method_fins_components import deflate_generator, create_grids
 from shared_modules import make_fno
+from shared_modules_v2 import FNOSurrogateEquivariant
 
 
 class ConstrainedGeneratorFNO(nn.Module):
@@ -228,7 +229,6 @@ def main():
                       f"{'_ss' if args.single_scale else ''}"
                       f"{'_smoke' if args.smoke else ''}.pt")
     os.makedirs(args.outdir, exist_ok=True)
-    from shared_modules_v2 import FNOSurrogateEquivariant
     if os.path.exists(ck):
         S = FNOSurrogateEquivariant(cfg).to(device)
         state = torch.load(ck, map_location=device, weights_only=False)

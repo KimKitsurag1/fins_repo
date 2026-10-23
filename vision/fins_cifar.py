@@ -1,7 +1,7 @@
 """
 FINS on CIFAR-10
 
-Reproduces the main image-domain experiments from Section 6 of the paper.
+Reproduces the main image-domain experiments from Section 6 of the conference paper.
 Downloads CIFAR-10 and DINOv2 weights automatically on first run.
 
 Usage:
@@ -51,7 +51,7 @@ CONFIG = {
     "seed_start":       100,
     "smoke_test":       True,      # True = only no_aug + fins; False = + RandAug/AutoAug/TrivialAug
 
-    # FINS hyperparameters (from paper, Section 6.3)
+    # FINS hyperparameters (conference paper, Section 6.3)
     "w_olver":          1.0,       # w_1 for L_inv (infinitesimal Olver)
     "w_finite_tau":     1.0,       # w_2 for L_tau (finite-tau invariance)
     "w_balance":        10.0,      # w_4 for L_bal (geom/phi energy balance)

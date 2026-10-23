@@ -23,6 +23,7 @@ import numpy as np
 
 import exp_common as C
 import exp1_oracle_torus_audit as E1
+import argparse as _ap
 
 L, Nx, NT, T, NU = 2 * np.pi, 256, 128, 1.0, 0.05
 EPS = [0.0, 1e-3, 3e-3, 1e-2, 3e-2, 1e-1]
@@ -65,7 +66,6 @@ def forced_ut(u, eps):
 
 
 def main():
-    import argparse as _ap
     _p = _ap.ArgumentParser()
     _p.add_argument("--seed", type=int, default=0)
     SEED = _p.parse_args().seed

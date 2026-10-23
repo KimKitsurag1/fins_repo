@@ -11,6 +11,8 @@ import torch
 import torch.nn.functional as F
 import torch.optim as optim
 from torch.utils.data import DataLoader, TensorDataset
+from torch.func import jvp
+from shared_modules_v2 import FNOSurrogateEquivariant
 
 class SpectralPDESurrogate:
     """
@@ -117,7 +119,6 @@ from method_fins_components import fd_t_high_order
 
 def check_surrogate_jacobian(surrogate, train_sol, train_x, train_t, cfg, device):
     """Compare dN[u](h) via JVP with analytical α·h_xx."""
-    from torch.func import jvp
     
     u = train_sol[:1].to(device)
     xc = train_x[:1].to(device)
@@ -435,7 +436,6 @@ def run_experiment(pde_type, seed, cfg):
             p.requires_grad_(False)
     elif os.path.exists(S_theta_ckpt):
         print(f"\n  Loading S_θ from {S_theta_ckpt}...")
-        from shared_modules_v2 import FNOSurrogateEquivariant
         S_theta = FNOSurrogateEquivariant(cfg).to(device)
         _sd = torch.load(S_theta_ckpt, map_location=device,
                          weights_only=False)

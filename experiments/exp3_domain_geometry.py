@@ -19,6 +19,7 @@ import os
 import numpy as np
 
 import exp_common as C
+import argparse as _ap
 
 NT, T, ALPHA, W = 128, 1.0, 0.01, 0.5
 L_LIST = [2, 4, 8, 16, 32, 64, 128, 256]
@@ -27,7 +28,6 @@ THRESH = 1e-2
 
 
 def main():
-    import argparse as _ap
     _p = _ap.ArgumentParser()
     _p.add_argument("--seed", type=int, default=0)
     SEED = _p.parse_args().seed

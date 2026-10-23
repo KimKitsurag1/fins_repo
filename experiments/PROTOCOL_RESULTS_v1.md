@@ -1,5 +1,9 @@
 # Protocol v1 results
 
+Results of the protocol runs as recorded at the time, with the verdicts of their registered expectations. Terms and
+section numbers follow the log (README_EXPERIMENTS.md, glossary at its top); sections on hidden variables (exp68-exp70)
+belong to an earlier draft and are not in the submitted paper.
+
 exp42 output (Colab, 2026-09-29), s = 42, 43, 44, ten unseen evaluation trajectories (data seed
 1000 + s), no filter; all baselines trained on the same 1024 trajectories of seed s; LIG capped at
 10 epochs (pre-registered) and 4 generators (method_lig, found after the run). Printed by the

@@ -1,6 +1,6 @@
-"""Figure: the lowest eigenvalues of the weak-form pencil through the exact operators (heat, KdV, Benjamin-Ono,
+"""Figure: the lowest eigenvalues of the weak-form eigenvalue problem through the exact operators (heat, KdV, Benjamin-Ono,
 Kuramoto-Sivashinsky), median over seeds 42-51 per noise level (in percent of each trajectory's standard deviation).
-Reads the registered runs in FINS_RESULTS_DIR.
+Reads the reported runs in FINS_RESULTS_DIR.
 
 Run:  python make_fig_spectra.py [--out fig_spectra.pdf]
 """

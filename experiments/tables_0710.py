@@ -1,4 +1,4 @@
-"""LaTeX rows of the PDE paper's noise table (Table tab:noise) from the summaries of exp51 (heat, KdV; --exp48 rows
+"""LaTeX rows of the paper's noise table (Table tab:noise) from the summaries of exp51 (heat, KdV; --exp48 rows
 included), exp52 (Benjamin-Ono) and exp53 (Kuramoto-Sivashinsky): missing dimensions, finite algebra and non-trivial
 generators, means over the seeds each row has (printed as a superscript when not ten).
 

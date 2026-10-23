@@ -64,6 +64,9 @@ from method_fins_components import (
     fd_t_high_order,
 
     PointwiseGenerator,)
+from shared_modules_v2 import FNOSurrogateEquivariant
+from shared_modules import FNOSurrogate
+from ground_truth import GroundTruthAlgebra, get_gt_names
 
 
 
@@ -86,11 +89,9 @@ def train_solution_operator(train_ic, train_sol, train_x, train_t,
     Returns a frozen S_θ with requires_grad=False on its parameters.
     """
     if equivariant:
-        from shared_modules_v2 import FNOSurrogateEquivariant
         surrogate = FNOSurrogateEquivariant(cfg).to(device)
         surrogate_name = "FNOSurrogateEquivariant (2 ch: u0 + t)"
     else:
-        from shared_modules import FNOSurrogate
         surrogate = FNOSurrogate(cfg).to(device)
         surrogate_name = "FNOSurrogate (3 ch: u0 + x + t)"
 
@@ -240,7 +241,6 @@ def equivariance_loss_jvp(S_theta, xi, eta, phi,
     x_coords  : [B, 1, Nx]
     t_coords  : [B, 1, Nt]
     """
-    from torch.func import jvp
 
     B, C, Nx, Nt = u_traj.shape
 
@@ -740,7 +740,6 @@ def sanity_check_equivariance(S_theta, pde_type, train_sol, train_x, train_t,
     the surrogate S_θ is not accurate in the corresponding direction —
     a useful diagnostic before launching expensive discovery runs.
     """
-    from ground_truth import GroundTruthAlgebra, get_gt_names
 
     u_sample = train_sol[:n_samples].to(device)
     ic_sample = u_sample[:, :, :, 0].contiguous()

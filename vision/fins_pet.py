@@ -1,14 +1,14 @@
 """
 FINS on Oxford-IIIT Pet
 
-Reproduces the Pet-domain ablation reported in Section 6 of the paper.
+Reproduces the Pet-domain ablation reported in Section 6 of the conference paper.
 Trains a six-way breed classifier (six cat breeds, all with >=30 examples)
 under five augmentation regimes (NoAug / RandAug / AutoAug / TrivialAug /
 FINS) and evaluates each on nine corruption types.
 
 Method-side parameters (FNO size, Olver-loss formulation, augmentation
 strength) are those of the earlier configuration that produced the Pet ablation tables;
-the CIFAR script (fins_cifar.py) uses the method described in Section 6 of the paper.
+the CIFAR script (fins_cifar.py) uses the method described in Section 6 of the conference paper.
 
 Usage:
     pip install -r requirements.txt

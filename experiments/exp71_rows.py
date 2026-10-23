@@ -1,4 +1,4 @@
-"""Rows of Kreider et al. (exp71, both readings, soft readout) in the paper's tables tab:main (clean, means over seeds
+"""Rows of Kreider et al. (exp71, solutions and equation variants, soft readout) in the paper's tables tab:main (clean, means over seeds
 42-44), tab:noise (means over seeds 42-51, finite / non-trivial) and tab:new-learned (clean, means over seeds 42-44,
 finite / non-trivial), from the studies' summaries.
 

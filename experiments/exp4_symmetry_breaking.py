@@ -26,6 +26,7 @@ import os
 import numpy as np
 
 import exp_common as C
+import argparse as _ap
 
 NX, NT, T, L, ALPHA = 64, 128, 1.0, 1.0, 0.01
 N_STEPS = 32 * (NT - 1)          # multiple of the save grid
@@ -83,7 +84,6 @@ def residual(gen_name, u, x, t, solve, mode, eps):
 
 
 def main():
-    import argparse as _ap
     _p = _ap.ArgumentParser()
     _p.add_argument("--seed", type=int, default=0)
     SEED = _p.parse_args().seed

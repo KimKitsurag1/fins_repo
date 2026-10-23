@@ -1,8 +1,8 @@
 """Figure: the method in one picture. (a) A symmetry commutes with the solution operator (KdV soliton at t = 0,
 Galilean boost x -> x + eps t, u -> u + eps/6, in closed form); its derivative in eps is the transport of the
 characteristic.
-(b) The lowest eigenvalues of the weak-form pencil through a learned KdV stepper (seed 42, clean data), read from the
-registered run in FINS_RESULTS_DIR.
+(b) The lowest eigenvalues of the weak-form eigenvalue problem through a learned KdV stepper (seed 42, clean data), read from the
+reported run in FINS_RESULTS_DIR.
 
 Run:  python make_fig_method.py [--out fig_method.pdf]
 """
